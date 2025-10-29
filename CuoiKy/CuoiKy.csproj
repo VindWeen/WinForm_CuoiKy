@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BanHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BanHang.Designer.cs">
+      <DependentUpon>BanHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThemKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThemKhachHang.Designer.cs">
+      <DependentUpon>ThemKhachHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="XemHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +78,9 @@
     <Compile Include="XemPhieuXuat.Designer.cs">
       <DependentUpon>XemPhieuXuat.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BanHang.resx">
+      <DependentUpon>BanHang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -74,7 +89,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ThemKhachHang.resx">
+      <DependentUpon>ThemKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="XemHoaDon.resx">
       <DependentUpon>XemHoaDon.cs</DependentUpon>
     </EmbeddedResource>
@@ -96,6 +115,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\finance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\receipt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shopping.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logoutwhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\person_add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
