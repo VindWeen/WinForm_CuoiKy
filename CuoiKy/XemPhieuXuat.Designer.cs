@@ -61,7 +61,10 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+=======
+>>>>>>> VNP
             this.label1.Location = new System.Drawing.Point(38, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(152, 32);
@@ -72,7 +75,10 @@
             // lbl_SoPX
             // 
             this.lbl_SoPX.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.lbl_SoPX.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+=======
+>>>>>>> VNP
             this.lbl_SoPX.Location = new System.Drawing.Point(179, 55);
             this.lbl_SoPX.Name = "lbl_SoPX";
             this.lbl_SoPX.Size = new System.Drawing.Size(121, 32);
@@ -83,7 +89,10 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+=======
+>>>>>>> VNP
             this.label2.Location = new System.Drawing.Point(38, 107);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(152, 32);
@@ -94,7 +103,10 @@
             // lbl_TuCN
             // 
             this.lbl_TuCN.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.lbl_TuCN.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+=======
+>>>>>>> VNP
             this.lbl_TuCN.Location = new System.Drawing.Point(179, 107);
             this.lbl_TuCN.Name = "lbl_TuCN";
             this.lbl_TuCN.Size = new System.Drawing.Size(121, 32);
@@ -105,7 +117,10 @@
             // lbl_Ngay
             // 
             this.lbl_Ngay.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.lbl_Ngay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+=======
+>>>>>>> VNP
             this.lbl_Ngay.Location = new System.Drawing.Point(562, 57);
             this.lbl_Ngay.Name = "lbl_Ngay";
             this.lbl_Ngay.Size = new System.Drawing.Size(121, 32);
@@ -116,7 +131,10 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+=======
+>>>>>>> VNP
             this.label3.Location = new System.Drawing.Point(412, 55);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(131, 32);
@@ -127,7 +145,10 @@
             // lbl_DenCN
             // 
             this.lbl_DenCN.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.lbl_DenCN.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+=======
+>>>>>>> VNP
             this.lbl_DenCN.Location = new System.Drawing.Point(583, 107);
             this.lbl_DenCN.Name = "lbl_DenCN";
             this.lbl_DenCN.Size = new System.Drawing.Size(121, 32);
@@ -138,7 +159,10 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+=======
+>>>>>>> VNP
             this.label4.Location = new System.Drawing.Point(412, 107);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(165, 32);
@@ -153,13 +177,20 @@
             this.columnHeader2,
             this.columnHeader3});
             this.listView1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.listView1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+=======
+>>>>>>> VNP
             this.listView1.HideSelection = false;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2,
             listViewItem3});
+<<<<<<< HEAD
             this.listView1.Location = new System.Drawing.Point(40, 172);
+=======
+            this.listView1.Location = new System.Drawing.Point(55, 206);
+>>>>>>> VNP
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(664, 168);
             this.listView1.TabIndex = 15;
@@ -186,8 +217,12 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
             this.label6.Location = new System.Drawing.Point(42, 360);
+=======
+            this.label6.Location = new System.Drawing.Point(51, 397);
+>>>>>>> VNP
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(190, 32);
             this.label6.TabIndex = 16;
@@ -197,8 +232,12 @@
             // lbl_TongTien
             // 
             this.lbl_TongTien.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+<<<<<<< HEAD
             this.lbl_TongTien.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
             this.lbl_TongTien.Location = new System.Drawing.Point(217, 360);
+=======
+            this.lbl_TongTien.Location = new System.Drawing.Point(208, 397);
+>>>>>>> VNP
             this.lbl_TongTien.Name = "lbl_TongTien";
             this.lbl_TongTien.Size = new System.Drawing.Size(358, 32);
             this.lbl_TongTien.TabIndex = 17;
@@ -208,7 +247,11 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(93)))), ((int)(((byte)(93)))));
+<<<<<<< HEAD
             this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+=======
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+>>>>>>> VNP
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Location = new System.Drawing.Point(572, 411);
             this.button2.Name = "button2";
@@ -220,9 +263,14 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
+<<<<<<< HEAD
             this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Location = new System.Drawing.Point(414, 411);
+=======
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.button1.Location = new System.Drawing.Point(183, 480);
+>>>>>>> VNP
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(132, 51);
             this.button1.TabIndex = 18;
