@@ -29,30 +29,30 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel3 = new System.Windows.Forms.Panel();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.btn_ThanhToan = new System.Windows.Forms.Button();
+            this.lbl_TienThoi = new System.Windows.Forms.Label();
+            this.lbl_TienNhan = new System.Windows.Forms.Label();
+            this.lbl_thanhtien = new System.Windows.Forms.Label();
+            this.lbl_SoLuong = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btn_ThemKhachHang = new System.Windows.Forms.Button();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.btn_Thoat = new System.Windows.Forms.Button();
             this.btn_DoanhThu = new System.Windows.Forms.Button();
             this.btn_Quanly = new System.Windows.Forms.Button();
             this.btn_HoaDon = new System.Windows.Forms.Button();
             this.btn_BanHang = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lbl_TienThoi = new System.Windows.Forms.Label();
-            this.lbl_TienNhan = new System.Windows.Forms.Label();
-            this.lbl_thanhtien = new System.Windows.Forms.Label();
-            this.lbl_SoLuong = new System.Windows.Forms.Label();
-            this.btn_ThanhToan = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -68,15 +68,6 @@
             this.panel1.Size = new System.Drawing.Size(1170, 61);
             this.panel1.TabIndex = 3;
             // 
-            // comboBox1
-            // 
-            this.comboBox1.ForeColor = System.Drawing.Color.Black;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(14, 11);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(746, 38);
-            this.comboBox1.TabIndex = 0;
-            // 
             // comboBox2
             // 
             this.comboBox2.ForeColor = System.Drawing.Color.Black;
@@ -85,6 +76,15 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(378, 38);
             this.comboBox2.TabIndex = 1;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.ForeColor = System.Drawing.Color.Black;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(14, 11);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(746, 38);
+            this.comboBox1.TabIndex = 0;
             // 
             // panel2
             // 
@@ -146,14 +146,96 @@
             this.panel3.Size = new System.Drawing.Size(341, 675);
             this.panel3.TabIndex = 4;
             // 
-            // comboBox3
+            // btn_ThanhToan
             // 
-            this.comboBox3.ForeColor = System.Drawing.Color.Black;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(15, 11);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(249, 38);
-            this.comboBox3.TabIndex = 2;
+            this.btn_ThanhToan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
+            this.btn_ThanhToan.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btn_ThanhToan.Location = new System.Drawing.Point(20, 496);
+            this.btn_ThanhToan.Name = "btn_ThanhToan";
+            this.btn_ThanhToan.Size = new System.Drawing.Size(299, 72);
+            this.btn_ThanhToan.TabIndex = 19;
+            this.btn_ThanhToan.Text = "Thanh toán";
+            this.btn_ThanhToan.UseVisualStyleBackColor = false;
+            // 
+            // lbl_TienThoi
+            // 
+            this.lbl_TienThoi.ForeColor = System.Drawing.Color.Black;
+            this.lbl_TienThoi.Location = new System.Drawing.Point(173, 360);
+            this.lbl_TienThoi.Name = "lbl_TienThoi";
+            this.lbl_TienThoi.Size = new System.Drawing.Size(154, 48);
+            this.lbl_TienThoi.TabIndex = 11;
+            this.lbl_TienThoi.Text = "lbl_TienThoi";
+            this.lbl_TienThoi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbl_TienNhan
+            // 
+            this.lbl_TienNhan.ForeColor = System.Drawing.Color.Black;
+            this.lbl_TienNhan.Location = new System.Drawing.Point(173, 282);
+            this.lbl_TienNhan.Name = "lbl_TienNhan";
+            this.lbl_TienNhan.Size = new System.Drawing.Size(154, 48);
+            this.lbl_TienNhan.TabIndex = 10;
+            this.lbl_TienNhan.Text = "lbl_TienNhan";
+            this.lbl_TienNhan.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbl_thanhtien
+            // 
+            this.lbl_thanhtien.ForeColor = System.Drawing.Color.Black;
+            this.lbl_thanhtien.Location = new System.Drawing.Point(173, 203);
+            this.lbl_thanhtien.Name = "lbl_thanhtien";
+            this.lbl_thanhtien.Size = new System.Drawing.Size(154, 48);
+            this.lbl_thanhtien.TabIndex = 9;
+            this.lbl_thanhtien.Text = "lbl_ThanhTien";
+            this.lbl_thanhtien.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbl_SoLuong
+            // 
+            this.lbl_SoLuong.ForeColor = System.Drawing.Color.Black;
+            this.lbl_SoLuong.Location = new System.Drawing.Point(173, 126);
+            this.lbl_SoLuong.Name = "lbl_SoLuong";
+            this.lbl_SoLuong.Size = new System.Drawing.Size(154, 48);
+            this.lbl_SoLuong.TabIndex = 8;
+            this.lbl_SoLuong.Text = "lbl_SoLuong";
+            this.lbl_SoLuong.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(15, 360);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(154, 48);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Tiền thối";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(15, 282);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(154, 48);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Tiền nhận";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(15, 203);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(154, 48);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Thành tiền";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(15, 126);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(154, 48);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Số lượng";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btn_ThemKhachHang
             // 
@@ -163,6 +245,15 @@
             this.btn_ThemKhachHang.Size = new System.Drawing.Size(45, 40);
             this.btn_ThemKhachHang.TabIndex = 3;
             this.btn_ThemKhachHang.UseVisualStyleBackColor = true;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.ForeColor = System.Drawing.Color.Black;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(15, 11);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(249, 38);
+            this.comboBox3.TabIndex = 2;
             // 
             // btn_Thoat
             // 
@@ -214,97 +305,6 @@
             this.btn_BanHang.Size = new System.Drawing.Size(154, 73);
             this.btn_BanHang.TabIndex = 0;
             this.btn_BanHang.UseVisualStyleBackColor = false;
-            // 
-            // label1
-            // 
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(15, 126);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(154, 48);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Số lượng";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label2
-            // 
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(15, 203);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(154, 48);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Thành tiền";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label3
-            // 
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(15, 282);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(154, 48);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Tiền nhận";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label4
-            // 
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(15, 360);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(154, 48);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Tiền thối";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbl_TienThoi
-            // 
-            this.lbl_TienThoi.ForeColor = System.Drawing.Color.Black;
-            this.lbl_TienThoi.Location = new System.Drawing.Point(173, 360);
-            this.lbl_TienThoi.Name = "lbl_TienThoi";
-            this.lbl_TienThoi.Size = new System.Drawing.Size(154, 48);
-            this.lbl_TienThoi.TabIndex = 11;
-            this.lbl_TienThoi.Text = "lbl_TienThoi";
-            this.lbl_TienThoi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbl_TienNhan
-            // 
-            this.lbl_TienNhan.ForeColor = System.Drawing.Color.Black;
-            this.lbl_TienNhan.Location = new System.Drawing.Point(173, 282);
-            this.lbl_TienNhan.Name = "lbl_TienNhan";
-            this.lbl_TienNhan.Size = new System.Drawing.Size(154, 48);
-            this.lbl_TienNhan.TabIndex = 10;
-            this.lbl_TienNhan.Text = "lbl_TienNhan";
-            this.lbl_TienNhan.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbl_thanhtien
-            // 
-            this.lbl_thanhtien.ForeColor = System.Drawing.Color.Black;
-            this.lbl_thanhtien.Location = new System.Drawing.Point(173, 203);
-            this.lbl_thanhtien.Name = "lbl_thanhtien";
-            this.lbl_thanhtien.Size = new System.Drawing.Size(154, 48);
-            this.lbl_thanhtien.TabIndex = 9;
-            this.lbl_thanhtien.Text = "lbl_ThanhTien";
-            this.lbl_thanhtien.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbl_SoLuong
-            // 
-            this.lbl_SoLuong.ForeColor = System.Drawing.Color.Black;
-            this.lbl_SoLuong.Location = new System.Drawing.Point(173, 126);
-            this.lbl_SoLuong.Name = "lbl_SoLuong";
-            this.lbl_SoLuong.Size = new System.Drawing.Size(154, 48);
-            this.lbl_SoLuong.TabIndex = 8;
-            this.lbl_SoLuong.Text = "lbl_SoLuong";
-            this.lbl_SoLuong.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btn_ThanhToan
-            // 
-            this.btn_ThanhToan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
-            this.btn_ThanhToan.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btn_ThanhToan.Location = new System.Drawing.Point(72, 496);
-            this.btn_ThanhToan.Name = "btn_ThanhToan";
-            this.btn_ThanhToan.Size = new System.Drawing.Size(206, 72);
-            this.btn_ThanhToan.TabIndex = 19;
-            this.btn_ThanhToan.Text = "Thanh toán";
-            this.btn_ThanhToan.UseVisualStyleBackColor = false;
             // 
             // BanHang
             // 

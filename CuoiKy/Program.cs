@@ -16,7 +16,8 @@ namespace CuoiKy
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BanHang());
+            //Application.Run(new BanHang());
+            Application.Run(new Login());
             //Application.Run(new XemHoaDon());
         }
     }
