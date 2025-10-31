@@ -53,7 +53,7 @@ namespace SQL
             adapter.Fill(ds);
             return ds;
         }
-        // > 1 VALUE
+        //>1 value
         public static SqlDataReader Reader(string query)
         {
             KetNoi();
@@ -84,11 +84,9 @@ namespace SQL
         {
             KetNoi();
             bool KetQua;
-            SqlCommand truyvan = con.CreateCommand();
-            truyvan.CommandText = query;
-            string kq = (string)truyvan.ExecuteScalar();
-            if (kq == "true")
-            {
+            int kq = Convert.ToInt32(Scalar(query));
+            if (kq == 1)
+            { 
                 KetQua = true;
             }
             else

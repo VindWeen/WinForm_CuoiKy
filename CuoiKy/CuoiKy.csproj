@@ -150,5 +150,8 @@
   <ItemGroup>
     <None Include="Resources\supervised_user_circle_240dp_393E46_FILL0_wght400_GRAD0_opsz48.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_35dp_393E46_FILL0_wght400_GRAD0_opsz40.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
