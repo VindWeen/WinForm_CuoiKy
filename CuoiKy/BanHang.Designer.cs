@@ -326,6 +326,7 @@
             this.Name = "BanHang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BanHang";
+            this.Load += new System.EventHandler(this.BanHang_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
