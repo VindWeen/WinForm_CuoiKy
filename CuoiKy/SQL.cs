@@ -17,11 +17,11 @@ namespace SQL
             try
             {
                 con.Close();
-                con.ConnectionString = @"Data Source = LAPTOP-CM8P1CPP\SQLEXPRESS;
+                con.ConnectionString = @"Data Source = MSI;
                            Initial Catalog = CoupleTX_SQL;
                            Integrated Security = True;
                            User ID = sa;
-                           Password = 02082005";
+                           Password = 123456";
 
                 con.Open();
             }
