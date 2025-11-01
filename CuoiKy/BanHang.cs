@@ -14,7 +14,7 @@ namespace CuoiKy
     public partial class BanHang : Form
     {
         public string MaCN; 
-        bool isLoaded = false;
+        bool isLoaded = false; bool isLoadingSP = false;
         public BanHang(string maCN)
         {
             InitializeComponent();
@@ -28,11 +28,12 @@ namespace CuoiKy
 
         private void BanHang_Load(object sender, EventArgs e)
         {
+
             Load_combobox_sanpham();
             Load_combobox_nhanvien();
             Load_combobox_khachhang();
-            button1.Enabled = false;
             isLoaded = true;
+            button1.Enabled = false;
         }
 
         private void Load_combobox_sanpham()
@@ -127,6 +128,7 @@ namespace CuoiKy
             int selStart = cb_sanpham.SelectionStart;
 
             // Tạm tắt datasource để cập nhật
+            isLoadingSP = true;
             cb_sanpham.BeginUpdate();
             cb_sanpham.DataSource = null;
             cb_sanpham.Items.Clear();
@@ -143,7 +145,16 @@ namespace CuoiKy
             cb_sanpham.EndUpdate();
 
             // Đặt lại con trỏ chuột
-            Cursor.Current = Cursors.Default;
+            Cursor.Current = Cursors.Default; 
+            if (cb_sanpham.Text.Length > 2 && cb_sanpham.Items.Count == 0)
+            {
+                cb_sanpham.DataSource = null;
+                cb_sanpham.Text = currentText;
+                cb_sanpham.SelectionStart = selStart;
+                cb_sanpham.EndUpdate();
+                cb_sanpham.Items.Add(cb_sanpham.Text);
+            }
+            isLoadingSP = false;
         }
 
         private void cb_nhanvien_TextUpdate(object sender, EventArgs e)
@@ -181,7 +192,15 @@ namespace CuoiKy
             cb_nhanvien.EndUpdate();
 
             // Đặt lại con trỏ chuột
-            Cursor.Current = Cursors.Default;
+            Cursor.Current = Cursors.Default; 
+            if (cb_nhanvien.Text.Length > 2 && cb_nhanvien.Items.Count == 0)
+            {
+                cb_nhanvien.DataSource = null;
+                cb_nhanvien.Text = currentText;
+                cb_nhanvien.SelectionStart = selStart;
+                cb_nhanvien.EndUpdate();
+                cb_nhanvien.Items.Add(cb_nhanvien.Text);
+            }
         }
 
         private void cb_nhanvien_SelectedIndexChanged(object sender, EventArgs e)
@@ -191,41 +210,32 @@ namespace CuoiKy
 
         private void cb_sanpham_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!isLoaded) return;
+            if (!isLoaded || isLoadingSP) return;
             if (cb_sanpham.SelectedIndex < 0 || cb_sanpham.SelectedValue == null)
                 return; // bỏ qua nếu chưa chọn item hợp lệ
-
-            string MaSP = cb_sanpham.SelectedValue.ToString();
-            if (string.IsNullOrWhiteSpace(MaSP))
+            string query_sp = $@"if exists (select * from SanPham where TenSP like N'%{cb_sanpham.Text}%')
+                                        select 1
+                                     else
+                                        select 0";
+            if (!Sql.KiemTra(query_sp))
                 return;
+            string TenSP = cb_sanpham.Text;
+            string DonGia = string.Format("{0:N0}", Sql.Scalar($"SELECT DonGia FROM SanPham WHERE TenSP like N'%{cb_sanpham.Text}%'"));
 
-            if (cb_sanpham.SelectedIndex >= 0 && cb_sanpham.SelectedItem != null)
+            bool found = false;
+            foreach (DataGridViewRow row in dgv_sanpham.Rows)
             {
-                string TenSP = Convert.ToString(Sql.Scalar($"SELECT TenSP FROM SanPham WHERE MaSP = '{MaSP}'"));
-                string DonGia = string.Format("{0:N0}", Sql.Scalar($"SELECT DonGia FROM SanPham WHERE MaSP = '{MaSP}'"));
-
-                bool found = false;
-
-                foreach (DataGridViewRow row in dgv_sanpham.Rows)
+                if (row.Cells["TenSP"].Value.ToString() == TenSP)
                 {
-                    if (row.IsNewRow) continue;
-
-                    if (row.Cells["TenSP"].Value.ToString() == TenSP)
-                    {
-                        // Tăng số lượng nếu đã có
-                        int sl = Convert.ToInt32(row.Cells["SL"].Value);
-                        row.Cells["SL"].Value = sl + 1;
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (!found)
-                {
-                    // Nếu chưa có → thêm dòng mới
-                    dgv_sanpham.Rows.Add(TenSP, DonGia, 1);
+                    int sl = Convert.ToInt32(row.Cells["SL"].Value);
+                    row.Cells["SL"].Value = sl + 1;
+                    found = true;
+                    break;
                 }
             }
+            if (!found)
+                dgv_sanpham.Rows.Add(TenSP, DonGia, 1);
+
             cb_sanpham.Text = null;
             cb_sanpham.SelectedIndex = -1;
             Update_SL();
@@ -316,7 +326,7 @@ namespace CuoiKy
             else
             {
                 btn_ThemKhachHang.Enabled=false;
-                button1.Enabled = true;
+                button1.Enabled = false;
             }
         }
 
@@ -354,6 +364,85 @@ namespace CuoiKy
             frm.ShowDialog();
             cb_khachhang.Text = null;
             Load_combobox_khachhang();
+        }
+
+        private void txt_nhantien_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode>=Keys.D0&&e.KeyCode<=Keys.D9||e.KeyCode>=Keys.NumPad0&&e.KeyCode<=Keys.NumPad9||e.KeyCode==Keys.Delete||e.KeyCode==Keys.Back)
+            {
+                return;
+            }
+            else if(e.KeyCode == Keys.Enter)
+            {
+                int tongtien = Convert.ToInt32(lbl_thanhtien.Text.Replace(".", ""));
+                int sotiennhan = Convert.ToInt32(txt_nhantien.Text.Replace(".", ""));
+                if (sotiennhan >= tongtien)
+                    lbl_TienThoi.Text = (sotiennhan - tongtien).ToString("N0");
+                else
+                    MessageBox.Show("Số tiền nhận phải lớn hơn thành tiền");
+            }
+            else
+                e.SuppressKeyPress = true;
+        }
+
+        private void cb_khachhang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_khachhang.SelectedIndex >= 0)
+            {
+                button1.Enabled = true;
+                btn_ThemKhachHang.Enabled = false;
+            }
+        }
+
+        private void btn_ThanhToan_Click(object sender, EventArgs e)
+        {
+            string[] kh = cb_khachhang.Text.Replace(" ", "").Split('-');
+            string query_ktraKH = $@"if exists (select * from KhachHang where SDT like'{kh[kh.Length-1]}')
+                                        select 1
+                                     else
+                                        select 0";
+            string[] nv = cb_nhanvien.Text.Replace(" ", "").Split('-');
+            string query_ktraNV = $@"if exists (select * from NhanVien where MaNV like'{nv[0]}' or HoTenNV like N'{nv[0]}')
+                                        select 1
+                                     else
+                                        select 0";
+            string query_ktraSP = $@"if exists (select * from SanPham where TenSP like'{cb_sanpham.Text}')
+                                        select 1
+                                     else
+                                        select 0";
+            if (!Sql.KiemTra(query_ktraKH)&&cb_khachhang.SelectedIndex<0)
+            {
+                MessageBox.Show("Khách hàng không hợp lệ","Cảnh báo",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
+            if (!Sql.KiemTra(query_ktraNV)&& cb_nhanvien.SelectedIndex<0)
+            {
+                MessageBox.Show("Nhân viên không hợp lệ", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
+            string SoHD = Convert.ToString(Sql.Scalar($@"SELECT dbo.uf_NextNumber ('{MaCN}','HoaDon','SoHD')"));
+            string MaKH = Convert.ToString(Sql.Scalar($@"Select MaKH from KhachHang where SDT like '{kh[kh.Length - 1]}'"));
+
+            Sql.NonQuery($@"INSERT INTO HoaDon Values ('{SoHD}','{nv[0]}','{MaKH}','{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}')");
+            string query_cthd;
+            foreach (DataGridViewRow a in dgv_sanpham.Rows) 
+            {
+                string masp = Convert.ToString(Sql.Scalar($@"Select MaSP from SanPham where TenSP like N'%{a.Cells["TenSP"].Value}%'"));
+                int sl = Convert.ToInt32(a.Cells["SL"].Value);
+                int thanhtien = sl * Convert.ToInt32(a.Cells["DonGia"].Value.ToString().Replace(".",""));
+                query_cthd = $@"insert into CTHD values ('{SoHD}','{masp}',{sl},{thanhtien})"; 
+                Sql.NonQuery(query_cthd);
+            }
+            dgv_sanpham.Rows.Clear();
+            cb_khachhang.Text = null;
+            cb_nhanvien.Text = null;
+            btn_ThemKhachHang.Enabled = false;
+            button1.Enabled = false;
+            lbl_SoLuong.Text = "0";
+            lbl_thanhtien.Text = "0";
+            lbl_TienThoi.Text = "0";
+            txt_nhantien.Clear();
         }
     }
 }

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cb_nhanvien = new System.Windows.Forms.ComboBox();
             this.cb_sanpham = new System.Windows.Forms.ComboBox();
@@ -53,9 +53,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cb_khachhang = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_ThemKhachHang = new System.Windows.Forms.Button();
+            this.cb_khachhang = new System.Windows.Forms.ComboBox();
             this.btn_Thoat = new System.Windows.Forms.Button();
             this.btn_DoanhThu = new System.Windows.Forms.Button();
             this.btn_Quanly = new System.Windows.Forms.Button();
@@ -147,9 +147,9 @@
             // 
             // DonGia
             // 
-            dataGridViewCellStyle13.Format = "#,##0";
-            dataGridViewCellStyle13.NullValue = "0";
-            this.DonGia.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle17.Format = "#,##0";
+            dataGridViewCellStyle17.NullValue = "0";
+            this.DonGia.DefaultCellStyle = dataGridViewCellStyle17;
             this.DonGia.HeaderText = "Đơn giá";
             this.DonGia.Name = "DonGia";
             this.DonGia.ReadOnly = true;
@@ -164,10 +164,10 @@
             // 
             // Up
             // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.Format = "▲";
-            dataGridViewCellStyle14.NullValue = "▲";
-            this.Up.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.Format = "▲";
+            dataGridViewCellStyle18.NullValue = "▲";
+            this.Up.DefaultCellStyle = dataGridViewCellStyle18;
             this.Up.HeaderText = "Tăng";
             this.Up.Name = "Up";
             this.Up.ReadOnly = true;
@@ -176,10 +176,10 @@
             // 
             // Down
             // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle15.Format = "▼";
-            dataGridViewCellStyle15.NullValue = "▼";
-            this.Down.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.Format = "▼";
+            dataGridViewCellStyle19.NullValue = "▼";
+            this.Down.DefaultCellStyle = dataGridViewCellStyle19;
             this.Down.HeaderText = "Giảm";
             this.Down.Name = "Down";
             this.Down.ReadOnly = true;
@@ -188,10 +188,10 @@
             // 
             // Delete
             // 
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle16.Format = "🗑️";
-            dataGridViewCellStyle16.NullValue = "🗑️";
-            this.Delete.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.Format = "🗑️";
+            dataGridViewCellStyle20.NullValue = "🗑️";
+            this.Delete.DefaultCellStyle = dataGridViewCellStyle20;
             this.Delete.HeaderText = "Xóa";
             this.Delete.Name = "Delete";
             this.Delete.ReadOnly = true;
@@ -222,12 +222,14 @@
             // 
             this.txt_nhantien.BackColor = System.Drawing.Color.White;
             this.txt_nhantien.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_nhantien.Location = new System.Drawing.Point(131, 290);
+            this.txt_nhantien.Location = new System.Drawing.Point(178, 290);
+            this.txt_nhantien.Multiline = true;
             this.txt_nhantien.Name = "txt_nhantien";
-            this.txt_nhantien.Size = new System.Drawing.Size(249, 35);
+            this.txt_nhantien.Size = new System.Drawing.Size(202, 40);
             this.txt_nhantien.TabIndex = 20;
             this.txt_nhantien.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txt_nhantien.TextChanged += new System.EventHandler(this.txt_nhantien_TextChanged);
+            this.txt_nhantien.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_nhantien_KeyDown);
             // 
             // btn_ThanhToan
             // 
@@ -239,6 +241,7 @@
             this.btn_ThanhToan.TabIndex = 19;
             this.btn_ThanhToan.Text = "Thanh toán (F9)";
             this.btn_ThanhToan.UseVisualStyleBackColor = false;
+            this.btn_ThanhToan.Click += new System.EventHandler(this.btn_ThanhToan_Click);
             // 
             // lbl_TienThoi
             // 
@@ -310,17 +313,6 @@
             this.label1.Text = "Số lượng:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // cb_khachhang
-            // 
-            this.cb_khachhang.ForeColor = System.Drawing.Color.Black;
-            this.cb_khachhang.FormattingEnabled = true;
-            this.cb_khachhang.Location = new System.Drawing.Point(15, 11);
-            this.cb_khachhang.Name = "cb_khachhang";
-            this.cb_khachhang.Size = new System.Drawing.Size(284, 38);
-            this.cb_khachhang.TabIndex = 2;
-            this.cb_khachhang.TextUpdate += new System.EventHandler(this.cb_khachhang_TextUpdate);
-            this.cb_khachhang.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cb_khachhang_KeyDown);
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
@@ -342,6 +334,18 @@
             this.btn_ThemKhachHang.TabIndex = 3;
             this.btn_ThemKhachHang.UseVisualStyleBackColor = false;
             this.btn_ThemKhachHang.Click += new System.EventHandler(this.btn_ThemKhachHang_Click);
+            // 
+            // cb_khachhang
+            // 
+            this.cb_khachhang.ForeColor = System.Drawing.Color.Black;
+            this.cb_khachhang.FormattingEnabled = true;
+            this.cb_khachhang.Location = new System.Drawing.Point(15, 11);
+            this.cb_khachhang.Name = "cb_khachhang";
+            this.cb_khachhang.Size = new System.Drawing.Size(284, 38);
+            this.cb_khachhang.TabIndex = 2;
+            this.cb_khachhang.SelectedIndexChanged += new System.EventHandler(this.cb_khachhang_SelectedIndexChanged);
+            this.cb_khachhang.TextUpdate += new System.EventHandler(this.cb_khachhang_TextUpdate);
+            this.cb_khachhang.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cb_khachhang_KeyDown);
             // 
             // btn_Thoat
             // 
