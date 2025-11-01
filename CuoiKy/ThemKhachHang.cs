@@ -22,10 +22,10 @@ namespace CuoiKy
             InitializeComponent();
             Value = value;
             TrangThai = status;
-            Load();
+            Load_data();
         }
 
-        private void Load()
+        private void Load_data()
         {
             //MessageBox.Show(Value + " " + TrangThai);
             if (TrangThai)
@@ -66,7 +66,7 @@ namespace CuoiKy
 
         private void txt_sdt_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter || e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 || e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9 || e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
+            if (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 || e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9 || e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
             { return; }
             else
                 e.SuppressKeyPress = true;

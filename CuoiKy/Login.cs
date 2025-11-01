@@ -38,6 +38,7 @@ namespace CuoiKy
                 //Lấy mã chi nhánh
                 MaCN = Convert.ToString(Sql.Scalar($"select dbo.uf_ChiNhanh('{username}','{password}')"));
                 //Mở form mới
+                this.Hide();
                 BanHang frm = new BanHang(MaCN);
                 frm.ShowDialog();
                 this.Close();

@@ -272,7 +272,7 @@ namespace CuoiKy
 
         private void cb_khachhang_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter||e.KeyCode>= Keys.D0&&e.KeyCode<=Keys.D9||e.KeyCode>=Keys.NumPad0&&e.KeyCode<=Keys.NumPad9||e.KeyCode==Keys.Back||e.KeyCode==Keys.Delete)
+            if(e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 || e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9 || e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
                 { return; }
             else
                 e.SuppressKeyPress = true;
@@ -360,10 +360,10 @@ namespace CuoiKy
         {
             string[] a = cb_khachhang.Text.Replace(" ","").Split('-');
             MessageBox.Show(a[1].Replace(" ", ""));
-            ThemKhachHang frm = new ThemKhachHang(a[1].Replace(" ",""), true);
-            frm.ShowDialog();
             cb_khachhang.Text = null;
             Load_combobox_khachhang();
+            ThemKhachHang frm = new ThemKhachHang(a[1].Replace(" ", ""), true);
+            frm.ShowDialog();
         }
 
         private void txt_nhantien_KeyDown(object sender, KeyEventArgs e)
@@ -443,6 +443,14 @@ namespace CuoiKy
             lbl_thanhtien.Text = "0";
             lbl_TienThoi.Text = "0";
             txt_nhantien.Clear();
+        }
+
+        private void btn_HoaDon_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            HoaDon frm = new HoaDon(MaCN);
+            frm.ShowDialog();
+            this.Close();
         }
     }
 }

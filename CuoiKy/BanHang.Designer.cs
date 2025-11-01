@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BanHang));
             this.panel1 = new System.Windows.Forms.Panel();
             this.cb_nhanvien = new System.Windows.Forms.ComboBox();
             this.cb_sanpham = new System.Windows.Forms.ComboBox();
@@ -147,9 +148,9 @@
             // 
             // DonGia
             // 
-            dataGridViewCellStyle17.Format = "#,##0";
-            dataGridViewCellStyle17.NullValue = "0";
-            this.DonGia.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle1.Format = "#,##0";
+            dataGridViewCellStyle1.NullValue = "0";
+            this.DonGia.DefaultCellStyle = dataGridViewCellStyle1;
             this.DonGia.HeaderText = "Đơn giá";
             this.DonGia.Name = "DonGia";
             this.DonGia.ReadOnly = true;
@@ -164,10 +165,10 @@
             // 
             // Up
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.Format = "▲";
-            dataGridViewCellStyle18.NullValue = "▲";
-            this.Up.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Format = "▲";
+            dataGridViewCellStyle2.NullValue = "▲";
+            this.Up.DefaultCellStyle = dataGridViewCellStyle2;
             this.Up.HeaderText = "Tăng";
             this.Up.Name = "Up";
             this.Up.ReadOnly = true;
@@ -176,10 +177,10 @@
             // 
             // Down
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.Format = "▼";
-            dataGridViewCellStyle19.NullValue = "▼";
-            this.Down.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Format = "▼";
+            dataGridViewCellStyle3.NullValue = "▼";
+            this.Down.DefaultCellStyle = dataGridViewCellStyle3;
             this.Down.HeaderText = "Giảm";
             this.Down.Name = "Down";
             this.Down.ReadOnly = true;
@@ -188,10 +189,10 @@
             // 
             // Delete
             // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.Format = "🗑️";
-            dataGridViewCellStyle20.NullValue = "🗑️";
-            this.Delete.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Format = "🗑️";
+            dataGridViewCellStyle4.NullValue = "🗑️";
+            this.Delete.DefaultCellStyle = dataGridViewCellStyle4;
             this.Delete.HeaderText = "Xóa";
             this.Delete.Name = "Delete";
             this.Delete.ReadOnly = true;
@@ -388,6 +389,7 @@
             this.btn_HoaDon.Size = new System.Drawing.Size(154, 73);
             this.btn_HoaDon.TabIndex = 1;
             this.btn_HoaDon.UseVisualStyleBackColor = false;
+            this.btn_HoaDon.Click += new System.EventHandler(this.btn_HoaDon_Click);
             // 
             // btn_BanHang
             // 
@@ -416,6 +418,7 @@
             this.Controls.Add(this.btn_BanHang);
             this.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Name = "BanHang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

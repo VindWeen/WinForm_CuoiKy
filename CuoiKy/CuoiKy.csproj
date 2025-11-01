@@ -199,5 +199,8 @@
   <ItemGroup>
     <None Include="Resources\edit_35dp_393E46_FILL0_wght400_GRAD0_opsz40.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\profile_logo_12_186684a09b204730861e8f9e80c2dcda.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

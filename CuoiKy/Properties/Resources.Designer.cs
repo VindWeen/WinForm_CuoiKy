@@ -123,6 +123,16 @@ namespace CuoiKy.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap profile_logo_12_186684a09b204730861e8f9e80c2dcda {
+            get {
+                object obj = ResourceManager.GetObject("profile_logo_12_186684a09b204730861e8f9e80c2dcda", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap receipt {
             get {
                 object obj = ResourceManager.GetObject("receipt", resourceCulture);
