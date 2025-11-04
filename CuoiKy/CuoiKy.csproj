@@ -202,5 +202,8 @@
   <ItemGroup>
     <None Include="Resources\profile_logo_12_186684a09b204730861e8f9e80c2dcda.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\round.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -54,9 +54,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.cb_khachhang = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_ThemKhachHang = new System.Windows.Forms.Button();
-            this.cb_khachhang = new System.Windows.Forms.ComboBox();
             this.btn_Thoat = new System.Windows.Forms.Button();
             this.btn_DoanhThu = new System.Windows.Forms.Button();
             this.btn_Quanly = new System.Windows.Forms.Button();
@@ -112,7 +112,7 @@
             this.panel2.Controls.Add(this.dgv_sanpham);
             this.panel2.Location = new System.Drawing.Point(10, 164);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1120, 615);
+            this.panel2.Size = new System.Drawing.Size(1120, 628);
             this.panel2.TabIndex = 4;
             // 
             // dgv_sanpham
@@ -135,7 +135,7 @@
             this.dgv_sanpham.Name = "dgv_sanpham";
             this.dgv_sanpham.RowHeadersVisible = false;
             this.dgv_sanpham.RowTemplate.Height = 40;
-            this.dgv_sanpham.Size = new System.Drawing.Size(1118, 613);
+            this.dgv_sanpham.Size = new System.Drawing.Size(1118, 626);
             this.dgv_sanpham.TabIndex = 0;
             this.dgv_sanpham.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_sanpham_CellContentClick);
             // 
@@ -216,7 +216,7 @@
             this.panel3.Controls.Add(this.cb_khachhang);
             this.panel3.Location = new System.Drawing.Point(1131, 104);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(405, 675);
+            this.panel3.Size = new System.Drawing.Size(405, 688);
             this.panel3.TabIndex = 4;
             // 
             // txt_nhantien
@@ -314,6 +314,18 @@
             this.label1.Text = "Số lượng:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // cb_khachhang
+            // 
+            this.cb_khachhang.ForeColor = System.Drawing.Color.Black;
+            this.cb_khachhang.FormattingEnabled = true;
+            this.cb_khachhang.Location = new System.Drawing.Point(15, 11);
+            this.cb_khachhang.Name = "cb_khachhang";
+            this.cb_khachhang.Size = new System.Drawing.Size(284, 38);
+            this.cb_khachhang.TabIndex = 2;
+            this.cb_khachhang.SelectedIndexChanged += new System.EventHandler(this.cb_khachhang_SelectedIndexChanged);
+            this.cb_khachhang.TextUpdate += new System.EventHandler(this.cb_khachhang_TextUpdate);
+            this.cb_khachhang.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cb_khachhang_KeyDown);
+            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
@@ -336,18 +348,6 @@
             this.btn_ThemKhachHang.UseVisualStyleBackColor = false;
             this.btn_ThemKhachHang.Click += new System.EventHandler(this.btn_ThemKhachHang_Click);
             // 
-            // cb_khachhang
-            // 
-            this.cb_khachhang.ForeColor = System.Drawing.Color.Black;
-            this.cb_khachhang.FormattingEnabled = true;
-            this.cb_khachhang.Location = new System.Drawing.Point(15, 11);
-            this.cb_khachhang.Name = "cb_khachhang";
-            this.cb_khachhang.Size = new System.Drawing.Size(284, 38);
-            this.cb_khachhang.TabIndex = 2;
-            this.cb_khachhang.SelectedIndexChanged += new System.EventHandler(this.cb_khachhang_SelectedIndexChanged);
-            this.cb_khachhang.TextUpdate += new System.EventHandler(this.cb_khachhang_TextUpdate);
-            this.cb_khachhang.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cb_khachhang_KeyDown);
-            // 
             // btn_Thoat
             // 
             this.btn_Thoat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(93)))), ((int)(((byte)(93)))));
@@ -369,6 +369,7 @@
             this.btn_DoanhThu.Size = new System.Drawing.Size(154, 73);
             this.btn_DoanhThu.TabIndex = 2;
             this.btn_DoanhThu.UseVisualStyleBackColor = false;
+            this.btn_DoanhThu.Click += new System.EventHandler(this.btn_DoanhThu_Click);
             // 
             // btn_Quanly
             // 
@@ -379,6 +380,7 @@
             this.btn_Quanly.Size = new System.Drawing.Size(154, 73);
             this.btn_Quanly.TabIndex = 2;
             this.btn_Quanly.UseVisualStyleBackColor = false;
+            this.btn_Quanly.Click += new System.EventHandler(this.btn_Quanly_Click);
             // 
             // btn_HoaDon
             // 

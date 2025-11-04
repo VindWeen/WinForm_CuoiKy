@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -343,6 +344,7 @@ namespace CuoiKy
             var a = MessageBox.Show("Bạn có chắc muốn đăng xuất chứ", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (a == DialogResult.OK)
             {
+                this.Hide();
                 Login frm = new Login();
                 frm.ShowDialog();
                 this.Dispose();
@@ -351,9 +353,9 @@ namespace CuoiKy
 
         private void BanHang_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var a = MessageBox.Show("Bạn có chắc muốn thoát không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (a == DialogResult.Cancel)
-                e.Cancel = true;
+            //var a = MessageBox.Show("Bạn có chắc muốn thoát không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            //if (a == DialogResult.Cancel)
+            //    e.Cancel = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -396,11 +398,7 @@ namespace CuoiKy
 
         private void btn_ThanhToan_Click(object sender, EventArgs e)
         {
-            string[] kh = cb_khachhang.Text.Replace(" ", "").Split('-');
-            string query_ktraKH = $@"if exists (select * from KhachHang where SDT like'{kh[kh.Length-1]}')
-                                        select 1
-                                     else
-                                        select 0";
+            
             string[] nv = cb_nhanvien.Text.Replace(" ", "").Split('-');
             string query_ktraNV = $@"if exists (select * from NhanVien where MaNV like'{nv[0]}' or HoTenNV like N'{nv[0]}')
                                         select 1
@@ -410,10 +408,25 @@ namespace CuoiKy
                                         select 1
                                      else
                                         select 0";
-            if (!Sql.KiemTra(query_ktraKH)&&cb_khachhang.SelectedIndex<0)
+            string MaKH = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(cb_khachhang.Text))
             {
-                MessageBox.Show("Khách hàng không hợp lệ","Cảnh báo",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                return;
+                string[] kh = cb_khachhang.Text.Replace(" ", "").Split('-');
+                string query_ktraKH = $@"
+                if exists (select * from KhachHang where SDT like '{kh[kh.Length - 1]}')
+                    select 1
+                else
+                    select 0";
+
+                        if (!Sql.KiemTra(query_ktraKH))
+                        {
+                            MessageBox.Show("Khách hàng chưa được đăng ký", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // lấy mã KH
+                        MaKH = Convert.ToString(Sql.Scalar($@"Select MaKH from KhachHang where SDT like '{kh[kh.Length - 1]}'"));
             }
             if (!Sql.KiemTra(query_ktraNV)&& cb_nhanvien.SelectedIndex<0)
             {
@@ -422,9 +435,7 @@ namespace CuoiKy
             }
             
             string SoHD = Convert.ToString(Sql.Scalar($@"SELECT dbo.uf_NextNumber ('{MaCN}','HoaDon','SoHD')"));
-            string MaKH = Convert.ToString(Sql.Scalar($@"Select MaKH from KhachHang where SDT like '{kh[kh.Length - 1]}'"));
-
-            Sql.NonQuery($@"INSERT INTO HoaDon Values ('{SoHD}','{nv[0]}','{MaKH}','{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}')");
+            Sql.NonQuery($@"INSERT INTO HoaDon Values ('{SoHD}','{nv[0]}',{(string.IsNullOrEmpty(MaKH)? "NULL": $"'{MaKH}'")},'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')");
             string query_cthd;
             foreach (DataGridViewRow a in dgv_sanpham.Rows) 
             {
@@ -449,6 +460,23 @@ namespace CuoiKy
         {
             this.Hide();
             HoaDon frm = new HoaDon(MaCN);
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void btn_DoanhThu_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            DoanhThu frm = new DoanhThu(MaCN);
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void btn_Quanly_Click(object sender, EventArgs e)
+        {
+
+            this.Hide();
+            QuanLy_Tong frm = new QuanLy_Tong(MaCN);
             frm.ShowDialog();
             this.Close();
         }

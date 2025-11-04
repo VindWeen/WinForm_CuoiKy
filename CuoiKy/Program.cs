@@ -17,10 +17,12 @@ namespace CuoiKy
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new BanHang("Tong"));
-            Application.Run(new Login());
+            //Application.Run(new Login());
             //Application.Run(new XemHoaDon());
             //Application.Run(new QuanLy_Tong());
             //Application.Run(new HoaDon("Tong"));
+            //Application.Run(new DoanhThu("Tong"));
+            Application.Run(new QuanLy_Tong("Tong"));
         }
     }
 }

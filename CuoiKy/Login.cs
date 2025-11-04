@@ -35,6 +35,8 @@ namespace CuoiKy
         {
             string username = txt_user.Text, password = textBox1.Text;
             if(Sql.KiemTra($"select dbo.uf_CheckAccount('{username}','{password}')")){//Kiểm tra tài khoản có tồn tại hoặc có hoạt động không
+                label3.Visible=false;
+
                 //Lấy mã chi nhánh
                 MaCN = Convert.ToString(Sql.Scalar($"select dbo.uf_ChiNhanh('{username}','{password}')"));
                 //Mở form mới
@@ -43,6 +45,10 @@ namespace CuoiKy
                 frm.ShowDialog();
                 this.Close();
             }
+            else
+            {
+                label3.Visible=true;
+            }    
         }
     }
 }

@@ -26,7 +26,9 @@ namespace CuoiKy
         {
             dataGridView1.Rows.Clear();
             string query1 = $@"exec dbo.sp_XemHoaDon '{SoHD}'";
+            //MessageBox.Show(query1);
             string query2 = $@"select TenSP,Sl,DonGia from dbo.vCTHD where SoHD like '{SoHD}'";
+            //MessageBox.Show(query2);
             SqlDataReader rd = Sql.Reader(query1);
             rd.Read();
             lbl_SoHoaDon.Text = rd["SoHD"].ToString();

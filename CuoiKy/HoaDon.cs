@@ -32,6 +32,7 @@ namespace CuoiKy
                     dtp_tutg.Value = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day,1,0,0);
                     dtp_dentg.Value = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day,23,59,59);
                     Load_dgv();
+                    pb_date.Visible = false;
                     break;
                 case 1://Hôm qua
                     dtp_tungay.Value = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day-1);
@@ -39,6 +40,7 @@ namespace CuoiKy
                     dtp_tutg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day-1, 1, 0, 0);
                     dtp_dentg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day-1, 23, 59, 59);
                     Load_dgv();
+                    pb_date.Visible = false;
                     break;
                 case 2://7 ngày
                     dtp_tungay.Value = DateTime.Now.AddDays(-6).Date; // hôm nay tính là ngày thứ 7
@@ -46,6 +48,7 @@ namespace CuoiKy
                     dtp_tutg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(-6).Day, 1, 0, 0);
                     dtp_dentg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59);
                     Load_dgv();
+                    pb_date.Visible = false;
                     break;
                 case 3://Tháng này
                     DateTime now = DateTime.Now;
@@ -58,11 +61,13 @@ namespace CuoiKy
                     dtp_tutg.Value = new DateTime(firstDay.Year, firstDay.Month, firstDay.Day, 1, 0, 0);
                     dtp_dentg.Value = new DateTime(lastDay.Year, lastDay.Month, lastDay.Day, 23, 59, 59);
                     Load_dgv();
+                    pb_date.Visible = false;
                     break;
                 case 4://Tùy chỉnh
                     dtp_tutg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
                     dtp_dentg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 0, 0);
                     pb_date.Visible = true;
+                    pb_date.Visible = false;
                     break;
             }
         }
@@ -121,8 +126,8 @@ namespace CuoiKy
                     break;
             }
             string query = $@"select * from dbo.vHoaDon where LEFT(SoHD, PATINDEX('%[0-9]%', SoHD) - 1) like N'{MaCN}'
-                                                              and NgayLap >= '{dtp_tungay.Value.ToString("yyyy-MM-dd")+" "+dtp_tutg.Value.ToString("hh:mm:ss")}'
-                                                              and NgayLap <= '{dtp_denngay.Value.ToString("yyyy-MM-dd") + " " + dtp_dentg.Value.ToString("hh:mm:ss")}'";
+                                                              and NgayLap >= '{dtp_tungay.Value.ToString("yyyy-MM-dd")+" "+dtp_tutg.Value.ToString("HH:mm:ss")}'
+                                                              and NgayLap <= '{dtp_denngay.Value.ToString("yyyy-MM-dd") + " " + dtp_dentg.Value.ToString("HH:mm:ss")}'";
             // 🔸 Lọc theo số hóa đơn
             if (!string.IsNullOrWhiteSpace(txt_timsohd.Text))
             {
@@ -130,7 +135,7 @@ namespace CuoiKy
             }
 
             // 🔸 Lọc theo số điện thoại
-            if (!string.IsNullOrWhiteSpace(txt_SDT.Text))
+            if (!string.IsNullOrWhiteSpace(txt_SDT.Text) && txt_SDT.Text != "*")
             {
                 query += $" and SDT like N'%{txt_SDT.Text.Trim()}%'";
             }
@@ -160,7 +165,17 @@ namespace CuoiKy
             int sumSL = 0,sumTT = 0;
             while(rd.Read()) 
             {
-                dgv_sanpham.Rows.Add(rd["NgayLap"].ToString() ,rd["SoHD"].ToString(),Convert.ToInt32(rd["SL"]).ToString(),Convert.ToInt32(rd["TongTien"]).ToString("N0"),rd["SDT"].ToString(),rd["HoTenNV"].ToString());
+                string sdt = rd["SDT"] == DBNull.Value ? "Khách lẻ" : rd["SDT"].ToString();
+                dgv_sanpham.Rows.Add(
+                    rd["NgayLap"].ToString(),
+                    rd["SoHD"].ToString(),
+                    Convert.ToInt32(rd["SL"]).ToString(),
+                    Convert.ToInt32(rd["TongTien"]).ToString("N0"),
+                    sdt,
+                    rd["HoTenNV"].ToString()
+                );
+
+                //dgv_sanpham.Rows.Add(rd["NgayLap"].ToString() ,rd["SoHD"].ToString(),Convert.ToInt32(rd["SL"]).ToString(),Convert.ToInt32(rd["TongTien"]).ToString("N0"),rd["SDT"].ToString(),rd["HoTenNV"].ToString());
                 sumSL += Convert.ToInt32(rd["SL"].ToString());
                 sumTT += Convert.ToInt32(rd["TongTien"].ToString());
             }
@@ -191,15 +206,21 @@ namespace CuoiKy
 
             DataGridViewRow a = dgv_sanpham.Rows[e.RowIndex];
             XemHoaDon frm = new XemHoaDon(a.Cells["SoHD"].Value.ToString());
+            //MessageBox.Show(a.Cells["SoHD"].Value.ToString());
             frm.ShowDialog();
             dgv_sanpham.ClearSelection();
         }
 
         private void btn_Thoat_Click(object sender, EventArgs e)
         {
-            var a = MessageBox.Show("Bạn có chắc muốn thoát không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            var a = MessageBox.Show("Bạn có chắc muốn đăng xuất chứ", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (a == DialogResult.OK)
-                Dispose();
+            {
+                this.Hide();
+                Login frm = new Login();
+                frm.ShowDialog();
+                this.Close();
+            }
         }
 
         private void cb_filterSL_SelectedIndexChanged(object sender, EventArgs e)
@@ -306,9 +327,23 @@ namespace CuoiKy
 
         private void HoaDon_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var a = MessageBox.Show("Bạn có chắc muốn thoát không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (a == DialogResult.Cancel)
-                e.Cancel = true;
+
+        }
+
+        private void btn_DoanhThu_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            DoanhThu frm = new DoanhThu(MaCN);
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void btn_Quanly_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            QuanLy_Tong frm = new QuanLy_Tong(MaCN);
+            frm.ShowDialog();
+            this.Close();
         }
     }
 }
