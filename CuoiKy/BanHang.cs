@@ -14,12 +14,11 @@ namespace CuoiKy
 {
     public partial class BanHang : Form
     {
-        public string MaCN; 
+        public string MaCN = TaiKhoan.MaCN; 
         bool isLoaded = false; bool isLoadingSP = false;
-        public BanHang(string maCN)
+        public BanHang()
         {
             InitializeComponent();
-            MaCN = maCN;
         }
 
         private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e)
@@ -459,7 +458,7 @@ namespace CuoiKy
         private void btn_HoaDon_Click(object sender, EventArgs e)
         {
             this.Hide();
-            HoaDon frm = new HoaDon(MaCN);
+            HoaDon frm = new HoaDon();
             frm.ShowDialog();
             this.Close();
         }
@@ -467,7 +466,7 @@ namespace CuoiKy
         private void btn_DoanhThu_Click(object sender, EventArgs e)
         {
             this.Hide();
-            DoanhThu frm = new DoanhThu(MaCN);
+            DoanhThu frm = new DoanhThu();
             frm.ShowDialog();
             this.Close();
         }
@@ -476,7 +475,7 @@ namespace CuoiKy
         {
 
             this.Hide();
-            QuanLy_Tong frm = new QuanLy_Tong(MaCN);
+            QuanLy_Tong frm = new QuanLy_Tong();
             frm.ShowDialog();
             this.Close();
         }

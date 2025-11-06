@@ -51,14 +51,15 @@ namespace CuoiKy
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var a = MessageBox.Show("Bạn có chắc muốn thoát không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (a == DialogResult.OK)
-                Dispose();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
             Dispose();
+        }
+
+        private void XemHoaDon_Deactivate(object sender, EventArgs e)
+        {
         }
     }
 }

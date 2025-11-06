@@ -9,7 +9,7 @@ go
 			size = 50MB,
 			filegrowth = 10MB,
 			maxsize = 200MB,
-			filename = 'D:\Download\LHU\LapTrinhTrenMoiTruongWindows\CuoiKy\CoupleTX_SQL.mdf',
+			filename = 'E:\SixForce_B\Data\CoupleTX_SQL.mdf',
 			name = CoupleTX_SQL_data
 		)
 		log on
@@ -17,7 +17,7 @@ go
 			size = 10MB,
 			filegrowth = 5MB,
 			maxsize = unlimited,
-			filename = 'D:\Download\LHU\LapTrinhTrenMoiTruongWindows\CuoiKy\CoupleTX_SQL.ldf',
+			filename = 'E:\SixForce_B\Data\CoupleTX_SQL.ldf',
 			name = CoupleTX_SQL_log
 		)
 go
@@ -188,7 +188,7 @@ RETURNS Bit
 AS
 BEGIN
 	DECLARE @KQ bit = 0
-	IF EXISTS (SELECT * FROM TaiKhoan WHERE TenDN = @USERNAME AND MatKhau = @MATKHAU and TrangThai = 1)
+	IF EXISTS (SELECT * FROM TaiKhoan WHERE TenDN = @USERNAME AND CONVERT(NVARCHAR(100), DecryptByPassPhrase('MaHoaMatKhau', MatKhau)) = @MATKHAU and TrangThai = 1)
 		SET @KQ = 1
 	ELSE
 		SET @KQ = 0
@@ -197,21 +197,23 @@ END
 
 go
 
---LẤY MÃ CHI NHÁNH THEO TÀI KHOẢN ĐĂNG NHẬP
-CREATE OR ALTER FUNCTION dbo.uf_ChiNhanh (@USERNAME VARCHAR(50), @MATKHAU NVARCHAR(100))
-RETURNS VARCHAR(100)
+-- LẤY THÔNG TIN ACCOUNT THEO TÀI KHOẢN
+GO
+CREATE OR ALTER FUNCTION dbo.ufTaiKhoan (@USERNAME VARCHAR(50), @MATKHAU NVARCHAR(100))
+RETURNS Table
 AS
-BEGIN
-	DECLARE @KQ VARCHAR(100) = (SELECT MaCN FROM NhanVien WHERE MaNV = (SELECT MaNV FROM TaiKhoan WHERE TenDN = @USERNAME AND MatKhau = @MATKHAU))
-	RETURN @KQ
-END
-
+	Return (Select QuyenHan,ChucVu,MaCN 
+	from TaiKhoan tk join NhanVien nv on tk.MaNV = nv.MaNV
+	where TenDN = @USERNAME AND CONVERT(NVARCHAR(100), DecryptByPassPhrase('MaHoaMatKhau', MatKhau)) = @MATKHAU)
 -- SẢN PHẨM VÀ SỐ LƯỢNG SẢN PHẨM THEO CHI NHÁNH
 go
 CREATE OR ALTER FUNCTION dbo.uf_SanPham (@MACN VARCHAR(100))
 RETURNS TABLE
 AS
-	RETURN (SELECT SanPham.MaSP, TenSP, DVT,SL,DonGia FROM KHO LEFT JOIN SanPham ON Kho.MaSP = SanPham.MaSP WHERE MaCN = @MACN)
+	RETURN (SELECT SanPham.MaSP, TenSP, DVT,SL,DonGia 
+			FROM KHO LEFT JOIN SanPham 
+			ON Kho.MaSP = SanPham.MaSP 
+			WHERE MaCN = @MACN)
 
 
 
@@ -254,7 +256,7 @@ GO
 
 -- XUẤT - NHẬP KHO
 -- Khi thêm CTPX: giảm kho tại chi nhánh xuất; đồng thời
--- đảm bảo tồn tại Phiếu Nhập “đối ứng” (PN-xxxxxx) và copy chi tiết qua, tăng kho đích.
+-- đảm bảo tồn tại Phiếu Nhập “đối ứng” (PN-xxxxxx) và copy chi tiết qua
 
 CREATE OR ALTER TRIGGER dbo.trg_CTPX_AI_Xuat_GiamKho_TaoPN
 ON dbo.CTPX
@@ -298,6 +300,45 @@ GO
 
 --==================================== PROCEDURES =======================================
 
+-- LỌC DỮ LIỆU CHO CHART THEO NGÀY
+CREATE OR ALTER PROC dbo.sp_ChartDay
+	@tuNgay DateTime,
+	@denNgay DateTime,
+	@maCN varchar(20)
+AS
+BEGIN
+    SET NOCOUNT ON;
+	SELECT 
+		CAST(hd.NgayLap AS DATE) AS Ngay,
+		SUM(ct.ThanhTien) AS TongTien
+	FROM HoaDon hd
+	LEFT JOIN CTHD ct ON hd.SoHD = ct.SoHD
+	WHERE hd.NgayLap BETWEEN @tuNgay AND @denNgay
+	  AND  LEFT(hd.SoHD, PATINDEX('%[0-9]%', hd.SoHD) - 1) like @maCN
+	GROUP BY CAST(hd.NgayLap AS DATE)
+	ORDER BY Ngay;
+END;
+GO
+
+-- LỌC DỮ LIỆU CHO CHART THEO GIỜ
+CREATE OR ALTER PROC dbo.sp_ChartHour
+	@tuGio DateTime,
+	@denGio DateTime,
+	@maCN varchar(20)
+AS
+BEGIN
+	SELECT 
+    DATEPART(HOUR, hd.NgayLap) AS Gio,
+    SUM(ct.ThanhTien) AS TongTien
+		FROM HoaDon hd
+		LEFT JOIN CTHD ct ON hd.SoHD = ct.SoHD
+		WHERE hd.NgayLap BETWEEN @tuGio AND @denGio
+		  	  AND  LEFT(hd.SoHD, PATINDEX('%[0-9]%', hd.SoHD) - 1) like @maCN
+		GROUP BY DATEPART(HOUR, hd.NgayLap)
+		ORDER BY Gio;
+END;
+GO
+
 -- CHI TIẾT HOÁ ĐƠN
 CREATE OR ALTER PROCEDURE dbo.sp_ThemCTHD
 	@SoHD VARCHAR(20),
@@ -322,35 +363,28 @@ END;
 GO
 go
 -- PHIẾU XUẤT
-CREATE OR ALTER  PROCEDURE dbo.sp_ThemCTPX
+CREATE OR ALTER PROCEDURE dbo.sp_ThemCTPX
 	@SoPX NVARCHAR(20),
-    @TuCN NVARCHAR(20),
-    @DenCN NVARCHAR(20),
     @MaSP NVARCHAR(20),
     @SL   INT
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO dbo.PhieuXuat(SoPX, TuCN, DenCN, NgayLap)
-    VALUES (@SoPX, @TuCN, @DenCN, GETDATE());
-
     INSERT INTO dbo.CTPX(SoPX, MaSP, SL)
     VALUES (@SoPX, @MaSP, @SL);
-
-    SELECT @SoPX AS SoPX, REPLACE(@SoPX,'PX-','PN-') AS SoPN_DoiUng;
 END;
 GO
 
 go
 -- ĐỔI PX THÀNH PN THEO SỐ PX
-CREATE OR ALTER PROCEDURE dbo.sp_DoiPX_ThanhPN
-    @SoPX NVARCHAR(50)
+CREATE OR ALTER PROCEDURE dbo.usp_XacNhanNhapHang
+    @SoPX VARCHAR(50)
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    DECLARE @SoPN NVARCHAR(50) = REPLACE(@SoPX,'PX-','PN-');
+    DECLARE @SoPN VARCHAR(50) = REPLACE(@SoPX,'PX','PN');
 
     -- Tạo PN nếu chưa có
     INSERT INTO dbo.PhieuNhap(SoPN, TuCN, DenCN, NgayLap)
@@ -387,24 +421,55 @@ GO
 
 --Stored Procedure Xác nhập hàng
 CREATE OR ALTER PROCEDURE dbo.usp_XacNhanNhapHang
-    @SoPN NVARCHAR(20)
+    @SoPX NVARCHAR(20)
 AS
 BEGIN
     SET NOCOUNT ON;
 
+    DECLARE @SoPN NVARCHAR(20);
+
+    -- 1️⃣ Tạo số phiếu nhập mới (đổi PX → PN)
+    SET @SoPN = REPLACE(@SoPX, 'PX', 'PN');
+
+    -- 2️⃣ Đổi mã bảng PhieuNhap
+    INSERT INTO dbo.PhieuNhap (SoPN, TuCN,DenCN,NgayLap)
+    SELECT 
+        @SoPN,
+		px.TuCN,
+        px.DenCN,
+        GETDATE()
+    FROM dbo.PhieuXuat px
+    WHERE px.SoPX = @SoPX;
+
+    -- 3️⃣ Thêm chi tiết phiếu nhập từ chi tiết phiếu xuất
+    INSERT INTO dbo.CTPN (SoPN, MaSP, SL)
+    SELECT 
+        @SoPN,
+        ctp.MaSP,
+        ctp.SL
+    FROM dbo.CTPX ctp
+    WHERE ctp.SoPX = @SoPX;
+
+    -- 4️⃣ Cập nhật tồn kho của chi nhánh nhận hàng
     ;WITH X AS (
-        SELECT pn.DenCN AS MaCN, c.MaSP, c.SL
-        FROM dbo.PhieuNhap pn
-        JOIN dbo.CTPN c ON pn.SoPN = c.SoPN
-        WHERE pn.SoPN = @SoPN
+        SELECT px.DenCN AS MaCN, ctp.MaSP, ctp.SL
+        FROM dbo.PhieuXuat px
+        JOIN dbo.CTPX ctp ON px.SoPX = ctp.SoPX
+        WHERE px.SoPX = @SoPX
     )
     MERGE dbo.Kho AS k
     USING X AS x
       ON k.MaCN = x.MaCN AND k.MaSP = x.MaSP
-    WHEN MATCHED THEN UPDATE SET k.SL = k.SL + x.SL
-    WHEN NOT MATCHED THEN INSERT (MaCN, MaSP, SL) VALUES (x.MaCN, x.MaSP, x.SL);
+    WHEN MATCHED THEN 
+        UPDATE SET k.SL = k.SL + x.SL
+    WHEN NOT MATCHED THEN 
+        INSERT (MaCN, MaSP, SL) VALUES (x.MaCN, x.MaSP, x.SL);
+
+	Delete From CTPN where SoPN = @SoPX
+	Delete From PhieuNhap where SoPN = @SoPX
 END;
 GO
+
 
 -- Report (báo cáo) doanh thu theo ngày
 CREATE OR ALTER PROCEDURE dbo.sp_BaoCaoDoanhThuNgay_Report
@@ -585,6 +650,18 @@ BEGIN
 END;
 go
 
+-- THÔNG TIN HÓA ĐƠN
+CREATE OR ALTER PROC dbo.sp_XemHoaDon @soHD varchar(20)
+AS
+SELECT hd.SoHD,NgayLap,HoTen,kh.SDT,HoTenNV,sum(ThanhTien)as TongTien
+	FROM HoaDon hd left join KhachHang kh on hd.MAKH = kh.MaKH
+					join NhanVien nv on hd.MaNV = nv.MaNV
+					join CTHD cthd on hd.SoHD = cthd.SoHD
+	where hd.SoHD like @soHD
+	group by hd.SoHD,NgayLap,HoTen,kh.SDT,HoTenNV
+GO
+
+
 -- XÓA PHIẾU NHẬP
 CREATE OR ALTER PROCEDURE sp_XoaPhieuNhap
     @SoPN NVARCHAR(10)
@@ -658,19 +735,17 @@ SELECT MaNV, HoTenNV
 FROM dbo.NhanVien;
 GO
 
--- Hóa đơn (thành tiền = tổng CTHD)
+-- Hóa đơn
 CREATE OR ALTER VIEW dbo.vHoaDon
 AS
-SELECT  hd.SoHD,
-        kh.HoTen     AS TenKhachHang,
-        kh.SDT,
-        hd.NgayLap,
-        SUM(ct.ThanhTien) AS ThanhTien
-FROM dbo.HoaDon hd
-JOIN dbo.KhachHang kh ON kh.MaKH = hd.MaKH
-LEFT JOIN dbo.CTHD ct ON ct.SoHD = hd.SoHD
-GROUP BY hd.SoHD, kh.HoTen, kh.SDT, hd.NgayLap;
+SELECT NgayLap,hd.SoHD, sum(SL)as SL, sum(ThanhTien)as TongTien,kh.SDT,nv.HoTenNV
+  FROM HoaDon hd join CTHD cthd on hd.SoHD = cthd.SoHD
+				left join KhachHang kh on hd.MAKH = kh.MaKH
+				join NhanVien nv on hd.MaNV = nv.MaNV
+  group by NgayLap,hd.sohd,kh.SDT,nv.HoTenNV
 GO
+
+
 
 -- Chi tiết hóa đơn (tên sp, đơn giá, số lượng, thành tiền)
 CREATE OR ALTER VIEW dbo.vCTHD
@@ -686,14 +761,23 @@ AS
 SELECT  
     CAST(hd.NgayLap AS DATE) AS Ngay,
     nv.MaCN,
-    COUNT(DISTINCT hd.SoHD)        AS SoHD_DaBan,
-    SUM(ct.ThanhTien)              AS TongThanhTien,
-    SUM(ct.SL)                     AS TongSLBan
+
+    COUNT(DISTINCT hd.SoHD) AS SoHD_DaBan,
+
+    -- Tổng khách hàng (gồm cả khách lẻ)
+    COUNT(DISTINCT ISNULL(hd.MaKH, 'KLE_' + CAST(hd.SoHD AS NVARCHAR(20)))) AS SoKhachHang,
+
+    -- Riêng khách lẻ (MaKH bị NULL)
+    COUNT(DISTINCT CASE WHEN hd.MaKH IS NULL THEN hd.SoHD END) AS SoKhachLe,
+
+    SUM(ct.ThanhTien) AS TongThanhTien,
+    SUM(ct.SL) AS TongSLBan
 FROM dbo.HoaDon hd
 JOIN dbo.NhanVien nv ON nv.MaNV = hd.MaNV
 LEFT JOIN dbo.CTHD ct ON ct.SoHD = hd.SoHD
 GROUP BY CAST(hd.NgayLap AS DATE), nv.MaCN;
 GO
+
 
 -- Báo cáo xuất - nhập - tồn kho theo chi nhánh - theo ngày
 CREATE OR ALTER VIEW dbo.vBaoCaoQuanLy_Ngay_ChiNhanh
@@ -715,6 +799,7 @@ Nhap AS (
     SELECT CAST(pn.NgayLap AS DATE) AS Ngay, pn.DenCN AS MaCN, SUM(n.SL) AS SLNhap
     FROM dbo.PhieuNhap pn
     JOIN dbo.CTPN n ON n.SoPN = pn.SoPN
+	WHERE LEFT(pn.SoPN,2) LIKE 'PN'
     GROUP BY CAST(pn.NgayLap AS DATE), pn.DenCN
 )
 SELECT 
@@ -727,14 +812,60 @@ FULL JOIN Xuat x ON x.Ngay = b.Ngay AND x.MaCN = b.MaCN
 FULL JOIN Nhap n ON n.Ngay = COALESCE(b.Ngay,x.Ngay) AND n.MaCN = COALESCE(b.MaCN,x.MaCN);
 GO
 
--- Tồn kho hiện tại theo chi nhánh
+-- Tồn đầu ngày - cuối ngày hiện tại theo chi nhánh
 CREATE OR ALTER VIEW dbo.vTonKho_TheoChiNhanh
 AS
-SELECT k.MaCN, k.MaSP, k.SL
-FROM dbo.Kho k;
+SELECT k.MaCN,Ngay,SL as [TonCuoiNgay], SL+SLXuat as [TonDauNgay]
+FROM (select MaCN,sum(SL)as SL from Kho group by MaCN) AS k
+	JOIN (select Ngay,MaCN,sum(SL_Ban_Xuat)as SLXuat, sum(SL_Nhap)as SLNhap from dbo.vBaoCaoQuanLy_Ngay_ChiNhanh Group by Ngay,MaCN) AS cn ON k.MaCN = cn.MaCN
 GO
 
--- DỮ LIỆU MẪU
+--Phiếu nhập
+CREATE OR ALTER VIEW v_XemPhieuNhap AS
+SELECT
+	pn.NgayLap,
+	pn.SoPN,
+	cnTu.TenCN as TuCN,
+	cnDen.TenCN as DenCN,
+	SUM(ct.SL)as[TongSL]
+FROM PhieuNhap pn
+JOIN CTPN ct on pn.SoPN = ct.SoPN
+JOIN ChiNhanh cnTu on pn.TuCN = cnTu.MaCN
+JOIN ChiNhanh cnDen on pn.DenCN=cnDen.MaCN
+GROUP BY 	pn.NgayLap,
+	pn.SoPN,
+	cnTu.TenCN,
+	cnDen.TenCN;
+GO
+
+--Xem chi tiết phiếu nhập
+CREATE OR ALTER VIEW dbo.v_XemCTPN
+AS
+SELECT  c.SoPN, sp.MaSP,sp.TenSP, c.SL
+FROM dbo.CTPN c
+JOIN dbo.SanPham sp ON sp.MaSP = c.MaSP;
+GO
+
+-- Xem phiếu xuất
+CREATE OR ALTER VIEW v_XemCTPX AS
+select NgayLap,px.SoPX,tuCN.TenCN as [TuCN],denCN.TenCN as [DenCN],SUM(ct.SL)as [TongSL]
+from PhieuXuat px join CTPX ct on px.SoPX = ct.SoPX
+				  join ChiNhanh tuCN on px.TuCN = tuCN.MaCN
+				  join ChiNhanh denCN on px.DenCN = denCN.MaCN
+group by NgayLap,px.SoPX,tuCN.TenCN,denCN.TenCN
+GO
+
+-- Xem chi tiết phiếu xuất
+CREATE OR ALTER VIEW dbo.v_XemSanPhamPhieuXuat AS
+SELECT  c.SoPX, sp.MaSP,sp.TenSP, c.SL
+FROM dbo.CTPX c
+JOIN dbo.SanPham sp ON sp.MaSP = c.MaSP;
+GO
+
+
+
+
+--================================================ DỮ LIỆU MẪU
 
 -- chi nhánh
 insert into ChiNhanh values ('BH',N'Couple TX Biên Hoà',N'phường Thống Nhất, Tp. Biên Hòa, Đồng Nai, Việt Nam'),
@@ -918,18 +1049,11 @@ INSERT INTO Kho (MaCN, MaSP, SL) VALUES
 -- Tài khoản
 INSERT INTO TaiKhoan (TenDN, MatKhau, MaNV, QuyenHan, TrangThai)
 VALUES
-('QLBH',   N'123456', 'QLBH',   N'Manager', 1),
-('QLAEBD', N'123456', 'QLAEBD', N'Manager', 1),
-('QLDA',   N'123456', 'QLDA',   N'Manager', 1),
-('QLVVN',  N'123456', 'QLVVN',  N'Manager', 1),
-('QLHBT',  N'123456', 'QLHBT',  N'Manager', 1),
-('QLBD',   N'123456', 'QLBD',   N'Manager', 1),
-('QLTong', N'123456', 'QLTong', N'Manager', 1),
-('GDCPTX', N'123456', 'GDCPTX', N'Admin',   1);
-
-select * from HoaDon
-select * from CTHD
-select * from Kho where MaCN = 'Tong' and MaSP = '8936020300003'
-
-delete from CTHD
-delete from HoaDon
+('QLBH',    EncryptByPassPhrase('MaHoaMatKhau',N'123456'), 'QLBH',   N'Manager', 1),
+('QLAEBD', EncryptByPassPhrase('MaHoaMatKhau',N'123456'), 'QLAEBD', N'Manager', 1),
+('QLDA',   EncryptByPassPhrase('MaHoaMatKhau',N'123456'), 'QLDA',   N'Manager', 1),
+('QLVVN',  EncryptByPassPhrase('MaHoaMatKhau',N'123456'), 'QLVVN',  N'Manager', 1),
+('QLHBT',  EncryptByPassPhrase('MaHoaMatKhau',N'123456'), 'QLHBT',  N'Manager', 1),
+('QLBD',   EncryptByPassPhrase('MaHoaMatKhau',N'123456'), 'QLBD',   N'Manager', 1),
+('QLTong', EncryptByPassPhrase('MaHoaMatKhau',N'123456'), 'QLTong', N'Manager', 1),
+('GDCPTX', EncryptByPassPhrase('MaHoaMatKhau',N'123456'), 'GDCPTX', N'Admin',   1);

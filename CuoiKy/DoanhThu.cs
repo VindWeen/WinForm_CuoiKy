@@ -16,10 +16,10 @@ namespace CuoiKy
     public partial class DoanhThu : Form
     {
         string MaCN;
-        public DoanhThu(string maCN)
+        public DoanhThu()
         {
             InitializeComponent();
-            MaCN = maCN;
+            MaCN = TaiKhoan.MaCN;
         }
 
         private void DoanhThu_Load(object sender, EventArgs e)
@@ -153,7 +153,7 @@ namespace CuoiKy
         private void btn_BanHang_Click(object sender, EventArgs e)
         {
             this.Hide();
-            BanHang frm = new BanHang(MaCN);
+            BanHang frm = new BanHang();
             frm.ShowDialog();
             this.Close();
         }
@@ -161,7 +161,7 @@ namespace CuoiKy
         private void btn_HoaDon_Click(object sender, EventArgs e)
         {
             this.Hide();
-            HoaDon frm = new HoaDon(MaCN);
+            HoaDon frm = new HoaDon();
             frm.ShowDialog();
             this.Close();
         }
@@ -169,15 +169,28 @@ namespace CuoiKy
         private void button1_Click(object sender, EventArgs e)
         {
             Load_Data();
+            pb_date.Visible=false;
         }
 
         private void btn_Quanly_Click(object sender, EventArgs e)
         {
 
             this.Hide();
-            QuanLy_Tong frm = new QuanLy_Tong(MaCN);
+            QuanLy_Tong frm = new QuanLy_Tong();
             frm.ShowDialog();
             this.Close();
+        }
+
+        private void btn_Thoat_Click(object sender, EventArgs e)
+        {
+            var a = MessageBox.Show("Bạn có chắc muốn đăng xuất chứ", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (a == DialogResult.OK)
+            {
+                this.Hide();
+                Login frm = new Login();
+                frm.ShowDialog();
+                this.Close();
+            }
         }
     }
 }

@@ -64,6 +64,7 @@
             this.lbl_TenChiNhanh = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_SLHoaDon = new System.Windows.Forms.Label();
+            this.btn_Thoat = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pb_date.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart_DoanhThu)).BeginInit();
@@ -434,6 +435,18 @@
             this.lbl_SLHoaDon.Text = "0";
             this.lbl_SLHoaDon.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // btn_Thoat
+            // 
+            this.btn_Thoat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(93)))), ((int)(((byte)(93)))));
+            this.btn_Thoat.ForeColor = System.Drawing.Color.White;
+            this.btn_Thoat.Image = global::CuoiKy.Properties.Resources.logoutwhite;
+            this.btn_Thoat.Location = new System.Drawing.Point(1368, 12);
+            this.btn_Thoat.Name = "btn_Thoat";
+            this.btn_Thoat.Size = new System.Drawing.Size(154, 73);
+            this.btn_Thoat.TabIndex = 31;
+            this.btn_Thoat.UseVisualStyleBackColor = false;
+            this.btn_Thoat.Click += new System.EventHandler(this.btn_Thoat_Click);
+            // 
             // DoanhThu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
@@ -441,6 +454,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1534, 791);
+            this.Controls.Add(this.btn_Thoat);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_DoanhThu);
             this.Controls.Add(this.btn_Quanly);
@@ -498,5 +512,6 @@
         private System.Windows.Forms.Label lbl_SLHoaDon;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbl_slKhachLe;
+        private System.Windows.Forms.Button btn_Thoat;
     }
 }

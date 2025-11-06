@@ -43,12 +43,6 @@
             this.lbl_TongSoLuong = new System.Windows.Forms.Label();
             this.lbl_TongHoaDon = new System.Windows.Forms.Label();
             this.dgv_sanpham = new System.Windows.Forms.DataGridView();
-            this.NgayLap = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SoHD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TongTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SDT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HoTenNV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_Thoat = new System.Windows.Forms.Button();
             this.btn_DoanhThu = new System.Windows.Forms.Button();
@@ -75,6 +69,12 @@
             this.lbl = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.GoiY = new System.Windows.Forms.ToolTip(this.components);
+            this.NgayLap = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SoHD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TongTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SDT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HoTenNV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_sanpham)).BeginInit();
             this.panel1.SuspendLayout();
@@ -110,7 +110,7 @@
             this.lbl_TongTien.Name = "lbl_TongTien";
             this.lbl_TongTien.Size = new System.Drawing.Size(275, 42);
             this.lbl_TongTien.TabIndex = 0;
-            this.lbl_TongTien.Text = "lbl_tổng tiền";
+            this.lbl_TongTien.Text = "0";
             this.lbl_TongTien.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbl_TongSoLuong
@@ -119,7 +119,7 @@
             this.lbl_TongSoLuong.Name = "lbl_TongSoLuong";
             this.lbl_TongSoLuong.Size = new System.Drawing.Size(144, 42);
             this.lbl_TongSoLuong.TabIndex = 0;
-            this.lbl_TongSoLuong.Text = "lbl_tổng số lượng";
+            this.lbl_TongSoLuong.Text = "0";
             this.lbl_TongSoLuong.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbl_TongHoaDon
@@ -128,7 +128,7 @@
             this.lbl_TongHoaDon.Name = "lbl_TongHoaDon";
             this.lbl_TongHoaDon.Size = new System.Drawing.Size(221, 41);
             this.lbl_TongHoaDon.TabIndex = 0;
-            this.lbl_TongHoaDon.Text = "lbl_tổng hóa đơn";
+            this.lbl_TongHoaDon.Text = "0";
             this.lbl_TongHoaDon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dgv_sanpham
@@ -162,67 +162,6 @@
             this.dgv_sanpham.TabIndex = 9;
             this.dgv_sanpham.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_sanpham_CellClick);
             this.dgv_sanpham.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_sanpham_ColumnHeaderMouseClick);
-            // 
-            // NgayLap
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.NgayLap.DefaultCellStyle = dataGridViewCellStyle2;
-            this.NgayLap.HeaderText = "Thời gian";
-            this.NgayLap.Name = "NgayLap";
-            this.NgayLap.ReadOnly = true;
-            this.NgayLap.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.NgayLap.Width = 250;
-            // 
-            // SoHD
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SoHD.DefaultCellStyle = dataGridViewCellStyle3;
-            this.SoHD.HeaderText = "Số hóa đơn";
-            this.SoHD.Name = "SoHD";
-            this.SoHD.ReadOnly = true;
-            this.SoHD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SoHD.Width = 350;
-            // 
-            // SL
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SL.DefaultCellStyle = dataGridViewCellStyle4;
-            this.SL.HeaderText = "Số lượng";
-            this.SL.Name = "SL";
-            this.SL.ReadOnly = true;
-            this.SL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SL.Width = 140;
-            // 
-            // TongTien
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.TongTien.DefaultCellStyle = dataGridViewCellStyle5;
-            this.TongTien.HeaderText = "Thành tiền";
-            this.TongTien.Name = "TongTien";
-            this.TongTien.ReadOnly = true;
-            this.TongTien.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TongTien.Width = 350;
-            // 
-            // SDT
-            // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SDT.DefaultCellStyle = dataGridViewCellStyle6;
-            this.SDT.HeaderText = "Số điện thoại";
-            this.SDT.Name = "SDT";
-            this.SDT.ReadOnly = true;
-            this.SDT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SDT.Width = 200;
-            // 
-            // HoTenNV
-            // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.HoTenNV.DefaultCellStyle = dataGridViewCellStyle7;
-            this.HoTenNV.HeaderText = "Nhân viên";
-            this.HoTenNV.Name = "HoTenNV";
-            this.HoTenNV.ReadOnly = true;
-            this.HoTenNV.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.HoTenNV.Width = 240;
             // 
             // panel1
             // 
@@ -404,7 +343,7 @@
             "7 ngày",
             "Tháng này",
             "Tùy chỉnh"});
-            this.cb_filterngay.Location = new System.Drawing.Point(3, 6);
+            this.cb_filterngay.Location = new System.Drawing.Point(10, 6);
             this.cb_filterngay.Name = "cb_filterngay";
             this.cb_filterngay.Size = new System.Drawing.Size(243, 38);
             this.cb_filterngay.TabIndex = 0;
@@ -423,7 +362,7 @@
             this.pb_date.Controls.Add(this.label3);
             this.pb_date.Controls.Add(this.lbl);
             this.pb_date.Controls.Add(this.label1);
-            this.pb_date.Location = new System.Drawing.Point(2, 165);
+            this.pb_date.Location = new System.Drawing.Point(9, 165);
             this.pb_date.Name = "pb_date";
             this.pb_date.Size = new System.Drawing.Size(398, 260);
             this.pb_date.TabIndex = 3;
@@ -522,6 +461,67 @@
             this.GoiY.ReshowDelay = 20;
             this.GoiY.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.GoiY.ToolTipTitle = "Gợi ý";
+            // 
+            // NgayLap
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.NgayLap.DefaultCellStyle = dataGridViewCellStyle2;
+            this.NgayLap.HeaderText = "Thời gian";
+            this.NgayLap.Name = "NgayLap";
+            this.NgayLap.ReadOnly = true;
+            this.NgayLap.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.NgayLap.Width = 250;
+            // 
+            // SoHD
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SoHD.DefaultCellStyle = dataGridViewCellStyle3;
+            this.SoHD.HeaderText = "Số hóa đơn";
+            this.SoHD.Name = "SoHD";
+            this.SoHD.ReadOnly = true;
+            this.SoHD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SoHD.Width = 350;
+            // 
+            // SL
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SL.DefaultCellStyle = dataGridViewCellStyle4;
+            this.SL.HeaderText = "Số lượng";
+            this.SL.Name = "SL";
+            this.SL.ReadOnly = true;
+            this.SL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SL.Width = 140;
+            // 
+            // TongTien
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.TongTien.DefaultCellStyle = dataGridViewCellStyle5;
+            this.TongTien.HeaderText = "Thành tiền";
+            this.TongTien.Name = "TongTien";
+            this.TongTien.ReadOnly = true;
+            this.TongTien.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TongTien.Width = 350;
+            // 
+            // SDT
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SDT.DefaultCellStyle = dataGridViewCellStyle6;
+            this.SDT.HeaderText = "Số điện thoại";
+            this.SDT.Name = "SDT";
+            this.SDT.ReadOnly = true;
+            this.SDT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SDT.Width = 200;
+            // 
+            // HoTenNV
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.HoTenNV.DefaultCellStyle = dataGridViewCellStyle7;
+            this.HoTenNV.HeaderText = "Nhân viên";
+            this.HoTenNV.Name = "HoTenNV";
+            this.HoTenNV.ReadOnly = true;
+            this.HoTenNV.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.HoTenNV.Width = 240;
             // 
             // HoaDon
             // 

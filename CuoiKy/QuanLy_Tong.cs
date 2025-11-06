@@ -17,24 +17,27 @@ namespace CuoiKy
     public partial class QuanLy_Tong : Form
     {
         string MaCN;
-        public QuanLy_Tong(string maCN)
+        string QuyenHan = TaiKhoan.QuyenHan;
+        public QuanLy_Tong()
         {
             InitializeComponent();
-            MaCN= maCN;
+            MaCN= TaiKhoan.MaCN;
         }
 
         private void QuanLy_Tong_Load(object sender, EventArgs e)
         {
             cb_filterngay.SelectedIndex = 0;
+            group_sp.Visible = QuyenHan == "Admin"? true : false;
             Load_Data();
             
         }
         private void Load_Data()
         {
+            //MessageBox.Show($"{MaCN}");
             string query1 = $@"SELECT *
                               FROM [CoupleTX_SQL].[dbo].[vBaoCaoQuanLy_Ngay_ChiNhanh] where MaCN like '{MaCN}' and Ngay between '{dtp_tungay.Value.ToString("yyyy-MM-dd")}' and '{dtp_denngay.Value.ToString("yyyy-MM-dd")}'";
             lbl_TenChiNhanh.Text = Convert.ToString(Sql.Scalar($"Select TenCN from ChiNhanh where MaCN like '{MaCN}'"));
-            string query2 = $@"SELECT TonCuoiNgay,TonDauNgay FROM dbo.vTonKho_TheoChiNhanh WHERE MaCN LIKE 'T{MaCN}'";
+            string query2 = $@"SELECT TonCuoiNgay,TonDauNgay FROM dbo.vTonKho_TheoChiNhanh WHERE MaCN LIKE '{MaCN}' and Ngay between '{dtp_tungay.Value.ToString("yyyy-MM-dd")}' and '{dtp_denngay.Value.ToString("yyyy-MM-dd")}'";
             SqlDataReader rd = Sql.Reader(query2);
             if (rd.Read())
             {
@@ -57,11 +60,13 @@ namespace CuoiKy
             else
             {
                 lbl_SLDaNhap.Text = "0";
-                lbl_SLKDaXuat.Text="0";
+                lbl_SLKDaXuat.Text = "0";
             }
-            int sl = Convert.ToInt32(Sql.Scalar($@"select count(*) from [dbo].[PhieuNhap] where DenCN like '{MaCN}'"));
-            pn_thongbao.Visible = sl>0? true : false;
-            lbl_slphieunhap_chuanhap.Text = Convert.ToString(sl);
+            int sl = Convert.ToInt32(Sql.Scalar($@"select count(*) from [dbo].[PhieuNhap] where DenCN like '{MaCN}' and LEFT(SoPN,2) LIKE 'PX'"));
+            if (sl > 0)
+                errorProvider1.SetError(btn_NhapPhieu, "Có phiếu nhập chưa được xử lý");
+            else
+                errorProvider1.Clear();
         }
 
         private void cb_filterngay_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,7 +108,7 @@ namespace CuoiKy
         {
 
             this.Hide();
-            BanHang frm = new BanHang(MaCN);
+            BanHang frm = new BanHang();
             frm.ShowDialog();
             this.Close();
         }
@@ -112,7 +117,7 @@ namespace CuoiKy
         {
 
             this.Hide();
-            HoaDon frm = new HoaDon(MaCN);
+            HoaDon frm = new HoaDon();
             frm.ShowDialog();
             this.Close();
         }
@@ -121,7 +126,54 @@ namespace CuoiKy
         {
 
             this.Hide();
-            DoanhThu frm = new DoanhThu(MaCN);
+            DoanhThu frm = new DoanhThu();
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Load_Data();
+            pb_date.Visible=false;
+        }
+
+        private void btn_NhapPhieu_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            PhieuNhap frm = new PhieuNhap();
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void btn_TaoPhieuXuat_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            PhieuXuat frm = new PhieuXuat();
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void btn_Quanly_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_Thoat_Click(object sender, EventArgs e)
+        {
+            var a = MessageBox.Show("Bạn có chắc muốn đăng xuất chứ", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (a == DialogResult.OK)
+            {
+                this.Hide();
+                Login frm = new Login();
+                frm.ShowDialog();
+                this.Close();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SanPham frm = new SanPham();
             frm.ShowDialog();
             this.Close();
         }

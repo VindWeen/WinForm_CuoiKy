@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XemHoaDon));
             this.lbl_TenKH = new System.Windows.Forms.Label();
             this.lbl_NhanVien = new System.Windows.Forms.Label();
@@ -46,10 +46,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -212,18 +212,19 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TenSP,
@@ -241,6 +242,26 @@
             this.dataGridView1.Size = new System.Drawing.Size(678, 280);
             this.dataGridView1.TabIndex = 20;
             // 
+            // TenSP
+            // 
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TenSP.DefaultCellStyle = dataGridViewCellStyle2;
+            this.TenSP.HeaderText = "Tên sản phẩm";
+            this.TenSP.Name = "TenSP";
+            this.TenSP.Width = 400;
+            // 
+            // SL
+            // 
+            this.SL.HeaderText = "Số lương";
+            this.SL.Name = "SL";
+            this.SL.Width = 115;
+            // 
+            // DonGia
+            // 
+            this.DonGia.HeaderText = "Đơn giá";
+            this.DonGia.Name = "DonGia";
+            this.DonGia.Width = 160;
+            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -249,29 +270,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(786, 672);
             this.panel1.TabIndex = 21;
-            // 
-            // TenSP
-            // 
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TenSP.DefaultCellStyle = dataGridViewCellStyle4;
-            this.TenSP.HeaderText = "Tên sản phẩm";
-            this.TenSP.Name = "TenSP";
-            this.TenSP.ReadOnly = true;
-            this.TenSP.Width = 400;
-            // 
-            // SL
-            // 
-            this.SL.HeaderText = "Số lương";
-            this.SL.Name = "SL";
-            this.SL.ReadOnly = true;
-            this.SL.Width = 115;
-            // 
-            // DonGia
-            // 
-            this.DonGia.HeaderText = "Đơn giá";
-            this.DonGia.Name = "DonGia";
-            this.DonGia.ReadOnly = true;
-            this.DonGia.Width = 160;
             // 
             // XemHoaDon
             // 
@@ -300,6 +298,7 @@
             this.Name = "XemHoaDon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Xem Hóa Đơn";
+            this.Deactivate += new System.EventHandler(this.XemHoaDon_Deactivate);
             this.Load += new System.EventHandler(this.XemHoaDon_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

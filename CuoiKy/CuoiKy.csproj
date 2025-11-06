@@ -65,6 +65,12 @@
     <Compile Include="HoaDon.Designer.cs">
       <DependentUpon>HoaDon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Kho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Kho.Designer.cs">
+      <DependentUpon>Kho.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,12 +95,25 @@
     <Compile Include="QuanLy_Tong.Designer.cs">
       <DependentUpon>QuanLy_Tong.cs</DependentUpon>
     </Compile>
+    <Compile Include="SanPham.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SanPham.Designer.cs">
+      <DependentUpon>SanPham.cs</DependentUpon>
+    </Compile>
     <Compile Include="SQL.cs" />
+    <Compile Include="TaiKhoan.cs" />
     <Compile Include="ThemKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ThemKhachHang.Designer.cs">
       <DependentUpon>ThemKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThemPhieuXuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThemPhieuXuat.Designer.cs">
+      <DependentUpon>ThemPhieuXuat.cs</DependentUpon>
     </Compile>
     <Compile Include="XemHoaDon.cs">
       <SubType>Form</SubType>
@@ -125,6 +144,9 @@
     <EmbeddedResource Include="HoaDon.resx">
       <DependentUpon>HoaDon.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Kho.resx">
+      <DependentUpon>Kho.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,8 +169,14 @@
     <EmbeddedResource Include="QuanLy_Tong.resx">
       <DependentUpon>QuanLy_Tong.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SanPham.resx">
+      <DependentUpon>SanPham.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ThemKhachHang.resx">
       <DependentUpon>ThemKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThemPhieuXuat.resx">
+      <DependentUpon>ThemPhieuXuat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XemHoaDon.resx">
       <DependentUpon>XemHoaDon.cs</DependentUpon>

@@ -17,7 +17,6 @@ namespace CuoiKy
 {
     public partial class Login : Form
     {
-        public string MaCN;
         
         public Login()
         {
@@ -38,10 +37,15 @@ namespace CuoiKy
                 label3.Visible=false;
 
                 //Lấy mã chi nhánh
-                MaCN = Convert.ToString(Sql.Scalar($"select dbo.uf_ChiNhanh('{username}','{password}')"));
+                SqlDataReader rd = Sql.Reader($"select * from dbo.ufTaiKhoan('{username}','{password}')");
+                rd.Read();
+                TaiKhoan.MaCN = rd["MaCN"].ToString();
+                TaiKhoan.QuyenHan = rd["QuyenHan"].ToString() ;
+                TaiKhoan.ChucVu = rd["ChucVu"].ToString();
+                rd.Close();
                 //Mở form mới
                 this.Hide();
-                BanHang frm = new BanHang(MaCN);
+                BanHang frm = new BanHang();
                 frm.ShowDialog();
                 this.Close();
             }

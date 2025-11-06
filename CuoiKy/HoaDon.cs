@@ -14,62 +14,63 @@ namespace CuoiKy
 {
     public partial class HoaDon : Form
     {
-        string MaCN;
-        public HoaDon(string maCN)
+        string MaCN = TaiKhoan.MaCN;
+        public HoaDon()
         {
             InitializeComponent();
-            MaCN = maCN;
         }
 
 
         private void cb_filterngay_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (cb_filterngay.SelectedIndex) 
+            switch (cb_filterngay.SelectedIndex)
             {
-                case 0://Hôm nay
-                    dtp_tungay.Value = DateTime.Now;
-                    dtp_denngay.Value = DateTime.Now;
-                    dtp_tutg.Value = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day,1,0,0);
-                    dtp_dentg.Value = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day,23,59,59);
-                    Load_dgv();
-                    pb_date.Visible = false;
-                    break;
-                case 1://Hôm qua
-                    dtp_tungay.Value = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day-1);
-                    dtp_denngay.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - 1);
-                    dtp_tutg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day-1, 1, 0, 0);
-                    dtp_dentg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day-1, 23, 59, 59);
-                    Load_dgv();
-                    pb_date.Visible = false;
-                    break;
-                case 2://7 ngày
-                    dtp_tungay.Value = DateTime.Now.AddDays(-6).Date; // hôm nay tính là ngày thứ 7
+                case 0: // Hôm nay
+                    dtp_tungay.Value = DateTime.Now.Date;
                     dtp_denngay.Value = DateTime.Now.Date;
-                    dtp_tutg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(-6).Day, 1, 0, 0);
-                    dtp_dentg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59);
-                    Load_dgv();
+                    dtp_tutg.Value = DateTime.Now.Date.AddHours(1);
+                    dtp_dentg.Value = DateTime.Now.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
                     pb_date.Visible = false;
                     break;
-                case 3://Tháng này
+
+                case 1: // Hôm qua
+                    DateTime homQua = DateTime.Now.AddDays(-1).Date;
+                    dtp_tungay.Value = homQua;
+                    dtp_denngay.Value = homQua;
+                    dtp_tutg.Value = homQua.AddHours(1);
+                    dtp_dentg.Value = homQua.AddHours(23).AddMinutes(59).AddSeconds(59);
+                    pb_date.Visible = false;
+                    break;
+
+                case 2: // 7 ngày gần nhất
+                    DateTime bayNgayTruoc = DateTime.Now.AddDays(-6).Date;
+                    DateTime homNay = DateTime.Now.Date;
+                    dtp_tungay.Value = bayNgayTruoc;
+                    dtp_denngay.Value = homNay;
+                    dtp_tutg.Value = bayNgayTruoc.AddHours(1);
+                    dtp_dentg.Value = homNay.AddHours(23).AddMinutes(59).AddSeconds(59);
+                    pb_date.Visible = false;
+                    break;
+
+                case 3: // Tháng này
                     DateTime now = DateTime.Now;
-                    DateTime firstDay = new DateTime(now.Year, now.Month, 1); // Ngày đầu tháng
-                    DateTime lastDay = firstDay.AddMonths(1).AddDays(-1);     // Ngày cuối tháng
+                    DateTime firstDay = new DateTime(now.Year, now.Month, 1);
+                    DateTime lastDay = firstDay.AddMonths(1).AddDays(-1);
 
                     dtp_tungay.Value = firstDay;
                     dtp_denngay.Value = lastDay;
-
-                    dtp_tutg.Value = new DateTime(firstDay.Year, firstDay.Month, firstDay.Day, 1, 0, 0);
-                    dtp_dentg.Value = new DateTime(lastDay.Year, lastDay.Month, lastDay.Day, 23, 59, 59);
-                    Load_dgv();
+                    dtp_tutg.Value = firstDay.AddHours(1);
+                    dtp_dentg.Value = lastDay.AddHours(23).AddMinutes(59).AddSeconds(59);
                     pb_date.Visible = false;
                     break;
-                case 4://Tùy chỉnh
-                    dtp_tutg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
-                    dtp_dentg.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 0, 0);
+
+                case 4: // Tùy chỉnh
+                    dtp_tutg.Value = DateTime.Now.Date.AddHours(8);
+                    dtp_dentg.Value = DateTime.Now.Date.AddHours(22);
                     pb_date.Visible = true;
-                    pb_date.Visible = false;
                     break;
             }
+            Load_dgv();
         }
         private void Load_dgv()
         {
@@ -308,13 +309,16 @@ namespace CuoiKy
 
         private void txt_NhanVien_KeyDown(object sender, KeyEventArgs e)
         {
-
+            if (e.KeyCode == Keys.Enter)
+            {
+                Load_dgv();
+            }
         }
 
         private void btn_BanHang_Click(object sender, EventArgs e)
         {
             this.Hide();
-            BanHang frmBanHang = new BanHang(MaCN);
+            BanHang frmBanHang = new BanHang();
             frmBanHang.ShowDialog();
             this.Close();
         }
@@ -333,7 +337,7 @@ namespace CuoiKy
         private void btn_DoanhThu_Click(object sender, EventArgs e)
         {
             this.Hide();
-            DoanhThu frm = new DoanhThu(MaCN);
+            DoanhThu frm = new DoanhThu();
             frm.ShowDialog();
             this.Close();
         }
@@ -341,7 +345,7 @@ namespace CuoiKy
         private void btn_Quanly_Click(object sender, EventArgs e)
         {
             this.Hide();
-            QuanLy_Tong frm = new QuanLy_Tong(MaCN);
+            QuanLy_Tong frm = new QuanLy_Tong();
             frm.ShowDialog();
             this.Close();
         }

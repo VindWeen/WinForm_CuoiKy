@@ -28,11 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PhieuXuat));
             this.btn_DoanhThu = new System.Windows.Forms.Button();
             this.btn_Quanly = new System.Windows.Forms.Button();
             this.btn_HoaDon = new System.Windows.Forms.Button();
             this.btn_BanHang = new System.Windows.Forms.Button();
+            this.cb_filterngay = new System.Windows.Forms.ComboBox();
+            this.pb_date = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dtp_denngay = new System.Windows.Forms.DateTimePicker();
+            this.dtp_dentg = new System.Windows.Forms.DateTimePicker();
+            this.dtp_tutg = new System.Windows.Forms.DateTimePicker();
+            this.dtp_tungay = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lbl = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cb_filterSL = new System.Windows.Forms.ComboBox();
+            this.txt_sopx = new System.Windows.Forms.TextBox();
+            this.dgv_phieuxuat = new System.Windows.Forms.DataGridView();
+            this.txt_DenCN = new System.Windows.Forms.TextBox();
+            this.txt_SL = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_taophieuxuat = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lbl_TongSoLuong = new System.Windows.Forms.Label();
+            this.lbl_TongPhieuXuat = new System.Windows.Forms.Label();
+            this.btn_Thoat = new System.Windows.Forms.Button();
+            this.NgayLap = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SoPX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DenCN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InPhieu = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.pb_date.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_phieuxuat)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_DoanhThu
@@ -45,6 +82,7 @@
             this.btn_DoanhThu.Size = new System.Drawing.Size(154, 73);
             this.btn_DoanhThu.TabIndex = 17;
             this.btn_DoanhThu.UseVisualStyleBackColor = false;
+            this.btn_DoanhThu.Click += new System.EventHandler(this.btn_DoanhThu_Click);
             // 
             // btn_Quanly
             // 
@@ -56,6 +94,7 @@
             this.btn_Quanly.Size = new System.Drawing.Size(154, 73);
             this.btn_Quanly.TabIndex = 18;
             this.btn_Quanly.UseVisualStyleBackColor = false;
+            this.btn_Quanly.Click += new System.EventHandler(this.btn_Quanly_Click);
             // 
             // btn_HoaDon
             // 
@@ -67,6 +106,7 @@
             this.btn_HoaDon.Size = new System.Drawing.Size(154, 73);
             this.btn_HoaDon.TabIndex = 16;
             this.btn_HoaDon.UseVisualStyleBackColor = false;
+            this.btn_HoaDon.Click += new System.EventHandler(this.btn_HoaDon_Click);
             // 
             // btn_BanHang
             // 
@@ -79,14 +119,321 @@
             this.btn_BanHang.TabIndex = 15;
             this.btn_BanHang.UseVisualStyleBackColor = false;
             // 
+            // cb_filterngay
+            // 
+            this.cb_filterngay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_filterngay.FormattingEnabled = true;
+            this.cb_filterngay.Items.AddRange(new object[] {
+            "Hôm nay",
+            "Hôm qua",
+            "7 ngày",
+            "Tháng này",
+            "Tùy chỉnh"});
+            this.cb_filterngay.Location = new System.Drawing.Point(10, 18);
+            this.cb_filterngay.Name = "cb_filterngay";
+            this.cb_filterngay.Size = new System.Drawing.Size(291, 38);
+            this.cb_filterngay.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.cb_filterngay, "Chọn ngày để lọc");
+            this.cb_filterngay.SelectedIndexChanged += new System.EventHandler(this.cb_filterngay_SelectedIndexChanged);
+            // 
+            // pb_date
+            // 
+            this.pb_date.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_date.Controls.Add(this.button1);
+            this.pb_date.Controls.Add(this.dtp_denngay);
+            this.pb_date.Controls.Add(this.dtp_dentg);
+            this.pb_date.Controls.Add(this.dtp_tutg);
+            this.pb_date.Controls.Add(this.dtp_tungay);
+            this.pb_date.Controls.Add(this.label2);
+            this.pb_date.Controls.Add(this.label3);
+            this.pb_date.Controls.Add(this.lbl);
+            this.pb_date.Controls.Add(this.label1);
+            this.pb_date.Location = new System.Drawing.Point(12, 197);
+            this.pb_date.Name = "pb_date";
+            this.pb_date.Size = new System.Drawing.Size(398, 260);
+            this.pb_date.TabIndex = 24;
+            this.pb_date.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
+            this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(30, 192);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(319, 44);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Xem";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // dtp_denngay
+            // 
+            this.dtp_denngay.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtp_denngay.Location = new System.Drawing.Point(208, 62);
+            this.dtp_denngay.Name = "dtp_denngay";
+            this.dtp_denngay.Size = new System.Drawing.Size(153, 35);
+            this.dtp_denngay.TabIndex = 1;
+            // 
+            // dtp_dentg
+            // 
+            this.dtp_dentg.CustomFormat = "HH:mm:ss";
+            this.dtp_dentg.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtp_dentg.Location = new System.Drawing.Point(219, 144);
+            this.dtp_dentg.Name = "dtp_dentg";
+            this.dtp_dentg.Size = new System.Drawing.Size(130, 35);
+            this.dtp_dentg.TabIndex = 1;
+            this.dtp_dentg.Value = new System.DateTime(2025, 11, 1, 22, 0, 0, 0);
+            // 
+            // dtp_tutg
+            // 
+            this.dtp_tutg.CustomFormat = "HH:mm:ss";
+            this.dtp_tutg.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtp_tutg.Location = new System.Drawing.Point(29, 145);
+            this.dtp_tutg.Name = "dtp_tutg";
+            this.dtp_tutg.Size = new System.Drawing.Size(130, 35);
+            this.dtp_tutg.TabIndex = 1;
+            this.dtp_tutg.Value = new System.DateTime(2025, 11, 1, 8, 0, 0, 0);
+            // 
+            // dtp_tungay
+            // 
+            this.dtp_tungay.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtp_tungay.Location = new System.Drawing.Point(30, 62);
+            this.dtp_tungay.Name = "dtp_tungay";
+            this.dtp_tungay.Size = new System.Drawing.Size(153, 35);
+            this.dtp_tungay.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(203, 29);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(102, 30);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Đến ngày";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(165, 147);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(48, 30);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "đến";
+            // 
+            // lbl
+            // 
+            this.lbl.AutoSize = true;
+            this.lbl.Location = new System.Drawing.Point(25, 112);
+            this.lbl.Name = "lbl";
+            this.lbl.Size = new System.Drawing.Size(100, 30);
+            this.lbl.TabIndex = 0;
+            this.lbl.Text = "Thời gian";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(25, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(87, 30);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Từ ngày";
+            // 
+            // cb_filterSL
+            // 
+            this.cb_filterSL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_filterSL.FormattingEnabled = true;
+            this.cb_filterSL.Items.AddRange(new object[] {
+            "*",
+            "=",
+            ">",
+            "≥",
+            "<",
+            "≤"});
+            this.cb_filterSL.Location = new System.Drawing.Point(1140, 18);
+            this.cb_filterSL.Name = "cb_filterSL";
+            this.cb_filterSL.Size = new System.Drawing.Size(42, 38);
+            this.cb_filterSL.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.cb_filterSL, "Chọn điều kiện lọc cho số lượng. * là hiển thị hết");
+            this.cb_filterSL.SelectedIndexChanged += new System.EventHandler(this.cb_filterSL_SelectedIndexChanged);
+            // 
+            // txt_sopx
+            // 
+            this.txt_sopx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_sopx.Location = new System.Drawing.Point(314, 20);
+            this.txt_sopx.Name = "txt_sopx";
+            this.txt_sopx.Size = new System.Drawing.Size(313, 35);
+            this.txt_sopx.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.txt_sopx, "Lọc theo số phiếu xuất. Nhấn \"enter\" để lọc");
+            this.txt_sopx.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_sopx_KeyDown);
+            // 
+            // dgv_phieuxuat
+            // 
+            this.dgv_phieuxuat.AllowUserToAddRows = false;
+            this.dgv_phieuxuat.BackgroundColor = System.Drawing.Color.White;
+            this.dgv_phieuxuat.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_phieuxuat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_phieuxuat.ColumnHeadersHeight = 40;
+            this.dgv_phieuxuat.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NgayLap,
+            this.SoPX,
+            this.DenCN,
+            this.SL,
+            this.InPhieu});
+            this.dgv_phieuxuat.GridColor = System.Drawing.Color.Gainsboro;
+            this.dgv_phieuxuat.Location = new System.Drawing.Point(0, 196);
+            this.dgv_phieuxuat.Name = "dgv_phieuxuat";
+            this.dgv_phieuxuat.ReadOnly = true;
+            this.dgv_phieuxuat.RowHeadersVisible = false;
+            this.dgv_phieuxuat.RowTemplate.Height = 40;
+            this.dgv_phieuxuat.Size = new System.Drawing.Size(1534, 531);
+            this.dgv_phieuxuat.TabIndex = 25;
+            this.dgv_phieuxuat.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_phieuxuat_CellClick);
+            this.dgv_phieuxuat.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_phieuxuat_ColumnHeaderMouseClick);
+            // 
+            // txt_DenCN
+            // 
+            this.txt_DenCN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_DenCN.Location = new System.Drawing.Point(645, 20);
+            this.txt_DenCN.Name = "txt_DenCN";
+            this.txt_DenCN.Size = new System.Drawing.Size(474, 35);
+            this.txt_DenCN.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.txt_DenCN, "Lọc theo tên chi nhánh. Nhấn \"enter\" để lọc");
+            // 
+            // txt_SL
+            // 
+            this.txt_SL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_SL.Enabled = false;
+            this.txt_SL.Location = new System.Drawing.Point(1184, 20);
+            this.txt_SL.Name = "txt_SL";
+            this.txt_SL.Size = new System.Drawing.Size(145, 35);
+            this.txt_SL.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.txt_SL, "Lọc theo số lượng. Nhấn \"enter\" để lọc");
+            this.txt_SL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_SL_KeyDown);
+            // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(-5, 104);
-            this.panel1.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
+            this.panel1.Controls.Add(this.txt_sopx);
+            this.panel1.Controls.Add(this.cb_filterngay);
+            this.panel1.Controls.Add(this.txt_DenCN);
+            this.panel1.Controls.Add(this.txt_SL);
+            this.panel1.Controls.Add(this.cb_filterSL);
+            this.panel1.Location = new System.Drawing.Point(0, 135);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(3084, 694);
-            this.panel1.TabIndex = 19;
+            this.panel1.Size = new System.Drawing.Size(1534, 61);
+            this.panel1.TabIndex = 26;
+            // 
+            // btn_taophieuxuat
+            // 
+            this.btn_taophieuxuat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
+            this.btn_taophieuxuat.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btn_taophieuxuat.Location = new System.Drawing.Point(1343, 734);
+            this.btn_taophieuxuat.Name = "btn_taophieuxuat";
+            this.btn_taophieuxuat.Size = new System.Drawing.Size(179, 48);
+            this.btn_taophieuxuat.TabIndex = 27;
+            this.btn_taophieuxuat.Text = "Tạo phiếu xuất";
+            this.btn_taophieuxuat.UseVisualStyleBackColor = false;
+            this.btn_taophieuxuat.Click += new System.EventHandler(this.btn_taophieuxuat_Click);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.BackColor = System.Drawing.Color.White;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip1.ToolTipTitle = "Gợi ý";
+            // 
+            // lbl_TongSoLuong
+            // 
+            this.lbl_TongSoLuong.Location = new System.Drawing.Point(1146, 737);
+            this.lbl_TongSoLuong.Name = "lbl_TongSoLuong";
+            this.lbl_TongSoLuong.Size = new System.Drawing.Size(183, 42);
+            this.lbl_TongSoLuong.TabIndex = 28;
+            this.lbl_TongSoLuong.Text = "0";
+            this.lbl_TongSoLuong.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_TongPhieuXuat
+            // 
+            this.lbl_TongPhieuXuat.Location = new System.Drawing.Point(375, 738);
+            this.lbl_TongPhieuXuat.Name = "lbl_TongPhieuXuat";
+            this.lbl_TongPhieuXuat.Size = new System.Drawing.Size(221, 41);
+            this.lbl_TongPhieuXuat.TabIndex = 29;
+            this.lbl_TongPhieuXuat.Text = "0";
+            this.lbl_TongPhieuXuat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_Thoat
+            // 
+            this.btn_Thoat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(93)))), ((int)(((byte)(93)))));
+            this.btn_Thoat.ForeColor = System.Drawing.Color.White;
+            this.btn_Thoat.Image = global::CuoiKy.Properties.Resources.logoutwhite;
+            this.btn_Thoat.Location = new System.Drawing.Point(1356, 12);
+            this.btn_Thoat.Name = "btn_Thoat";
+            this.btn_Thoat.Size = new System.Drawing.Size(154, 73);
+            this.btn_Thoat.TabIndex = 30;
+            this.btn_Thoat.UseVisualStyleBackColor = false;
+            this.btn_Thoat.Click += new System.EventHandler(this.btn_Thoat_Click);
+            // 
+            // NgayLap
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.NgayLap.DefaultCellStyle = dataGridViewCellStyle2;
+            this.NgayLap.HeaderText = "Thời gian";
+            this.NgayLap.Name = "NgayLap";
+            this.NgayLap.ReadOnly = true;
+            this.NgayLap.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.NgayLap.Width = 300;
+            // 
+            // SoPX
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SoPX.DefaultCellStyle = dataGridViewCellStyle3;
+            this.SoPX.HeaderText = "Số phiếu xuất";
+            this.SoPX.Name = "SoPX";
+            this.SoPX.ReadOnly = true;
+            this.SoPX.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SoPX.Width = 330;
+            // 
+            // DenCN
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DenCN.DefaultCellStyle = dataGridViewCellStyle4;
+            this.DenCN.HeaderText = "Đến chi nhánh";
+            this.DenCN.Name = "DenCN";
+            this.DenCN.ReadOnly = true;
+            this.DenCN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.DenCN.Width = 500;
+            // 
+            // SL
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SL.DefaultCellStyle = dataGridViewCellStyle5;
+            this.SL.HeaderText = "Số lượng";
+            this.SL.Name = "SL";
+            this.SL.ReadOnly = true;
+            this.SL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SL.Width = 200;
+            // 
+            // InPhieu
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.Format = "In Phiếu";
+            dataGridViewCellStyle6.NullValue = "In Phiếu";
+            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(20, 3, 20, 3);
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.InPhieu.DefaultCellStyle = dataGridViewCellStyle6;
+            this.InPhieu.HeaderText = "*________";
+            this.InPhieu.Name = "InPhieu";
+            this.InPhieu.ReadOnly = true;
+            this.InPhieu.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.InPhieu.Width = 200;
             // 
             // PhieuXuat
             // 
@@ -95,16 +442,29 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1534, 791);
+            this.Controls.Add(this.btn_Thoat);
+            this.Controls.Add(this.lbl_TongSoLuong);
+            this.Controls.Add(this.lbl_TongPhieuXuat);
+            this.Controls.Add(this.pb_date);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btn_taophieuxuat);
             this.Controls.Add(this.btn_DoanhThu);
             this.Controls.Add(this.btn_Quanly);
             this.Controls.Add(this.btn_HoaDon);
             this.Controls.Add(this.btn_BanHang);
+            this.Controls.Add(this.dgv_phieuxuat);
             this.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Name = "PhieuXuat";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PhieuXuat";
+            this.Load += new System.EventHandler(this.PhieuXuat_Load);
+            this.pb_date.ResumeLayout(false);
+            this.pb_date.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_phieuxuat)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -115,6 +475,32 @@
         private System.Windows.Forms.Button btn_Quanly;
         private System.Windows.Forms.Button btn_HoaDon;
         private System.Windows.Forms.Button btn_BanHang;
+        private System.Windows.Forms.ComboBox cb_filterngay;
+        private System.Windows.Forms.Panel pb_date;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DateTimePicker dtp_denngay;
+        private System.Windows.Forms.DateTimePicker dtp_dentg;
+        private System.Windows.Forms.DateTimePicker dtp_tutg;
+        private System.Windows.Forms.DateTimePicker dtp_tungay;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbl;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cb_filterSL;
+        private System.Windows.Forms.TextBox txt_sopx;
+        private System.Windows.Forms.DataGridView dgv_phieuxuat;
+        private System.Windows.Forms.TextBox txt_DenCN;
+        private System.Windows.Forms.TextBox txt_SL;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btn_taophieuxuat;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label lbl_TongSoLuong;
+        private System.Windows.Forms.Label lbl_TongPhieuXuat;
+        private System.Windows.Forms.Button btn_Thoat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NgayLap;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SoPX;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DenCN;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SL;
+        private System.Windows.Forms.DataGridViewButtonColumn InPhieu;
     }
 }
