@@ -77,6 +77,12 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="NhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NhanVien.Designer.cs">
+      <DependentUpon>NhanVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="PhieuNhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,12 @@
     <Compile Include="ThemPhieuXuat.Designer.cs">
       <DependentUpon>ThemPhieuXuat.cs</DependentUpon>
     </Compile>
+    <Compile Include="ThemSanPham.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThemSanPham.Designer.cs">
+      <DependentUpon>ThemSanPham.cs</DependentUpon>
+    </Compile>
     <Compile Include="XemHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +162,9 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien.resx">
+      <DependentUpon>NhanVien.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PhieuNhap.resx">
       <DependentUpon>PhieuNhap.cs</DependentUpon>
     </EmbeddedResource>
@@ -177,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ThemPhieuXuat.resx">
       <DependentUpon>ThemPhieuXuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThemSanPham.resx">
+      <DependentUpon>ThemSanPham.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XemHoaDon.resx">
       <DependentUpon>XemHoaDon.cs</DependentUpon>

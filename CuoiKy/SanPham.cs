@@ -84,13 +84,13 @@ namespace CuoiKy
                     filter_tt = "<=";
                     break;
             }
-            string query = $@"select * from dbo.uf_SanPham_Kho";
+            string query = $@"";
             if (QuyenHan != "Admin")
             {
-                query += $" ('{MaCN}') where 1=1";
+                query += $"select * from dbo.uf_SanPham_Kho ('{MaCN}') where 1=1";
             }
             else
-                query += $" (NULL) where 1=1";
+                query += $"select * from dbo.v_SanPham_Kho where 1=1";
             // 🔸 Lọc theo model
             if (!string.IsNullOrWhiteSpace(txt_masp.Text))
             {
@@ -232,6 +232,48 @@ namespace CuoiKy
                 DataGridViewRow a = dgv_sanpham.Rows[e.RowIndex];
                 Load_Data();
             }
+        }
+
+        private void btn_Quanly_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            QuanLy_Tong frm = new QuanLy_Tong();
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void btn_DoanhThu_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            DoanhThu frm = new DoanhThu();
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void btn_HoaDon_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            HoaDon frm = new HoaDon();
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void btn_BanHang_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            BanHang frm = new BanHang();
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void btn_themsp_Click(object sender, EventArgs e)
+        {
+            ThemSanPham frm = new ThemSanPham();
+            frm.FormClosed += (s, argr) =>
+            {
+                Load_Data();
+            };
+            frm.ShowDialog();
         }
     }
 }

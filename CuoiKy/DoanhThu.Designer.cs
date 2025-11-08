@@ -65,6 +65,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_SLHoaDon = new System.Windows.Forms.Label();
             this.btn_Thoat = new System.Windows.Forms.Button();
+            this.lbl_thongbao = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pb_date.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart_DoanhThu)).BeginInit();
@@ -122,6 +123,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lbl_thongbao);
             this.panel1.Controls.Add(this.pb_date);
             this.panel1.Controls.Add(this.cb_filterngay);
             this.panel1.Controls.Add(this.chart_DoanhThu);
@@ -447,6 +449,16 @@
             this.btn_Thoat.UseVisualStyleBackColor = false;
             this.btn_Thoat.Click += new System.EventHandler(this.btn_Thoat_Click);
             // 
+            // lbl_thongbao
+            // 
+            this.lbl_thongbao.AutoSize = true;
+            this.lbl_thongbao.Location = new System.Drawing.Point(266, 361);
+            this.lbl_thongbao.Name = "lbl_thongbao";
+            this.lbl_thongbao.Size = new System.Drawing.Size(68, 30);
+            this.lbl_thongbao.TabIndex = 7;
+            this.lbl_thongbao.Text = "label3";
+            this.lbl_thongbao.Visible = false;
+            // 
             // DoanhThu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
@@ -469,6 +481,7 @@
             this.Text = "DoanhThu";
             this.Load += new System.EventHandler(this.DoanhThu_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.pb_date.ResumeLayout(false);
             this.pb_date.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart_DoanhThu)).EndInit();
@@ -513,5 +526,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbl_slKhachLe;
         private System.Windows.Forms.Button btn_Thoat;
+        private System.Windows.Forms.Label lbl_thongbao;
     }
 }

@@ -35,7 +35,6 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.pb_date = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.dtp_denngay = new System.Windows.Forms.DateTimePicker();
@@ -48,6 +47,7 @@
             this.btn_TaoPhieuXuat = new System.Windows.Forms.Button();
             this.btn_NhapPhieu = new System.Windows.Forms.Button();
             this.btn_XuatBaoCao = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.lbl_tondaungay = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -84,7 +84,7 @@
             this.panel1.Location = new System.Drawing.Point(-5, 104);
             this.panel1.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(3084, 694);
+            this.panel1.Size = new System.Drawing.Size(1539, 684);
             this.panel1.TabIndex = 15;
             // 
             // group_sp
@@ -102,7 +102,7 @@
             // 
             this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
             this.button5.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.button5.Location = new System.Drawing.Point(586, 34);
+            this.button5.Location = new System.Drawing.Point(586, 32);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(192, 71);
             this.button5.TabIndex = 8;
@@ -113,7 +113,7 @@
             // 
             this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
             this.button4.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.button4.Location = new System.Drawing.Point(369, 34);
+            this.button4.Location = new System.Drawing.Point(369, 32);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(192, 71);
             this.button4.TabIndex = 8;
@@ -124,24 +124,13 @@
             // 
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
             this.button3.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.button3.Location = new System.Drawing.Point(154, 34);
+            this.button3.Location = new System.Drawing.Point(154, 32);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(192, 71);
             this.button3.TabIndex = 8;
             this.button3.Text = "Nhân viên";
             this.button3.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
-            this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.button2.Location = new System.Drawing.Point(591, 30);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(175, 71);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Sản phẩm";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // pb_date
             // 
@@ -285,6 +274,18 @@
             this.btn_XuatBaoCao.TabIndex = 8;
             this.btn_XuatBaoCao.Text = "Xuất báo cáo";
             this.btn_XuatBaoCao.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
+            this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.button2.Location = new System.Drawing.Point(591, 30);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(175, 71);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Sản phẩm";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label5
             // 

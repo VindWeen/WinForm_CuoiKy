@@ -38,6 +38,7 @@ namespace CuoiKy
 
             for(int i =0;i<mauList.Count;i++)
             {
+                List<string> sizeOrder = new List<string> { "S", "M", "L", "XL", "XXL", "XXXL" };
                 string tenMau = mauList[i].ToString();
                 string query_size = $@"select distinct(Size) from dbo.v_uf_SanPham_MauKhoSize('{Model}') where Mau = N'{tenMau}'";
                 TabPage tab = new TabPage(tenMau) { BackColor = Color.White };
@@ -49,27 +50,20 @@ namespace CuoiKy
                     sizes.Add(rd_size["Size"].ToString());
                 }
 
+                sizes = sizes.OrderBy(s => sizeOrder.IndexOf(s)).ThenBy(s => s).ToList();
                 TableLayoutPanel tbl = TaoBangSize(sizes);  // Hàm tạo bảng size
                 tbl.Dock = DockStyle.Top;
 
                 DataGridView dgv = TaoDgvMau();             // Hàm tạo dgv mới
                 dgv.Dock = DockStyle.Fill;
 
-                tab.Controls.Add(dgv);      // Add dgv TRƯỚC
-                tab.Controls.Add(tbl);      // Add TableLayoutPanel SAU (nằm trên cùng)
+                tab.Controls.Add(dgv);     
+                tab.Controls.Add(tbl);      
 
                 tabControl1.TabPages.Add(tab);
-                //var tbl = TaoBangSize(sizes);
-                //tab.Controls.Add(tbl);    // add TableLayoutPanel trên top
-
-                //var dgv = TaoDgvMau();
-                //tab.Controls.Add(dgv);    // add DataGridView bên dưới
-
-                //tabControl1.TabPages.Add(tab);
 
             }
         }
-        // Tạo và trả về TableLayoutPanel mẫu (với 6 button size ở cột 2~7, dòng 2)
         public TableLayoutPanel TaoBangSize(List<string> sizes)
         {
             var tbl = new TableLayoutPanel();
@@ -153,6 +147,11 @@ namespace CuoiKy
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }

@@ -196,6 +196,26 @@ BEGIN
 END
 
 go
+-- Tạo mã barcode sản phẩm
+CREATE FUNCTION dbo.uf_TaoMaSP()
+RETURNS VARCHAR(13)
+AS
+BEGIN
+    DECLARE @SoCuoi BIGINT
+    DECLARE @MaMoi VARCHAR(13)
+
+    -- Lấy mã lớn nhất hiện có
+    SELECT @SoCuoi = MAX(CAST(MaSP AS BIGINT)) FROM SanPham
+
+    IF @SoCuoi IS NULL
+        SET @SoCuoi = 893000000000  -- prefix 893 (VN) + 10 số
+
+    -- Tăng lên 1
+    SET @MaMoi = CAST(@SoCuoi + 1 AS VARCHAR(13))
+
+    RETURN @MaMoi
+END
+
 
 -- LẤY THÔNG TIN ACCOUNT THEO TÀI KHOẢN
 GO
@@ -215,8 +235,47 @@ AS
 			ON Kho.MaSP = SanPham.MaSP 
 			WHERE MaCN = @MACN)
 
+go
+CREATE OR ALTER FUNCTION dbo.uf_SanPham_Kho (@MaCN varchar(20) = NULL)
+RETURNs TABLE
+AS
+  RETURN select SUBSTRING(
+    TenSP,
+    PATINDEX('%[A-Z][A-Z][A-Z] [0-9][0-9][0-9][0-9]%', TenSP),
+    8
+  ) AS Model,TenSP,DonGia,Sum(SL) as TongSL
+  from Kho k join SanPham sp on k.MaSP = sp.MaSP
+  where  (@MaCN IS NULL OR @MaCN = '' OR k.MaCN LIKE @MaCN)
+  Group by MaCN,k.MaSP,TenSP,DonGia
+GO
+
+--
 
 
+-- MODEL - MÀU - SIZE
+CREATE OR ALTER Function  dbo.v_uf_SanPham_MauKhoSize(@Model varchar(20))
+RETURNS TABLE
+AS
+ RETURN SELECT
+    k.MaCN,            -- Mã chi nhánh
+    k.MaSP,            -- Mã sản phẩm
+    k.SL,         -- Số lượng tồn kho
+    -- Model (mã sản phẩm, nếu cần hiển thị chi tiết SP)
+    SUBSTRING(s.TenSP, PATINDEX('%[A-Z][A-Z][A-Z] [0-9][0-9][0-9][0-9]%', s.TenSP), 8) AS Model,
+    -- Tên sản phẩm
+    LTRIM(RTRIM(LEFT(s.TenSP, PATINDEX('%[A-Z][A-Z][A-Z] [0-9][0-9][0-9][0-9]%', s.TenSP) - 2))) AS TenSP,
+    -- Size (tách từ TenSP)
+    SUBSTRING(
+        s.TenSP,
+        CHARINDEX('/', s.TenSP, PATINDEX('%[A-Z][A-Z][A-Z] [0-9][0-9][0-9][0-9]%', s.TenSP) + 8) + 1,
+        CHARINDEX('/', s.TenSP, CHARINDEX('/', s.TenSP, PATINDEX('%[A-Z][A-Z][A-Z] [0-9][0-9][0-9][0-9]%', s.TenSP) + 8) + 1) -
+        CHARINDEX('/', s.TenSP, PATINDEX('%[A-Z][A-Z][A-Z] [0-9][0-9][0-9][0-9]%', s.TenSP) + 8) - 1
+    ) AS Size,
+    -- Màu (tách từ TenSP)
+    RIGHT(s.TenSP, CHARINDEX('/', REVERSE(s.TenSP)) - 1) AS Mau
+FROM Kho k
+LEFT JOIN SanPham s ON k.MaSP = s.MaSP
+WHERE SUBSTRING(s.TenSP, PATINDEX('%[A-Z][A-Z][A-Z] [0-9][0-9][0-9][0-9]%', s.TenSP), 8) = @Model
 -- ================================== TRIGGERS ================================
 
 -- CHI TIẾT HOÁ ĐƠN
@@ -662,6 +721,16 @@ SELECT hd.SoHD,NgayLap,HoTen,kh.SDT,HoTenNV,sum(ThanhTien)as TongTien
 GO
 
 
+-- XÓA SẢN PHẨM
+CREATE OR ALTER PROC sp_XoaSanPham @MaSP VARCHAR(20)
+AS
+BEGIN
+	SET NOCOUNT ON;
+		DELETE FROM KHO WHERE MaSP = @MaSP
+		DELETE FROM SanPham WHERE MaSP = @MaSP
+END;
+Go
+
 -- XÓA PHIẾU NHẬP
 CREATE OR ALTER PROCEDURE sp_XoaPhieuNhap
     @SoPN NVARCHAR(10)
@@ -862,8 +931,17 @@ FROM dbo.CTPX c
 JOIN dbo.SanPham sp ON sp.MaSP = c.MaSP;
 GO
 
-
-
+-- SẢN PHẨM ADMIN
+CREATE OR ALTER VIEW dbo.v_SanPham_Kho
+AS
+  select SUBSTRING(
+    TenSP,
+    PATINDEX('%[A-Z][A-Z][A-Z] [0-9][0-9][0-9][0-9]%', TenSP),
+    8
+  ) AS Model,TenSP,DonGia,Sum(SL) as TongSL
+  from Kho k join SanPham sp on k.MaSP = sp.MaSP
+  Group by k.MaSP,TenSP,DonGia
+GO
 
 --================================================ DỮ LIỆU MẪU
 
@@ -925,7 +1003,7 @@ VALUES
 ('KH008', N'Nguyễn Thị Lan', N'Nữ', '0944332211', '1996-12-12', N'88 Cách Mạng Tháng 8, Q.10, TP.HCM');
 
 -- Sản phẩm
-INSERT INTO SanPham VALUES ('8934567890123',N'Áo Khoác Nữ Double Face Original Slogan/S/Be Nâu',649000,N'Cái'),
+INSERT INTO SanPham VALUES 
 ('8934567890130',N'Áo Khoác Nữ Double Face Original Slogan WOK 2063/M/Be Nâu',649000,N'Cái'),
 ('8934567890147',N'Áo Khoác Nữ Double Face Original Slogan WOK 2063/L/Be Nâu',649000,N'Cái'),
 ('8934567890154',N'Áo Khoác Nữ Double Face Original Slogan WOK 2063/S/Xanh Nhạt',649000,N'Cái'),

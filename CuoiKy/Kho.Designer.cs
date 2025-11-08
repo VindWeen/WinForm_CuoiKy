@@ -33,9 +33,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Kho));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btn_dong = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.lbl_tensp = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.btn_dong = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -63,6 +63,26 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Số lượng tồn trong kho";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // lbl_tensp
+            // 
+            this.lbl_tensp.AutoSize = true;
+            this.lbl_tensp.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_tensp.Location = new System.Drawing.Point(12, 47);
+            this.lbl_tensp.Name = "lbl_tensp";
+            this.lbl_tensp.Size = new System.Drawing.Size(179, 37);
+            this.lbl_tensp.TabIndex = 38;
+            this.lbl_tensp.Text = "Tên sản phẩm";
+            this.lbl_tensp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Location = new System.Drawing.Point(12, 103);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1036, 429);
+            this.tabControl1.TabIndex = 37;
             // 
             // btn_dong
             // 
@@ -76,25 +96,6 @@
             this.btn_dong.Text = "Đóng";
             this.btn_dong.UseVisualStyleBackColor = false;
             this.btn_dong.Click += new System.EventHandler(this.btn_dong_Click);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Location = new System.Drawing.Point(12, 103);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1036, 429);
-            this.tabControl1.TabIndex = 37;
-            // 
-            // lbl_tensp
-            // 
-            this.lbl_tensp.AutoSize = true;
-            this.lbl_tensp.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_tensp.Location = new System.Drawing.Point(12, 47);
-            this.lbl_tensp.Name = "lbl_tensp";
-            this.lbl_tensp.Size = new System.Drawing.Size(179, 37);
-            this.lbl_tensp.TabIndex = 38;
-            this.lbl_tensp.Text = "Tên sản phẩm";
-            this.lbl_tensp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel1
             // 

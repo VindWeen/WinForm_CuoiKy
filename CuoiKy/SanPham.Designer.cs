@@ -28,20 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txt_masp = new System.Windows.Forms.TextBox();
             this.txt_tensp = new System.Windows.Forms.TextBox();
+            this.txt_TT = new System.Windows.Forms.TextBox();
             this.txt_SL = new System.Windows.Forms.TextBox();
+            this.cb_filterTT = new System.Windows.Forms.ComboBox();
             this.cb_filterSL = new System.Windows.Forms.ComboBox();
             this.dgv_sanpham = new System.Windows.Forms.DataGridView();
-            this.cb_filterTT = new System.Windows.Forms.ComboBox();
-            this.txt_TT = new System.Windows.Forms.TextBox();
+            this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.XemTon = new System.Windows.Forms.DataGridViewButtonColumn();
             this.lbl_TongSoLuong = new System.Windows.Forms.Label();
             this.lbl_TongSP = new System.Windows.Forms.Label();
             this.btn_themsp = new System.Windows.Forms.Button();
@@ -50,11 +55,6 @@
             this.btn_Quanly = new System.Windows.Forms.Button();
             this.btn_HoaDon = new System.Windows.Forms.Button();
             this.btn_BanHang = new System.Windows.Forms.Button();
-            this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.XemTon = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_sanpham)).BeginInit();
             this.SuspendLayout();
@@ -90,6 +90,16 @@
             this.txt_tensp.TabIndex = 22;
             this.txt_tensp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_tensp_KeyDown);
             // 
+            // txt_TT
+            // 
+            this.txt_TT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_TT.Enabled = false;
+            this.txt_TT.Location = new System.Drawing.Point(1181, 17);
+            this.txt_TT.Name = "txt_TT";
+            this.txt_TT.Size = new System.Drawing.Size(145, 35);
+            this.txt_TT.TabIndex = 20;
+            this.txt_TT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_TT_KeyDown);
+            // 
             // txt_SL
             // 
             this.txt_SL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -99,6 +109,23 @@
             this.txt_SL.Size = new System.Drawing.Size(145, 35);
             this.txt_SL.TabIndex = 20;
             this.txt_SL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_SL_KeyDown);
+            // 
+            // cb_filterTT
+            // 
+            this.cb_filterTT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_filterTT.FormattingEnabled = true;
+            this.cb_filterTT.Items.AddRange(new object[] {
+            "*",
+            "=",
+            ">",
+            "≥",
+            "<",
+            "≤"});
+            this.cb_filterTT.Location = new System.Drawing.Point(1137, 15);
+            this.cb_filterTT.Name = "cb_filterTT";
+            this.cb_filterTT.Size = new System.Drawing.Size(42, 38);
+            this.cb_filterTT.TabIndex = 23;
+            this.cb_filterTT.SelectedIndexChanged += new System.EventHandler(this.cb_filterTT_SelectedIndexChanged);
             // 
             // cb_filterSL
             // 
@@ -122,14 +149,14 @@
             this.dgv_sanpham.AllowUserToAddRows = false;
             this.dgv_sanpham.BackgroundColor = System.Drawing.Color.White;
             this.dgv_sanpham.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_sanpham.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_sanpham.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_sanpham.ColumnHeadersHeight = 40;
             this.dgv_sanpham.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Model,
@@ -147,32 +174,63 @@
             this.dgv_sanpham.TabIndex = 31;
             this.dgv_sanpham.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_sanpham_CellClick);
             // 
-            // cb_filterTT
+            // Model
             // 
-            this.cb_filterTT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_filterTT.FormattingEnabled = true;
-            this.cb_filterTT.Items.AddRange(new object[] {
-            "*",
-            "=",
-            ">",
-            "≥",
-            "<",
-            "≤"});
-            this.cb_filterTT.Location = new System.Drawing.Point(1137, 15);
-            this.cb_filterTT.Name = "cb_filterTT";
-            this.cb_filterTT.Size = new System.Drawing.Size(42, 38);
-            this.cb_filterTT.TabIndex = 23;
-            this.cb_filterTT.SelectedIndexChanged += new System.EventHandler(this.cb_filterTT_SelectedIndexChanged);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.Model.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Model.HeaderText = "Model";
+            this.Model.Name = "Model";
+            this.Model.ReadOnly = true;
+            this.Model.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Model.Width = 300;
             // 
-            // txt_TT
+            // TenSP
             // 
-            this.txt_TT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_TT.Enabled = false;
-            this.txt_TT.Location = new System.Drawing.Point(1181, 17);
-            this.txt_TT.Name = "txt_TT";
-            this.txt_TT.Size = new System.Drawing.Size(145, 35);
-            this.txt_TT.TabIndex = 20;
-            this.txt_TT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_TT_KeyDown);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.TenSP.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TenSP.HeaderText = "Tên sản phẩm";
+            this.TenSP.Name = "TenSP";
+            this.TenSP.ReadOnly = true;
+            this.TenSP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TenSP.Width = 610;
+            // 
+            // DonGia
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DonGia.DefaultCellStyle = dataGridViewCellStyle4;
+            this.DonGia.HeaderText = "Giá";
+            this.DonGia.Name = "DonGia";
+            this.DonGia.ReadOnly = true;
+            this.DonGia.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.DonGia.Width = 210;
+            // 
+            // SL
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SL.DefaultCellStyle = dataGridViewCellStyle5;
+            this.SL.HeaderText = "Tổng tồn";
+            this.SL.Name = "SL";
+            this.SL.ReadOnly = true;
+            this.SL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SL.Width = 210;
+            // 
+            // XemTon
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.Format = "🔍 Xem tồn";
+            dataGridViewCellStyle6.NullValue = "🔍 Xem tồn";
+            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(20, 3, 20, 3);
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.XemTon.DefaultCellStyle = dataGridViewCellStyle6;
+            this.XemTon.HeaderText = "*________";
+            this.XemTon.Name = "XemTon";
+            this.XemTon.ReadOnly = true;
+            this.XemTon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.XemTon.Width = 200;
             // 
             // lbl_TongSoLuong
             // 
@@ -202,6 +260,7 @@
             this.btn_themsp.TabIndex = 33;
             this.btn_themsp.Text = "Thêm sản phẩm";
             this.btn_themsp.UseVisualStyleBackColor = false;
+            this.btn_themsp.Click += new System.EventHandler(this.btn_themsp_Click);
             // 
             // btn_Thoat
             // 
@@ -225,6 +284,7 @@
             this.btn_DoanhThu.Size = new System.Drawing.Size(154, 73);
             this.btn_DoanhThu.TabIndex = 19;
             this.btn_DoanhThu.UseVisualStyleBackColor = false;
+            this.btn_DoanhThu.Click += new System.EventHandler(this.btn_DoanhThu_Click);
             // 
             // btn_Quanly
             // 
@@ -236,6 +296,7 @@
             this.btn_Quanly.Size = new System.Drawing.Size(154, 73);
             this.btn_Quanly.TabIndex = 20;
             this.btn_Quanly.UseVisualStyleBackColor = false;
+            this.btn_Quanly.Click += new System.EventHandler(this.btn_Quanly_Click);
             // 
             // btn_HoaDon
             // 
@@ -247,6 +308,7 @@
             this.btn_HoaDon.Size = new System.Drawing.Size(154, 73);
             this.btn_HoaDon.TabIndex = 18;
             this.btn_HoaDon.UseVisualStyleBackColor = false;
+            this.btn_HoaDon.Click += new System.EventHandler(this.btn_HoaDon_Click);
             // 
             // btn_BanHang
             // 
@@ -258,64 +320,7 @@
             this.btn_BanHang.Size = new System.Drawing.Size(154, 73);
             this.btn_BanHang.TabIndex = 17;
             this.btn_BanHang.UseVisualStyleBackColor = false;
-            // 
-            // Model
-            // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.Model.DefaultCellStyle = dataGridViewCellStyle8;
-            this.Model.HeaderText = "Model";
-            this.Model.Name = "Model";
-            this.Model.ReadOnly = true;
-            this.Model.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Model.Width = 300;
-            // 
-            // TenSP
-            // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.TenSP.DefaultCellStyle = dataGridViewCellStyle9;
-            this.TenSP.HeaderText = "Tên sản phẩm";
-            this.TenSP.Name = "TenSP";
-            this.TenSP.ReadOnly = true;
-            this.TenSP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TenSP.Width = 610;
-            // 
-            // DonGia
-            // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DonGia.DefaultCellStyle = dataGridViewCellStyle10;
-            this.DonGia.HeaderText = "Giá";
-            this.DonGia.Name = "DonGia";
-            this.DonGia.ReadOnly = true;
-            this.DonGia.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.DonGia.Width = 210;
-            // 
-            // SL
-            // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SL.DefaultCellStyle = dataGridViewCellStyle11;
-            this.SL.HeaderText = "Tổng tồn";
-            this.SL.Name = "SL";
-            this.SL.ReadOnly = true;
-            this.SL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SL.Width = 210;
-            // 
-            // XemTon
-            // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.Format = "🔍 Xem tồn";
-            dataGridViewCellStyle12.NullValue = "🔍 Xem tồn";
-            dataGridViewCellStyle12.Padding = new System.Windows.Forms.Padding(20, 3, 20, 3);
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
-            this.XemTon.DefaultCellStyle = dataGridViewCellStyle12;
-            this.XemTon.HeaderText = "*________";
-            this.XemTon.Name = "XemTon";
-            this.XemTon.ReadOnly = true;
-            this.XemTon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.XemTon.Width = 200;
+            this.btn_BanHang.Click += new System.EventHandler(this.btn_BanHang_Click);
             // 
             // SanPham
             // 
