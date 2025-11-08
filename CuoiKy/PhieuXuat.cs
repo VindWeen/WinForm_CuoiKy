@@ -54,7 +54,7 @@ namespace CuoiKy
                     break;
             }
             string TenCN = Convert.ToString(Sql.Scalar($"select TenCN from ChiNhanh where MaCN like '{MaCN}'"));
-            string query = $@"select * from v_XemPhieuXuat where TuCN like N'{TenCN}'
+            string query = $@"select * from v_XemCTPX where TuCN like N'{TenCN}'
                                                               and NgayLap >= '{dtp_tungay.Value.ToString("yyyy-MM-dd") + " " + dtp_tutg.Value.ToString("HH:mm:ss")}'
                                                               and NgayLap <= '{dtp_denngay.Value.ToString("yyyy-MM-dd") + " " + dtp_dentg.Value.ToString("HH:mm:ss")}'";
             // 🔸 Lọc theo số phiếu xuất

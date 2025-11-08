@@ -28,7 +28,6 @@ namespace CuoiKy
 
         private void BanHang_Load(object sender, EventArgs e)
         {
-
             Load_combobox_sanpham();
             Load_combobox_nhanvien();
             Load_combobox_khachhang();
@@ -334,7 +333,14 @@ namespace CuoiKy
         {
             ThemKhachHang frm = new ThemKhachHang(cb_khachhang.Text, false);
             frm.ShowDialog();
-            cb_khachhang.Text = null;
+            if(frm.IsDisposed)
+                Load_combobox_khachhang();
+            cb_khachhang.SelectedText = (cb_khachhang.Text);
+            isLoaded = true;
+            button1.Enabled = false;
+        }
+        private void ThemKhachHang_FormClosed(object sender, EventArgs e)
+        {
             Load_combobox_khachhang();
         }
 
@@ -360,11 +366,22 @@ namespace CuoiKy
         private void button1_Click(object sender, EventArgs e)
         {
             string[] a = cb_khachhang.Text.Replace(" ","").Split('-');
-            MessageBox.Show(a[1].Replace(" ", ""));
-            cb_khachhang.Text = null;
-            Load_combobox_khachhang();
-            ThemKhachHang frm = new ThemKhachHang(a[1].Replace(" ", ""), true);
-            frm.ShowDialog();
+            if (a.Length > 0)
+            {
+                ThemKhachHang frm = new ThemKhachHang(a[1].Replace(" ", ""), true);
+                frm.FormClosed += (s, args) =>
+                {
+                    Load_combobox_khachhang();
+
+                    // Reset lại trạng thái nút
+                    btn_ThemKhachHang.Enabled = false;
+                    button1.Enabled = false;
+                    cb_khachhang.SelectedIndex = -1;
+                    cb_khachhang.Text = null;
+                };
+
+                frm.ShowDialog();
+            }
         }
 
         private void txt_nhantien_KeyDown(object sender, KeyEventArgs e)

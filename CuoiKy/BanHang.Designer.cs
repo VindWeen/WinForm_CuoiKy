@@ -54,9 +54,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cb_khachhang = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_ThemKhachHang = new System.Windows.Forms.Button();
+            this.cb_khachhang = new System.Windows.Forms.ComboBox();
             this.btn_Thoat = new System.Windows.Forms.Button();
             this.btn_DoanhThu = new System.Windows.Forms.Button();
             this.btn_Quanly = new System.Windows.Forms.Button();
@@ -240,7 +240,7 @@
             this.btn_ThanhToan.Name = "btn_ThanhToan";
             this.btn_ThanhToan.Size = new System.Drawing.Size(360, 72);
             this.btn_ThanhToan.TabIndex = 19;
-            this.btn_ThanhToan.Text = "Thanh toán (F9)";
+            this.btn_ThanhToan.Text = "Thanh toán (Enter)";
             this.btn_ThanhToan.UseVisualStyleBackColor = false;
             this.btn_ThanhToan.Click += new System.EventHandler(this.btn_ThanhToan_Click);
             // 
@@ -314,18 +314,6 @@
             this.label1.Text = "Số lượng:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // cb_khachhang
-            // 
-            this.cb_khachhang.ForeColor = System.Drawing.Color.Black;
-            this.cb_khachhang.FormattingEnabled = true;
-            this.cb_khachhang.Location = new System.Drawing.Point(15, 11);
-            this.cb_khachhang.Name = "cb_khachhang";
-            this.cb_khachhang.Size = new System.Drawing.Size(284, 38);
-            this.cb_khachhang.TabIndex = 2;
-            this.cb_khachhang.SelectedIndexChanged += new System.EventHandler(this.cb_khachhang_SelectedIndexChanged);
-            this.cb_khachhang.TextUpdate += new System.EventHandler(this.cb_khachhang_TextUpdate);
-            this.cb_khachhang.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cb_khachhang_KeyDown);
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(181)))), ((int)(((byte)(59)))));
@@ -348,9 +336,22 @@
             this.btn_ThemKhachHang.UseVisualStyleBackColor = false;
             this.btn_ThemKhachHang.Click += new System.EventHandler(this.btn_ThemKhachHang_Click);
             // 
+            // cb_khachhang
+            // 
+            this.cb_khachhang.ForeColor = System.Drawing.Color.Black;
+            this.cb_khachhang.FormattingEnabled = true;
+            this.cb_khachhang.Location = new System.Drawing.Point(15, 11);
+            this.cb_khachhang.Name = "cb_khachhang";
+            this.cb_khachhang.Size = new System.Drawing.Size(284, 38);
+            this.cb_khachhang.TabIndex = 2;
+            this.cb_khachhang.SelectedIndexChanged += new System.EventHandler(this.cb_khachhang_SelectedIndexChanged);
+            this.cb_khachhang.TextUpdate += new System.EventHandler(this.cb_khachhang_TextUpdate);
+            this.cb_khachhang.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cb_khachhang_KeyDown);
+            // 
             // btn_Thoat
             // 
             this.btn_Thoat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(93)))), ((int)(((byte)(93)))));
+            this.btn_Thoat.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_Thoat.ForeColor = System.Drawing.Color.White;
             this.btn_Thoat.Image = global::CuoiKy.Properties.Resources.logoutwhite;
             this.btn_Thoat.Location = new System.Drawing.Point(1345, 12);
@@ -405,10 +406,12 @@
             // 
             // BanHang
             // 
+            this.AcceptButton = this.btn_ThanhToan;
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
+            this.CancelButton = this.btn_Thoat;
             this.ClientSize = new System.Drawing.Size(1534, 791);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);

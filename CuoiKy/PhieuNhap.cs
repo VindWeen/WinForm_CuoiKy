@@ -16,6 +16,7 @@ namespace CuoiKy
     public partial class PhieuNhap : Form
     {
         string MaCN;
+        string SoPX;
         public PhieuNhap()
         {
             InitializeComponent();
@@ -81,6 +82,7 @@ namespace CuoiKy
             while (rd.Read())
             {
                 //MessageBox.Show($"{rd["NgayLap"].ToString()}\n{rd["SoPN"].ToString()}\n{rd["DenCN"].ToString()}\n{Convert.ToInt32(rd["TongSL"]).ToString("N0")}");
+                SoPX = rd["SoPN"].ToString();
                 string SoPN = rd["SoPN"].ToString().Substring(0, 2) == "PN" ? rd["SoPN"].ToString() : rd["SoPN"].ToString().Replace("PX", "PN");
 
                 int rowIdx = dgv_phieunhap.Rows.Add(rd["NgayLap"].ToString(), SoPN, rd["TuCN"].ToString(),  Convert.ToInt32(rd["TongSL"]).ToString("N0"));
@@ -230,9 +232,7 @@ namespace CuoiKy
             {
                 if (e.RowIndex < 0 || e.ColumnIndex < 0)
                     return;
-
-                DataGridViewRow a = dgv_phieunhap.Rows[e.RowIndex];
-                string query = $@"EXEC dbo.usp_XacNhanNhapHang '{a.Cells["SoPN"].Value}'";
+                string query = $@"EXEC dbo.usp_XacNhanNhapHang '{SoPX}'";
                 MessageBox.Show(query);
                 Sql.NonQuery(query);
                 Load_Data();

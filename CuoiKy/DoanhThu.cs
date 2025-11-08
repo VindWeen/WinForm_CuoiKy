@@ -59,6 +59,8 @@ namespace CuoiKy
 
         private void Load_Chart()
         {
+            chart_DoanhThu.Legends.Clear();
+            chart_DoanhThu.Titles.Clear();
             chart_DoanhThu.Series.Clear();
 
             Series series = new Series("Doanh thu");
@@ -79,7 +81,8 @@ namespace CuoiKy
             {
                 query = $@"EXEC sp_ChartDay '{dtp_tungay.Value.ToString("yyyy-MM-dd") + " " + dtp_tutg.Value.ToString("HH:mm:ss")}', '{dtp_denngay.Value.ToString("yyyy-MM-dd") + " " + dtp_dentg.Value.ToString("HH:mm:ss")}','{MaCN}'";
             }
-            SqlDataReader rd = Sql.Reader(query);
+            SqlDataReader rd = Sql.Reader(query); 
+            int count = 0;
             while (rd.Read())
             {
                 if (theoGio)
@@ -94,13 +97,23 @@ namespace CuoiKy
                     int tongTien = Convert.ToInt32(rd["TongTien"]);
                     series.Points.AddXY(ngay.ToString("dd/MM/yyyy"), tongTien);
                 }
+                count++;
             }
-
-            chart_DoanhThu.Series.Add(series);
-            chart_DoanhThu.ChartAreas[0].AxisX.Interval = 1;
-            chart_DoanhThu.ChartAreas[0].AxisY.LabelStyle.Format = "#,##0";
-            chart_DoanhThu.ChartAreas[0].AxisY.Title = "Doanh thu (VNĐ)";
-            chart_DoanhThu.ChartAreas[0].AxisX.Title = theoGio ? "Giờ" : "Ngày";
+            if (count > 0)
+            {
+                chart_DoanhThu.Series.Add(series);
+                chart_DoanhThu.ChartAreas[0].AxisX.Interval = 1;
+                chart_DoanhThu.ChartAreas[0].AxisY.LabelStyle.Format = "#,##0";
+                chart_DoanhThu.ChartAreas[0].AxisY.Title = "Doanh thu (VNĐ)";
+                chart_DoanhThu.ChartAreas[0].AxisX.Title = theoGio ? "Giờ" : "Ngày";
+                chart_DoanhThu.Titles.Add("Thống kê bán hàng");
+                lbl_thongbao.Visible = false;
+            }
+            else 
+            {
+                lbl_thongbao.Visible =true;
+                lbl_thongbao.Text = "Chưa có doanh thu để thống kê";
+            }
         }
 
         private void cb_filterngay_SelectedIndexChanged(object sender, EventArgs e)
