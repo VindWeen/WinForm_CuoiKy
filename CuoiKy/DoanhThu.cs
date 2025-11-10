@@ -57,6 +57,7 @@ namespace CuoiKy
             Load_Chart();
         }
 
+        int count = 0;
         private void Load_Chart()
         {
             chart_DoanhThu.Legends.Clear();
@@ -82,7 +83,6 @@ namespace CuoiKy
                 query = $@"EXEC sp_ChartDay '{dtp_tungay.Value.ToString("yyyy-MM-dd") + " " + dtp_tutg.Value.ToString("HH:mm:ss")}', '{dtp_denngay.Value.ToString("yyyy-MM-dd") + " " + dtp_dentg.Value.ToString("HH:mm:ss")}','{MaCN}'";
             }
             SqlDataReader rd = Sql.Reader(query); 
-            int count = 0;
             while (rd.Read())
             {
                 if (theoGio)
@@ -203,6 +203,19 @@ namespace CuoiKy
                 Login frm = new Login();
                 frm.ShowDialog();
                 this.Close();
+            }
+        }
+
+        private void btn_XuatBaoCao_Click(object sender, EventArgs e)
+        {
+            if (count > 0)
+            {
+                rpt_BaoCaoDoanhThu frm = new rpt_BaoCaoDoanhThu(dtp_tungay.Value, dtp_denngay.Value);
+                frm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để báo cáo", "Thông báo",MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

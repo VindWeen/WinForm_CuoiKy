@@ -59,12 +59,12 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lbl_TenChiNhanh = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btn_Thoat = new System.Windows.Forms.Button();
             this.btn_DoanhThu = new System.Windows.Forms.Button();
             this.btn_Quanly = new System.Windows.Forms.Button();
             this.btn_HoaDon = new System.Windows.Forms.Button();
             this.btn_BanHang = new System.Windows.Forms.Button();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btn_Thoat = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.group_sp.SuspendLayout();
             this.pb_date.SuspendLayout();
@@ -119,6 +119,7 @@
             this.button4.TabIndex = 8;
             this.button4.Text = "Chi nhánh";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -274,6 +275,7 @@
             this.btn_XuatBaoCao.TabIndex = 8;
             this.btn_XuatBaoCao.Text = "Xuất báo cáo";
             this.btn_XuatBaoCao.UseVisualStyleBackColor = false;
+            this.btn_XuatBaoCao.Click += new System.EventHandler(this.btn_XuatBaoCao_Click);
             // 
             // button2
             // 
@@ -392,6 +394,24 @@
             this.lbl_TenChiNhanh.Text = "lbl_tên chi nhánh";
             this.lbl_TenChiNhanh.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider1.ContainerControl = this;
+            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
+            // 
+            // btn_Thoat
+            // 
+            this.btn_Thoat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(93)))), ((int)(((byte)(93)))));
+            this.btn_Thoat.ForeColor = System.Drawing.Color.White;
+            this.btn_Thoat.Image = global::CuoiKy.Properties.Resources.logoutwhite;
+            this.btn_Thoat.Location = new System.Drawing.Point(1354, 12);
+            this.btn_Thoat.Name = "btn_Thoat";
+            this.btn_Thoat.Size = new System.Drawing.Size(154, 73);
+            this.btn_Thoat.TabIndex = 16;
+            this.btn_Thoat.UseVisualStyleBackColor = false;
+            this.btn_Thoat.Click += new System.EventHandler(this.btn_Thoat_Click);
+            // 
             // btn_DoanhThu
             // 
             this.btn_DoanhThu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(201)))), ((int)(((byte)(238)))));
@@ -439,24 +459,6 @@
             this.btn_BanHang.TabIndex = 11;
             this.btn_BanHang.UseVisualStyleBackColor = false;
             this.btn_BanHang.Click += new System.EventHandler(this.btn_BanHang_Click);
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProvider1.ContainerControl = this;
-            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
-            // 
-            // btn_Thoat
-            // 
-            this.btn_Thoat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(93)))), ((int)(((byte)(93)))));
-            this.btn_Thoat.ForeColor = System.Drawing.Color.White;
-            this.btn_Thoat.Image = global::CuoiKy.Properties.Resources.logoutwhite;
-            this.btn_Thoat.Location = new System.Drawing.Point(1354, 12);
-            this.btn_Thoat.Name = "btn_Thoat";
-            this.btn_Thoat.Size = new System.Drawing.Size(154, 73);
-            this.btn_Thoat.TabIndex = 16;
-            this.btn_Thoat.UseVisualStyleBackColor = false;
-            this.btn_Thoat.Click += new System.EventHandler(this.btn_Thoat_Click);
             // 
             // QuanLy_Tong
             // 

@@ -26,6 +26,7 @@ namespace CuoiKy
         }
         private void Load_Data()
         {
+            dgv_nhanvien.Rows.Clear();
             string query = $@"select MaNV,HoTenNV,Phai,NgaySinh,SDT,ChucVu,TenCN from NhanVien join ChiNhanh on NhanVien.MaCN=ChiNhanh.MaCN";
             SqlDataReader rd = Sql.Reader(query);
             while(rd.Read())
@@ -135,9 +136,8 @@ namespace CuoiKy
             string ChiNhanh = cb_chinhanh.SelectedValue.ToString();
             string query = $@"update NhanVien set HoTenNV = N'{HoTen}',Phai = N'{GioiTinh}',NgaySinh = '{NgaySinh}',SDT = '{SDT}',ChucVu = N'{ChucVu}',MaCN = '{ChiNhanh}' where MaNV ='{txt_manv.Text}'";
             Sql.NonQuery(query);
+            Load_Data();
             Them();
-            NhanVien_Load(sender, e);
-
 
         }
 
@@ -149,7 +149,8 @@ namespace CuoiKy
                 string MaNV = txt_manv.Text;
                 string query = $@"Exec dbo.sp_XoaNhanVien '{MaNV}'";
                 Sql.NonQuery(query);
-                NhanVien_Load(sender, e);
+                Load_Data();
+                Them();
 
             }
             else

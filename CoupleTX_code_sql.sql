@@ -532,7 +532,8 @@ GO
 
 -- Report (báo cáo) doanh thu theo ngày
 CREATE OR ALTER PROCEDURE dbo.sp_BaoCaoDoanhThuNgay_Report
-    @Ngay DATE,
+    @TuNgay DATE = NULL,
+    @DenNgay DATE = NULL,
     @MaCN NVARCHAR(20)
 AS
 BEGIN
@@ -540,8 +541,9 @@ BEGIN
 
     SELECT 
         cn.TenCN,
+        cn.DiaChi,
         hd.SoHD,
-        hd.NgayLap,
+        CONVERT(varchar, hd.NgayLap, 103) AS NgayLap,
         nv.MaNV,
         nv.HoTenNV,
         COUNT(ct.MaSP) AS SoLuong,
@@ -550,11 +552,12 @@ BEGIN
     JOIN dbo.CTHD ct ON hd.SoHD = ct.SoHD
     JOIN dbo.NhanVien nv ON nv.MaNV = hd.MaNV
     JOIN dbo.ChiNhanh cn ON cn.MaCN = nv.MaCN
-    WHERE CAST(hd.NgayLap AS DATE) = @Ngay
+    WHERE (@TuNgay IS NULL OR CAST(hd.NgayLap AS DATE) >= @TuNgay)
+      AND (@DenNgay IS NULL OR CAST(hd.NgayLap AS DATE) <= @DenNgay)
       AND nv.MaCN = @MaCN
-    GROUP BY cn.TenCN, hd.SoHD, hd.NgayLap, nv.MaNV, nv.HoTenNV;
+    GROUP BY cn.TenCN, cn.DiaChi, hd.SoHD, hd.NgayLap, nv.MaNV, nv.HoTenNV;
 END;
-GO
+
 
 
 --Report (báo cáo) xuất nhập kho theo ngày
@@ -709,6 +712,41 @@ BEGIN
 END;
 go
 
+-- BILL
+CREATE OR ALTER PROCEDURE dbo.sp_ChiTietHoaDon
+    @SoHD NVARCHAR(20)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Hóa đơn chính
+    SELECT 
+        cn.TenCN AS TenChiNhanh,
+        hd.SoHD,
+        CONVERT(VARCHAR, hd.NgayLap, 103) AS NgayLap,
+        kh.SDT AS DienThoaiKhachHang,
+        nv.HoTenNV AS NhanVien
+    FROM HoaDon hd
+    LEFT JOIN KhachHang kh ON kh.MaKH = hd.MaKH   -- LEFT JOIN thay vì JOIN
+    JOIN NhanVien nv ON nv.MaNV = hd.MaNV
+    JOIN ChiNhanh cn ON cn.MaCN = nv.MaCN
+    WHERE hd.SoHD = @SoHD;
+
+    -- Chi tiết hóa đơn
+    SELECT 
+        cthd.MaSP,
+        sp.TenSP,
+        cthd.SL AS SoLuong,
+        sp.DonGia,
+        cthd.ThanhTien
+    FROM CTHD cthd
+    JOIN SanPham sp ON sp.MaSP = cthd.MaSP
+    WHERE cthd.SoHD = @SoHD;
+END;
+GO
+
+
+
 -- THÔNG TIN HÓA ĐƠN
 CREATE OR ALTER PROC dbo.sp_XemHoaDon @soHD varchar(20)
 AS
@@ -788,6 +826,70 @@ BEGIN
     END CATCH
 END;
 go
+
+--XÓA CHI NHÁNH
+CREATE OR ALTER PROCEDURE sp_XoaChiNhanh_Cascade
+    @MaCN VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- Xóa phiếu nhập và chi tiết
+        DELETE CTPN
+        WHERE SoPN IN (SELECT SoPN FROM PhieuNhap WHERE DenCN = @MaCN);
+
+        DELETE PhieuNhap
+        WHERE DenCN = @MaCN;
+
+        -- Xóa phiếu xuất và chi tiết
+        DELETE CTPX
+        WHERE SoPX IN (SELECT SoPX FROM PhieuXuat WHERE DenCN = @MaCN);
+
+        DELETE PhieuXuat
+        WHERE DenCN = @MaCN;
+
+        -- Xóa tài khoản của nhân viên thuộc chi nhánh
+        DELETE TaiKhoan
+        WHERE MaNV IN (SELECT MaNV FROM NhanVien WHERE MaCN = @MaCN);
+
+        -- Xóa chi tiết hóa đơn của nhân viên thuộc chi nhánh
+        DELETE CTHD
+        WHERE SoHD IN (
+            SELECT SoHD FROM HoaDon
+            WHERE MaNV IN (SELECT MaNV FROM NhanVien WHERE MaCN = @MaCN)
+        );
+
+        -- Xóa hóa đơn
+        DELETE HoaDon
+        WHERE MaNV IN (SELECT MaNV FROM NhanVien WHERE MaCN = @MaCN);
+
+        -- Xóa nhân viên
+        DELETE NhanVien
+        WHERE MaCN = @MaCN;
+
+        -- Xóa kho
+        DELETE Kho
+        WHERE MaCN = @MaCN;
+
+        -- Cuối cùng: xóa chi nhánh
+        DELETE ChiNhanh
+        WHERE MaCN = @MaCN;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        DECLARE @Err NVARCHAR(4000) = ERROR_MESSAGE();
+        RAISERROR(@Err, 16, 1);
+    END CATCH
+END
+GO
+
+
+	
 
 --================================ VIEWS =====================================
 -- Khách hàng

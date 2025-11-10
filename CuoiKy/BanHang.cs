@@ -461,6 +461,8 @@ namespace CuoiKy
                 query_cthd = $@"insert into CTHD values ('{SoHD}','{masp}',{sl},{thanhtien})"; 
                 Sql.NonQuery(query_cthd);
             }
+            Bill frm = new Bill($"{SoHD}");
+            frm.Print();
             dgv_sanpham.Rows.Clear();
             cb_khachhang.Text = null;
             cb_nhanvien.Text = null;

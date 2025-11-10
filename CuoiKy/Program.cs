@@ -25,6 +25,7 @@ namespace CuoiKy
             //Application.Run(new QuanLy_Tong("Tong"));
             //Application.Run(new PhieuXuat("Tong"));
             //Application.Run(new ThemPhieuXuat("Tong"));
+            //Application.Run(new rpt_BaoCaoDoanhThu());
         }
     }
 }

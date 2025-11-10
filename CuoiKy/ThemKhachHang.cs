@@ -138,11 +138,17 @@ namespace CuoiKy
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string makh = txt_makh.Text;
-            string query = $"EXEC sp_XoaKhachHang @MaKH ='{makh}'";
+            var a = MessageBox.Show("Bạn có chắc muốn xóa khách hàng này chứ? Thao tác này sẽ xóa những hóa đơn liêu quan tới khách hàng này!", "Cảnh báo", MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
+            if (a == DialogResult.OK)
+            {
+                string makh = txt_makh.Text;
+                string query = $"EXEC sp_XoaKhachHang @MaKH ='{makh}'";
 
                 Sql.NonQuery(query);
                 this.Close();
+            }
+            else
+                return;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

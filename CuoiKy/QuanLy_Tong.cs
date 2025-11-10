@@ -186,5 +186,21 @@ namespace CuoiKy
             frm.ShowDialog();
             this.Close();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ChiNhanh frm = new ChiNhanh();
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void btn_XuatBaoCao_Click(object sender, EventArgs e)
+        {
+            rpt_XuatNhapKho frm = new rpt_XuatNhapKho(dtp_tungay.Value, dtp_denngay.Value);
+            frm.tondau = Convert.ToInt32(lbl_tondaungay.Text.Replace(".",""));  
+            frm.toncuoi = Convert.ToInt32(lbl_Ton.Text.Replace(".", ""));
+            frm.ShowDialog();
+        }
     }
 }

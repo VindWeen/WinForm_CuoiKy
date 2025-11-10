@@ -37,6 +37,7 @@
             this.btn_HoaDon = new System.Windows.Forms.Button();
             this.btn_BanHang = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl_thongbao = new System.Windows.Forms.Label();
             this.pb_date = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.dtp_denngay = new System.Windows.Forms.DateTimePicker();
@@ -65,7 +66,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_SLHoaDon = new System.Windows.Forms.Label();
             this.btn_Thoat = new System.Windows.Forms.Button();
-            this.lbl_thongbao = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pb_date.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart_DoanhThu)).BeginInit();
@@ -133,6 +133,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(3084, 694);
             this.panel1.TabIndex = 11;
+            // 
+            // lbl_thongbao
+            // 
+            this.lbl_thongbao.AutoSize = true;
+            this.lbl_thongbao.Location = new System.Drawing.Point(266, 361);
+            this.lbl_thongbao.Name = "lbl_thongbao";
+            this.lbl_thongbao.Size = new System.Drawing.Size(68, 30);
+            this.lbl_thongbao.TabIndex = 7;
+            this.lbl_thongbao.Text = "label3";
+            this.lbl_thongbao.Visible = false;
             // 
             // pb_date
             // 
@@ -311,6 +321,7 @@
             this.btn_XuatBaoCao.TabIndex = 8;
             this.btn_XuatBaoCao.Text = "Xuất báo cáo";
             this.btn_XuatBaoCao.UseVisualStyleBackColor = false;
+            this.btn_XuatBaoCao.Click += new System.EventHandler(this.btn_XuatBaoCao_Click);
             // 
             // label5
             // 
@@ -448,16 +459,6 @@
             this.btn_Thoat.TabIndex = 31;
             this.btn_Thoat.UseVisualStyleBackColor = false;
             this.btn_Thoat.Click += new System.EventHandler(this.btn_Thoat_Click);
-            // 
-            // lbl_thongbao
-            // 
-            this.lbl_thongbao.AutoSize = true;
-            this.lbl_thongbao.Location = new System.Drawing.Point(266, 361);
-            this.lbl_thongbao.Name = "lbl_thongbao";
-            this.lbl_thongbao.Size = new System.Drawing.Size(68, 30);
-            this.lbl_thongbao.TabIndex = 7;
-            this.lbl_thongbao.Text = "label3";
-            this.lbl_thongbao.Visible = false;
             // 
             // DoanhThu
             // 
