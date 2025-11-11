@@ -558,11 +558,74 @@ BEGIN
     GROUP BY cn.TenCN, cn.DiaChi, hd.SoHD, hd.NgayLap, nv.MaNV, nv.HoTenNV;
 END;
 
+-- ton
+CREATE OR ALTER PROCEDURE dbo.sp_TonDauCuoi_TheoKhoangNgay_ChiNhanh
+    @TuNgay DATE,
+    @DenNgay DATE,
+    @MaCN NVARCHAR(20) = NULL  -- NULL nghĩa lấy tất cả chi nhánh
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Tồn đầu: ngày gần nhất với TuNgay, nếu không có thì ngày sớm nhất
+    WITH cteTonDau AS (
+        SELECT t1.MaCN, t1.TonDauNgay
+        FROM dbo.vTonKho_TheoChiNhanh t1
+        WHERE (@MaCN IS NULL OR t1.MaCN = @MaCN)
+          AND t1.Ngay = (
+              SELECT MAX(Ngay)
+              FROM dbo.vTonKho_TheoChiNhanh t2
+              WHERE (@MaCN IS NULL OR t2.MaCN = @MaCN)
+                AND t2.MaCN = t1.MaCN
+                AND t2.Ngay <= @TuNgay
+          )
+    ),
+    -- Tồn cuối: ngày gần nhất với DenNgay
+    cteTonCuoi AS (
+        SELECT t1.MaCN, t1.TonCuoiNgay
+        FROM dbo.vTonKho_TheoChiNhanh t1
+        WHERE (@MaCN IS NULL OR t1.MaCN = @MaCN)
+          AND t1.Ngay = (
+              SELECT MAX(Ngay)
+              FROM dbo.vTonKho_TheoChiNhanh t2
+              WHERE (@MaCN IS NULL OR t2.MaCN = @MaCN)
+                AND t2.MaCN = t1.MaCN
+                AND t2.Ngay <= @DenNgay
+          )
+    ),
+    -- Lấy tồn đầu cho chi nhánh không có ngày <= @TuNgay
+    cteTonDauFull AS (
+        SELECT MaCN, TonDauNgay FROM cteTonDau
+        UNION
+        SELECT MaCN, TonDauNgay
+        FROM dbo.vTonKho_TheoChiNhanh t
+        WHERE (@MaCN IS NULL OR t.MaCN = @MaCN)
+          AND Ngay = (
+              SELECT MIN(Ngay) 
+              FROM dbo.vTonKho_TheoChiNhanh t2 
+              WHERE t2.MaCN = t.MaCN
+          )
+    )
+
+    SELECT 
+        d.MaCN,
+        cn.TenCN,
+        cn.DiaChi,
+        d.TonDauNgay,
+        c.TonCuoiNgay
+    FROM cteTonDauFull d
+    JOIN cteTonCuoi c ON c.MaCN = d.MaCN
+    LEFT JOIN ChiNhanh cn ON cn.MaCN = d.MaCN
+    ORDER BY d.MaCN;
+END;
+GO
+
 
 
 --Report (báo cáo) xuất nhập kho theo ngày
-CREATE OR ALTER PROCEDURE dbo.sp_BaoCaoXuatNhapKhoNgay
-    @Ngay DATE,
+CREATE OR ALTER PROCEDURE dbo.sp_BaoCaoXuatNhapKho
+    @TuNgay DATE = NULL,
+    @DenNgay DATE = NULL,
     @MaCN NVARCHAR(20)
 AS
 BEGIN
@@ -570,29 +633,34 @@ BEGIN
 
     SELECT 
         k.MaCN,
-        cn.TenCN,
+        cn.TenCN,        -- Tên chi nhánh
+        cn.DiaChi,       -- Địa chỉ chi nhánh
         k.MaSP,
         sp.TenSP,
 
-        -- Tổng nhập trong ngày (phiếu nhập đến chi nhánh này)
+        -- Tổng nhập trong khoảng ngày
         ISNULL(SUM(CASE 
-            WHEN CAST(pn.NgayLap AS DATE) = @Ngay 
-                 AND pn.DenCN = @MaCN 
+            WHEN (@TuNgay IS NULL OR CAST(pn.NgayLap AS DATE) >= @TuNgay)
+             AND (@DenNgay IS NULL OR CAST(pn.NgayLap AS DATE) <= @DenNgay)
+             AND pn.DenCN = @MaCN
             THEN ctpn.SL ELSE 0 END), 0) AS SoLuongNhap,
 
-        -- Tổng xuất trong ngày: bán hàng + chuyển chi nhánh khác
+        -- Tổng bán hàng trong khoảng ngày
         ISNULL(SUM(CASE 
-            WHEN CAST(hd.NgayLap AS DATE) = @Ngay 
-                 AND LEFT(hd.SoHD, LEN(@MaCN)) = @MaCN 
-            THEN cthd.SL ELSE 0 END), 0)
-        +
+            WHEN (@TuNgay IS NULL OR CAST(hd.NgayLap AS DATE) >= @TuNgay)
+             AND (@DenNgay IS NULL OR CAST(hd.NgayLap AS DATE) <= @DenNgay)
+             AND LEFT(hd.SoHD,LEN(@MaCN)) = @MaCN
+            THEN cthd.SL ELSE 0 END), 0) AS SoLuongBan,
+
+        -- Tổng xuất = chỉ tính chuyển chi nhánh
         ISNULL(SUM(CASE 
-            WHEN CAST(px.NgayLap AS DATE) = @Ngay 
-                 AND px.TuCN = @MaCN 
+            WHEN (@TuNgay IS NULL OR CAST(px.NgayLap AS DATE) >= @TuNgay)
+             AND (@DenNgay IS NULL OR CAST(px.NgayLap AS DATE) <= @DenNgay)
+             AND px.TuCN = @MaCN
             THEN ctx.SL ELSE 0 END), 0) AS SoLuongXuat,
 
-        -- Tồn cuối (lấy từ kho hiện tại)
-        k.SL AS TonCuoiNgay
+        -- Tồn cuối hiện tại
+        k.SL AS TonCuoi
 
     FROM Kho k
     JOIN ChiNhanh cn ON cn.MaCN = k.MaCN
@@ -602,18 +670,46 @@ BEGIN
     LEFT JOIN PhieuNhap pn ON pn.DenCN = k.MaCN
     LEFT JOIN CTPN ctpn ON ctpn.SoPN = pn.SoPN AND ctpn.MaSP = k.MaSP
 
-    -- Hóa đơn (suy ra chi nhánh từ tiền tố SoHD)
+    -- Hóa đơn bán hàng
     LEFT JOIN HoaDon hd ON LEFT(hd.SoHD, LEN(@MaCN)) = @MaCN
     LEFT JOIN CTHD cthd ON cthd.SoHD = hd.SoHD AND cthd.MaSP = k.MaSP
 
-    -- Phiếu xuất giữa chi nhánh
+    -- Phiếu xuất chi nhánh
     LEFT JOIN PhieuXuat px ON px.TuCN = k.MaCN
     LEFT JOIN CTPX ctx ON ctx.SoPX = px.SoPX AND ctx.MaSP = k.MaSP
 
     WHERE k.MaCN = @MaCN
-    GROUP BY k.MaCN, cn.TenCN, k.MaSP, sp.TenSP, k.SL;
+      -- Lọc sản phẩm chỉ có phát sinh Nhập / Bán / Chuyển
+      AND (
+            EXISTS (SELECT 1 FROM PhieuNhap pn2
+                    JOIN CTPN ctpn2 ON ctpn2.SoPN = pn2.SoPN AND ctpn2.MaSP = k.MaSP
+                    WHERE pn2.DenCN = @MaCN
+                      AND (@TuNgay IS NULL OR CAST(pn2.NgayLap AS DATE) >= @TuNgay)
+                      AND (@DenNgay IS NULL OR CAST(pn2.NgayLap AS DATE) <= @DenNgay))
+         OR
+            EXISTS (SELECT 1 FROM HoaDon hd2
+                    JOIN CTHD cthd2 ON cthd2.SoHD = hd2.SoHD AND cthd2.MaSP = k.MaSP
+                    WHERE LEFT(hd2.SoHD,LEN(@MaCN)) = @MaCN
+                      AND (@TuNgay IS NULL OR CAST(hd2.NgayLap AS DATE) >= @TuNgay)
+                      AND (@DenNgay IS NULL OR CAST(hd2.NgayLap AS DATE) <= @DenNgay))
+         OR
+            EXISTS (SELECT 1 FROM PhieuXuat px2
+                    JOIN CTPX ctx2 ON ctx2.SoPX = px2.SoPX AND ctx2.MaSP = k.MaSP
+                    WHERE px2.TuCN = @MaCN
+                      AND (@TuNgay IS NULL OR CAST(px2.NgayLap AS DATE) >= @TuNgay)
+                      AND (@DenNgay IS NULL OR CAST(px2.NgayLap AS DATE) <= @DenNgay))
+      )
+
+    GROUP BY k.MaCN, cn.TenCN, cn.DiaChi, k.MaSP, sp.TenSP, k.SL
+    ORDER BY k.MaSP;
 END;
 GO
+
+
+
+
+
+
 
 -- XÓA KHÁCH HÀNG
 CREATE OR ALTER PROCEDURE sp_XoaKhachHang
@@ -731,7 +827,13 @@ BEGIN
     JOIN NhanVien nv ON nv.MaNV = hd.MaNV
     JOIN ChiNhanh cn ON cn.MaCN = nv.MaCN
     WHERE hd.SoHD = @SoHD;
-
+END;
+GO
+CREATE OR ALTER PROC dbo.sp_ChiTietHoaDon1
+	@SoHD NVARCHAR(20)
+as
+begin
+set nocount on;
     -- Chi tiết hóa đơn
     SELECT 
         cthd.MaSP,
@@ -742,8 +844,8 @@ BEGIN
     FROM CTHD cthd
     JOIN SanPham sp ON sp.MaSP = cthd.MaSP
     WHERE cthd.SoHD = @SoHD;
-END;
-GO
+end;
+go
 
 
 

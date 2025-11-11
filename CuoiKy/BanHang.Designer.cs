@@ -240,7 +240,7 @@
             this.btn_ThanhToan.Name = "btn_ThanhToan";
             this.btn_ThanhToan.Size = new System.Drawing.Size(360, 72);
             this.btn_ThanhToan.TabIndex = 19;
-            this.btn_ThanhToan.Text = "Thanh toán (Enter)";
+            this.btn_ThanhToan.Text = "Thanh toán";
             this.btn_ThanhToan.UseVisualStyleBackColor = false;
             this.btn_ThanhToan.Click += new System.EventHandler(this.btn_ThanhToan_Click);
             // 
@@ -406,7 +406,6 @@
             // 
             // BanHang
             // 
-            this.AcceptButton = this.btn_ThanhToan;
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
