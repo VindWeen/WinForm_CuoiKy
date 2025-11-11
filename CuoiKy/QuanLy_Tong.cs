@@ -202,5 +202,13 @@ namespace CuoiKy
             frm.toncuoi = Convert.ToInt32(lbl_Ton.Text.Replace(".", ""));
             frm.ShowDialog();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Account frm = new Account();
+            frm.ShowDialog();
+            this.Close();
+        }
     }
 }

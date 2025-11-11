@@ -1267,6 +1267,8 @@ INSERT INTO SanPham VALUES
 ('893000000030',N'Áo Thun Nữ Relax ‘Nurture Your Soul’ WTS 2434/M/Hồng Chalk',299000,N'Cái'),
 ('893000000031',N'Áo Thun Nữ Relax ‘Nurture Your Soul’ WTS 2434/L/Hồng Chalk',299000,N'Cái');
 -- Kho
+SELECT * FROM SanPham WHERE MaSP = '8934567890123';
+
 INSERT INTO Kho (MaCN, MaSP, SL) VALUES 
 ('Tong', '893000000001', 120),
 ('Tong', '893000000002', 85),
@@ -1299,7 +1301,6 @@ INSERT INTO Kho (MaCN, MaSP, SL) VALUES
 ('Tong', '893000000029', 85),
 ('Tong', '893000000030', 105),
 ('Tong', '893000000031', 130),
-('Tong', '8934567890123', 75),
 ('Tong', '8934567890130', 90),
 ('Tong', '8934567890147', 110),
 ('Tong', '8934567890154', 65),
