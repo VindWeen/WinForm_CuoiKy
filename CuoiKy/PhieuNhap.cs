@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -90,13 +91,11 @@ namespace CuoiKy
                 {
                     DataGridViewButtonCell btn = (DataGridViewButtonCell)dgv_phieunhap.Rows[rowIdx].Cells["Nhap"];
                     btn.Value = "Đã nhập";
-                    btn.ReadOnly = true;
                 }
                 else
                 {
                     DataGridViewButtonCell btn = (DataGridViewButtonCell)dgv_phieunhap.Rows[rowIdx].Cells["Nhap"];
                     btn.Value = "Nhập";
-                    btn.ReadOnly = false;
                 }
                 sumSL += Convert.ToInt32(rd["TongSL"].ToString());
             }
@@ -230,6 +229,9 @@ namespace CuoiKy
         {
             if (dgv_phieunhap.Columns[e.ColumnIndex].Name == "Nhap")
             {
+                DataGridViewButtonCell btn = (DataGridViewButtonCell)dgv_phieunhap.Rows[e.RowIndex].Cells["Nhap"];
+                if (btn.Value == "Đã nhập")
+                    return;
                 if (e.RowIndex < 0 || e.ColumnIndex < 0)
                     return;
                 string query = $@"EXEC dbo.usp_XacNhanNhapHang '{SoPX}'";

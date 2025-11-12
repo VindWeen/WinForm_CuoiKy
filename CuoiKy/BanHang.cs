@@ -14,7 +14,7 @@ namespace CuoiKy
 {
     public partial class BanHang : Form
     {
-        public string MaCN = TaiKhoan.MaCN; 
+        public string MaCN = TaiKhoan.MaCN;
         bool isLoaded = false; bool isLoadingSP = false;
         public BanHang()
         {
@@ -65,7 +65,7 @@ namespace CuoiKy
                 cb_khachhang.Text = null;
                 cb_khachhang.SelectedIndex = -1;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -85,7 +85,7 @@ namespace CuoiKy
             foreach (DataGridViewRow a in dgv_sanpham.Rows)
             {
                 //MessageBox.Show(a.Cells["DonGia"].Value.ToString().Replace(".", "")+" "+ Convert.ToInt32(a.Cells["SL"].Value).ToString());
-                total += Convert.ToInt32(a.Cells["DonGia"].Value.ToString().Replace(".", ""))* Convert.ToInt32(a.Cells["SL"].Value);
+                total += Convert.ToInt32(a.Cells["DonGia"].Value.ToString().Replace(".", "")) * Convert.ToInt32(a.Cells["SL"].Value);
             }
             lbl_thanhtien.Text = total.ToString("N0");
         }
@@ -114,13 +114,14 @@ namespace CuoiKy
         {
             string text = cb_sanpham.Text.Trim();
 
-            if (text.Length < 2&&cb_sanpham.Items.Count<1) {
+            if (text.Length < 2 && cb_sanpham.Items.Count < 1)
+            {
                 Load_combobox_sanpham();
                 return; // chỉ bắt đầu tìm khi nhập >= 2 ký tự
-                }
+            }
 
             // Lấy dữ liệu gợi ý theo ký tự đang nhập
-            DataTable dt = Sql.getData($"SELECT MaSP, TenSP FROM dbo.uf_SanPham('{MaCN}') WHERE TenSP LIKE N'%{text}%'");
+            DataTable dt = Sql.getData($"SELECT MaSP, TenSP FROM dbo.uf_SanPham('{MaCN}') WHERE TenSP LIKE N'%{text}%' or MaSP like '%{text}%'");
 
             // Lưu lại text hiện tại
             string currentText = cb_sanpham.Text;
@@ -144,7 +145,7 @@ namespace CuoiKy
             cb_sanpham.EndUpdate();
 
             // Đặt lại con trỏ chuột
-            Cursor.Current = Cursors.Default; 
+            Cursor.Current = Cursors.Default;
             if (cb_sanpham.Text.Length > 2 && cb_sanpham.Items.Count == 0)
             {
                 cb_sanpham.DataSource = null;
@@ -161,7 +162,7 @@ namespace CuoiKy
             string text = cb_nhanvien.Text.Trim();
 
 
-            if (text.Length < 2&&cb_nhanvien.Items.Count < 1)
+            if (text.Length < 2 && cb_nhanvien.Items.Count < 1)
             {
                 Load_combobox_nhanvien();
                 return; // chỉ bắt đầu tìm khi nhập >= 2 ký tự
@@ -191,7 +192,7 @@ namespace CuoiKy
             cb_nhanvien.EndUpdate();
 
             // Đặt lại con trỏ chuột
-            Cursor.Current = Cursors.Default; 
+            Cursor.Current = Cursors.Default;
             if (cb_nhanvien.Text.Length > 2 && cb_nhanvien.Items.Count == 0)
             {
                 cb_nhanvien.DataSource = null;
@@ -204,7 +205,7 @@ namespace CuoiKy
 
         private void cb_nhanvien_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cb_sanpham_SelectedIndexChanged(object sender, EventArgs e)
@@ -271,8 +272,8 @@ namespace CuoiKy
 
         private void cb_khachhang_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 || e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9 || e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
-                { return; }
+            if (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 || e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9 || e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            { return; }
             else
                 e.SuppressKeyPress = true;
         }
@@ -312,7 +313,7 @@ namespace CuoiKy
 
             // Đặt lại con trỏ chuột
             Cursor.Current = Cursors.Default;
-            if(cb_khachhang.Text.Length>2&&cb_khachhang.Items.Count==0)
+            if (cb_khachhang.Text.Length > 2 && cb_khachhang.Items.Count == 0)
             {
                 cb_khachhang.DataSource = null;
                 cb_khachhang.Text = currentText;
@@ -324,7 +325,7 @@ namespace CuoiKy
             }
             else
             {
-                btn_ThemKhachHang.Enabled=false;
+                btn_ThemKhachHang.Enabled = false;
                 button1.Enabled = false;
             }
         }
@@ -333,7 +334,7 @@ namespace CuoiKy
         {
             ThemKhachHang frm = new ThemKhachHang(cb_khachhang.Text, false);
             frm.ShowDialog();
-            if(frm.IsDisposed)
+            if (frm.IsDisposed)
                 Load_combobox_khachhang();
             cb_khachhang.SelectedText = (cb_khachhang.Text);
             isLoaded = true;
@@ -365,7 +366,7 @@ namespace CuoiKy
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string[] a = cb_khachhang.Text.Replace(" ","").Split('-');
+            string[] a = cb_khachhang.Text.Replace(" ", "").Split('-');
             if (a.Length > 0)
             {
                 ThemKhachHang frm = new ThemKhachHang(a[1].Replace(" ", ""), true);
@@ -386,11 +387,11 @@ namespace CuoiKy
 
         private void txt_nhantien_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode>=Keys.D0&&e.KeyCode<=Keys.D9||e.KeyCode>=Keys.NumPad0&&e.KeyCode<=Keys.NumPad9||e.KeyCode==Keys.Delete||e.KeyCode==Keys.Back)
+            if (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 || e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9 || e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
             {
                 return;
             }
-            else if(e.KeyCode == Keys.Enter)
+            else if (e.KeyCode == Keys.Enter)
             {
                 int tongtien = Convert.ToInt32(lbl_thanhtien.Text.Replace(".", ""));
                 int sotiennhan = Convert.ToInt32(txt_nhantien.Text.Replace(".", ""));
@@ -411,10 +412,9 @@ namespace CuoiKy
                 btn_ThemKhachHang.Enabled = false;
             }
         }
-
         private void btn_ThanhToan_Click(object sender, EventArgs e)
         {
-            
+
             string[] nv = cb_nhanvien.Text.Replace(" ", "").Split('-');
             string query_ktraNV = $@"if exists (select * from NhanVien where MaNV like'{nv[0]}' or HoTenNV like N'{nv[0]}')
                                         select 1
@@ -435,30 +435,30 @@ namespace CuoiKy
                 else
                     select 0";
 
-                        if (!Sql.KiemTra(query_ktraKH))
-                        {
-                            MessageBox.Show("Khách hàng chưa được đăng ký", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                if (!Sql.KiemTra(query_ktraKH))
+                {
+                    MessageBox.Show("Khách hàng chưa được đăng ký", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                        // lấy mã KH
-                        MaKH = Convert.ToString(Sql.Scalar($@"Select MaKH from KhachHang where SDT like '{kh[kh.Length - 1]}'"));
+                // lấy mã KH
+                MaKH = Convert.ToString(Sql.Scalar($@"Select MaKH from KhachHang where SDT like '{kh[kh.Length - 1]}'"));
             }
-            if (!Sql.KiemTra(query_ktraNV)&& cb_nhanvien.SelectedIndex<0)
+            if (!Sql.KiemTra(query_ktraNV) && cb_nhanvien.SelectedIndex < 0)
             {
                 MessageBox.Show("Nhân viên không hợp lệ", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             string SoHD = Convert.ToString(Sql.Scalar($@"SELECT dbo.uf_NextNumber ('{MaCN}','HoaDon','SoHD')"));
-            Sql.NonQuery($@"INSERT INTO HoaDon Values ('{SoHD}','{nv[0]}',{(string.IsNullOrEmpty(MaKH)? "NULL": $"'{MaKH}'")},'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')");
+            Sql.NonQuery($@"INSERT INTO HoaDon Values ('{SoHD}','{nv[0]}',{(string.IsNullOrEmpty(MaKH) ? "NULL" : $"'{MaKH}'")},'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')");
             string query_cthd;
-            foreach (DataGridViewRow a in dgv_sanpham.Rows) 
+            foreach (DataGridViewRow a in dgv_sanpham.Rows)
             {
                 string masp = Convert.ToString(Sql.Scalar($@"Select MaSP from SanPham where TenSP like N'%{a.Cells["TenSP"].Value}%'"));
                 int sl = Convert.ToInt32(a.Cells["SL"].Value);
-                int thanhtien = sl * Convert.ToInt32(a.Cells["DonGia"].Value.ToString().Replace(".",""));
-                query_cthd = $@"insert into CTHD values ('{SoHD}','{masp}',{sl},{thanhtien})"; 
+                int thanhtien = sl * Convert.ToInt32(a.Cells["DonGia"].Value.ToString().Replace(".", ""));
+                query_cthd = $@"insert into CTHD values ('{SoHD}','{masp}',{sl},{thanhtien})";
                 Sql.NonQuery(query_cthd);
             }
             Bill frm = new Bill($"{SoHD}");
@@ -497,6 +497,25 @@ namespace CuoiKy
             QuanLy_Tong frm = new QuanLy_Tong();
             frm.ShowDialog();
             this.Close();
+        }
+
+        private void cb_sanpham_KeyDown(object sender, KeyEventArgs e)
+        {
+            cb_sanpham.TextUpdate -= cb_sanpham_TextUpdate;
+            if (e.KeyCode == Keys.Enter)
+            {
+                string query_sp = $@"if exists (select * from SanPham where MaSP like N'%{cb_sanpham.Text}%')
+                                        select 1
+                                     else
+                                        select 0";
+                if (!Sql.KiemTra(query_sp))
+                {
+                    cb_sanpham.Text = null;
+                    return;
+                }
+                else
+                    cb_sanpham.SelectedValue = cb_sanpham.Text;
+            }
         }
     }
 }

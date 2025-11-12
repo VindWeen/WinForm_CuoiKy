@@ -56,7 +56,7 @@ namespace CuoiKy
             var mess = MessageBox.Show(@"Bạn có chắc muốn xóa phiếu xuất này chứ?","Hỏi",MessageBoxButtons.OKCancel,MessageBoxIcon.Question);
             if (mess == DialogResult.OK)
             {
-                Sql.NonQuery($"EXEC PROCEDURE sp_XoaPhieuXuat '{SoPX}'");
+                Sql.NonQuery($"EXEC dbo.sp_XoaPhieuXuat '{SoPX}'");
                 this.Close();
             }
             else

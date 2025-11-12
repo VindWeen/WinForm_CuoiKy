@@ -228,5 +228,29 @@ namespace CuoiKy
             cb_sanpham.Text = null;
             cb_sanpham.SelectedIndex = -1;
         }
+
+        private void cb_sanpham_KeyDown(object sender, KeyEventArgs e)
+        {
+            cb_sanpham.TextUpdate -= cb_sanpham_TextUpdate;
+            if (e.KeyCode == Keys.Enter)
+            {
+                string query_sp = $@"if exists (select * from SanPham where MaSP like N'%{cb_sanpham.Text}%')
+                                        select 1
+                                     else
+                                        select 0";
+                if (!Sql.KiemTra(query_sp))
+                {
+                    cb_sanpham.Text = null;
+                    return;
+                }
+                else
+                    cb_sanpham.SelectedValue = cb_sanpham.Text;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

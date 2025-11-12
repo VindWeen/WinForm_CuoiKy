@@ -105,6 +105,7 @@
             this.cb_sanpham.SelectedIndexChanged += new System.EventHandler(this.cb_sanpham_SelectedIndexChanged);
             this.cb_sanpham.TextUpdate += new System.EventHandler(this.cb_sanpham_TextUpdate);
             this.cb_sanpham.Click += new System.EventHandler(this.cb_sanpham_Click);
+            this.cb_sanpham.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cb_sanpham_KeyDown);
             // 
             // panel2
             // 

@@ -92,7 +92,7 @@ namespace CuoiKy
         }
         private void Load_Data()
         {
-            string query = "select MaNV,TenNV from NhanVien";
+            string query = "select MaNV,TenNV from NhanVien where MaNV not in (select MaNV from TaiKhoan))";
             cb_nhanvien.DataSource = Sql.getData(query);
             cb_nhanvien.ValueMember = "MaNV";
             cb_nhanvien.DisplayMember = "TenNV";

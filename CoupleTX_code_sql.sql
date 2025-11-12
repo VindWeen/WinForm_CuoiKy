@@ -562,63 +562,99 @@ END;
 CREATE OR ALTER PROCEDURE dbo.sp_TonDauCuoi_TheoKhoangNgay_ChiNhanh
     @TuNgay DATE,
     @DenNgay DATE,
-    @MaCN NVARCHAR(20) = NULL  -- NULL nghĩa lấy tất cả chi nhánh
+    @MaCN NVARCHAR(20) = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Tồn đầu: ngày gần nhất với TuNgay, nếu không có thì ngày sớm nhất
-    WITH cteTonDau AS (
-        SELECT t1.MaCN, t1.TonDauNgay
-        FROM dbo.vTonKho_TheoChiNhanh t1
-        WHERE (@MaCN IS NULL OR t1.MaCN = @MaCN)
-          AND t1.Ngay = (
-              SELECT MAX(Ngay)
-              FROM dbo.vTonKho_TheoChiNhanh t2
-              WHERE (@MaCN IS NULL OR t2.MaCN = @MaCN)
-                AND t2.MaCN = t1.MaCN
-                AND t2.Ngay <= @TuNgay
-          )
+    -- Bước 1: Danh sách chi nhánh
+    ;WITH cteChiNhanh AS (
+        SELECT MaCN
+        FROM ChiNhanh
+        WHERE (@MaCN IS NULL OR MaCN = @MaCN)
     ),
-    -- Tồn cuối: ngày gần nhất với DenNgay
-    cteTonCuoi AS (
-        SELECT t1.MaCN, t1.TonCuoiNgay
-        FROM dbo.vTonKho_TheoChiNhanh t1
-        WHERE (@MaCN IS NULL OR t1.MaCN = @MaCN)
-          AND t1.Ngay = (
-              SELECT MAX(Ngay)
-              FROM dbo.vTonKho_TheoChiNhanh t2
-              WHERE (@MaCN IS NULL OR t2.MaCN = @MaCN)
-                AND t2.MaCN = t1.MaCN
-                AND t2.Ngay <= @DenNgay
-          )
+
+    -- Bước 2: Ngày trong khoảng
+    cteNgay AS (
+        SELECT @TuNgay AS Ngay
+        UNION ALL
+        SELECT DATEADD(DAY,1,Ngay)
+        FROM cteNgay
+        WHERE DATEADD(DAY,1,Ngay) <= @DenNgay
     ),
-    -- Lấy tồn đầu cho chi nhánh không có ngày <= @TuNgay
-    cteTonDauFull AS (
-        SELECT MaCN, TonDauNgay FROM cteTonDau
-        UNION
-        SELECT MaCN, TonDauNgay
-        FROM dbo.vTonKho_TheoChiNhanh t
-        WHERE (@MaCN IS NULL OR t.MaCN = @MaCN)
-          AND Ngay = (
-              SELECT MIN(Ngay) 
-              FROM dbo.vTonKho_TheoChiNhanh t2 
-              WHERE t2.MaCN = t.MaCN
-          )
+
+    -- Bước 3: Tổng nhập/xuất từng ngày
+    cteNhapXuat AS (
+        SELECT
+            cn.MaCN,
+            n.Ngay,
+            ISNULL(nhap.NhapSL,0) AS NhapSL,
+            ISNULL(xuat.XuatSL,0) AS XuatSL
+        FROM cteChiNhanh cn
+        CROSS JOIN cteNgay n
+        LEFT JOIN (
+            SELECT DenCN AS MaCN, NgayLap, SUM(SL) AS NhapSL
+            FROM PhieuNhap pn
+            JOIN CTPN ctx ON pn.SoPN = ctx.SoPN
+            GROUP BY DenCN, NgayLap
+        ) nhap ON nhap.MaCN = cn.MaCN AND nhap.NgayLap = n.Ngay
+        LEFT JOIN (
+            SELECT TuCN AS MaCN, NgayLap, SUM(SL) AS XuatSL
+            FROM PhieuXuat px
+            JOIN CTPX ctx ON px.SoPX = ctx.SoPX
+            GROUP BY TuCN, NgayLap
+        ) xuat ON xuat.MaCN = cn.MaCN AND xuat.NgayLap = n.Ngay
+    ),
+
+    -- Bước 4: Lấy tồn đầu ban đầu trước @TuNgay
+    cteTonDauBanDau AS (
+        SELECT k.MaCN, SUM(k.SL) AS TonDau
+        FROM Kho k
+        JOIN cteChiNhanh cn ON k.MaCN = cn.MaCN
+        GROUP BY k.MaCN
+    ),
+
+    -- Bước 5: CTE đệ quy tính tồn đầu/cuối từng ngày
+    cteTon AS (
+        -- Ngày đầu tiên
+        SELECT
+            nx.MaCN,
+            nx.Ngay,
+            td.TonDau AS TonDauNgay,
+            td.TonDau + nx.NhapSL - nx.XuatSL AS TonCuoiNgay
+        FROM cteNhapXuat nx
+        JOIN cteTonDauBanDau td ON td.MaCN = nx.MaCN
+        WHERE nx.Ngay = @TuNgay
+
+        UNION ALL
+
+        -- Các ngày tiếp theo
+        SELECT
+            nx.MaCN,
+            nx.Ngay,
+            t.TonCuoiNgay AS TonDauNgay,
+            t.TonCuoiNgay + nx.NhapSL - nx.XuatSL AS TonCuoiNgay
+        FROM cteTon t
+        JOIN cteNhapXuat nx
+            ON nx.MaCN = t.MaCN
+           AND nx.Ngay = DATEADD(DAY,1,t.Ngay)
     )
 
-    SELECT 
-        d.MaCN,
+    SELECT
+        t.MaCN,
         cn.TenCN,
         cn.DiaChi,
-        d.TonDauNgay,
-        c.TonCuoiNgay
-    FROM cteTonDauFull d
-    JOIN cteTonCuoi c ON c.MaCN = d.MaCN
-    LEFT JOIN ChiNhanh cn ON cn.MaCN = d.MaCN
-    ORDER BY d.MaCN;
+        t.Ngay,
+        t.TonDauNgay,
+        t.TonCuoiNgay
+    FROM cteTon t
+    JOIN ChiNhanh cn ON cn.MaCN = t.MaCN
+    ORDER BY t.MaCN, t.Ngay
+    OPTION (MAXRECURSION 0);
 END;
 GO
+
+
 
 
 

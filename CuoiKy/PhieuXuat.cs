@@ -170,6 +170,11 @@ namespace CuoiKy
         private void btn_taophieuxuat_Click(object sender, EventArgs e)
         {
             ThemPhieuXuat frm = new ThemPhieuXuat(MaCN);
+            frm.FormClosed += (s, args) =>
+            {
+                Load_Data();
+            };
+
             frm.ShowDialog();
         }
 

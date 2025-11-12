@@ -37,7 +37,7 @@ namespace CuoiKy
             string query1 = $@"SELECT *
                               FROM [CoupleTX_SQL].[dbo].[vBaoCaoQuanLy_Ngay_ChiNhanh] where MaCN like '{MaCN}' and Ngay between '{dtp_tungay.Value.ToString("yyyy-MM-dd")}' and '{dtp_denngay.Value.ToString("yyyy-MM-dd")}'";
             lbl_TenChiNhanh.Text = Convert.ToString(Sql.Scalar($"Select TenCN from ChiNhanh where MaCN like '{MaCN}'"));
-            string query2 = $@"SELECT TonCuoiNgay,TonDauNgay FROM dbo.vTonKho_TheoChiNhanh WHERE MaCN LIKE '{MaCN}' and Ngay between '{dtp_tungay.Value.ToString("yyyy-MM-dd")}' and '{dtp_denngay.Value.ToString("yyyy-MM-dd")}'";
+            string query2 = $@"exec dbo.sp_TonDauCuoi_TheoKhoangNgay_ChiNhanh '{dtp_tungay.Value.ToString("yyyy-MM-dd")}','{dtp_denngay.Value.ToString("yyyy-MM-dd")}','{MaCN}'";
             SqlDataReader rd = Sql.Reader(query2);
             if (rd.Read())
             {
@@ -67,6 +67,7 @@ namespace CuoiKy
                 errorProvider1.SetError(btn_NhapPhieu, "Có phiếu nhập chưa được xử lý");
             else
                 errorProvider1.Clear();
+            lbl_tondaungay.Text = Convert.ToString(Convert.ToInt32(lbl_Ton.Text.Replace(".",""))+Convert.ToInt32(lbl_SLKDaXuat.Text.Replace(".",""))-Convert.ToInt32(lbl_SLDaNhap.Text.Replace(".","")));
         }
 
         private void cb_filterngay_SelectedIndexChanged(object sender, EventArgs e)

@@ -38,13 +38,13 @@
             this.txt_sopx = new System.Windows.Forms.TextBox();
             this.cb_chinhanh = new System.Windows.Forms.ComboBox();
             this.dgvCTPX = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cb_sanpham = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.MaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cb_sanpham = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCTPX)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +60,7 @@
             this.button2.TabIndex = 30;
             this.button2.Text = "Đóng";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btn_taophieu
             // 
@@ -144,51 +145,6 @@
             this.dgvCTPX.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             this.dgvCTPX.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCTPX_EditingControlShowing);
             // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.cb_sanpham);
-            this.panel1.Controls.Add(this.dgvCTPX);
-            this.panel1.Controls.Add(this.cb_chinhanh);
-            this.panel1.Controls.Add(this.txt_sopx);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.btn_taophieu);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1031, 685);
-            this.panel1.TabIndex = 34;
-            // 
-            // cb_sanpham
-            // 
-            this.cb_sanpham.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cb_sanpham.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.cb_sanpham.DropDownHeight = 200;
-            this.cb_sanpham.DropDownWidth = 800;
-            this.cb_sanpham.ForeColor = System.Drawing.Color.Black;
-            this.cb_sanpham.FormattingEnabled = true;
-            this.cb_sanpham.IntegralHeight = false;
-            this.cb_sanpham.Location = new System.Drawing.Point(240, 119);
-            this.cb_sanpham.Name = "cb_sanpham";
-            this.cb_sanpham.Size = new System.Drawing.Size(746, 38);
-            this.cb_sanpham.TabIndex = 34;
-            this.cb_sanpham.SelectedIndexChanged += new System.EventHandler(this.cb_sanpham_SelectedIndexChanged);
-            this.cb_sanpham.TextUpdate += new System.EventHandler(this.cb_sanpham_TextUpdate);
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
-            this.label2.Location = new System.Drawing.Point(44, 122);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(175, 32);
-            this.label2.TabIndex = 26;
-            this.label2.Text = "Nhập sản phẩm:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // MaSP
             // 
             this.MaSP.FillWeight = 50F;
@@ -222,6 +178,52 @@
             this.delete.Name = "delete";
             this.delete.ReadOnly = true;
             this.delete.Text = "Xóa";
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cb_sanpham);
+            this.panel1.Controls.Add(this.dgvCTPX);
+            this.panel1.Controls.Add(this.cb_chinhanh);
+            this.panel1.Controls.Add(this.txt_sopx);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.btn_taophieu);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1031, 685);
+            this.panel1.TabIndex = 34;
+            // 
+            // cb_sanpham
+            // 
+            this.cb_sanpham.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cb_sanpham.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.cb_sanpham.DropDownHeight = 200;
+            this.cb_sanpham.DropDownWidth = 800;
+            this.cb_sanpham.ForeColor = System.Drawing.Color.Black;
+            this.cb_sanpham.FormattingEnabled = true;
+            this.cb_sanpham.IntegralHeight = false;
+            this.cb_sanpham.Location = new System.Drawing.Point(240, 119);
+            this.cb_sanpham.Name = "cb_sanpham";
+            this.cb_sanpham.Size = new System.Drawing.Size(746, 38);
+            this.cb_sanpham.TabIndex = 34;
+            this.cb_sanpham.SelectedIndexChanged += new System.EventHandler(this.cb_sanpham_SelectedIndexChanged);
+            this.cb_sanpham.TextUpdate += new System.EventHandler(this.cb_sanpham_TextUpdate);
+            this.cb_sanpham.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cb_sanpham_KeyDown);
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+            this.label2.Location = new System.Drawing.Point(44, 122);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(175, 32);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "Nhập sản phẩm:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ThemPhieuXuat
             // 
