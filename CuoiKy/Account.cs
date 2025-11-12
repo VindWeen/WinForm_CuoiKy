@@ -81,27 +81,33 @@ namespace CuoiKy
             cb_quyenhan.SelectedIndex = 0;
             txt_username.ReadOnly = false;
             cb_nhanvien.Enabled = true;
+            cb_nhanvien.Text=string.Empty;
+            cb_nhanvien.SelectedIndex = -1;
+            cb_nhanvien.Enabled = true;
         }
         private void SuaXoa()
         {
             btn_them.Enabled = false;
             btn_sua.Enabled = true;
             btn_xoa.Enabled = true;
-            txt_username.ReadOnly = true;
             cb_nhanvien.Enabled = false;
+            txt_username.ReadOnly = true;
         }
         private void Load_Data()
         {
-            string query = "select MaNV,TenNV from NhanVien where MaNV not in (select MaNV from TaiKhoan))";
+            cb_nhanvien.DataSource=null;
+            dgv_taikhoan.Rows.Clear();
+            string query = "select * from NhanVien";
             cb_nhanvien.DataSource = Sql.getData(query);
+            cb_nhanvien.DisplayMember = "HoTenNV";
             cb_nhanvien.ValueMember = "MaNV";
-            cb_nhanvien.DisplayMember = "TenNV";
             query = "select HoTenNV,TenDN,QuyenHan,case TrangThai when 1 then N'Kích hoạt' when 0 then 'Khóa' end as TrangThai from TaiKhoan join NhanVien on TaiKhoan.MaNV = NhanVien.MaNV where QuyenHan != 'Admin'";
             SqlDataReader rd = Sql.Reader(query);
             while (rd.Read())
             {
                 dgv_taikhoan.Rows.Add(rd["HoTenNV"].ToString(), rd["TenDN"].ToString(), rd["QuyenHan"].ToString(), rd["TrangThai"].ToString());
             }
+            dgv_taikhoan.ClearSelection();
         }
 
         private void dgv_taikhoan_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -115,9 +121,9 @@ namespace CuoiKy
             {
                 SuaXoa();
                 DataGridViewRow a = dgv_taikhoan.Rows[e.RowIndex];
-                cb_nhanvien.SelectedIndex = cb_nhanvien.FindStringExact(a.Cells["NhanVien"].Value.ToString());
+                cb_nhanvien.SelectedIndex = cb_nhanvien.FindString(a.Cells["HoTenNV"].Value.ToString());
                 txt_username.Text = a.Cells["Username"].Value.ToString();
-                cb_quyenhan.SelectedValue = a.Cells["QuyenHan"].Value.ToString();
+                cb_quyenhan.SelectedItem = a.Cells["QuyenHan"].Value.ToString();
                 switch (a.Cells["TrangThai"].Value.ToString())
                 {
                     case "Khoá":
@@ -133,10 +139,10 @@ namespace CuoiKy
             string TenDN = txt_username.Text;
             string MatKhau = $"EncryptByPassPhrase('MaHoaMatKhau',N'{txt_password.Text}')";
             string MaNV = cb_nhanvien.SelectedValue.ToString();
-            string QuyenHan = cb_quyenhan.SelectedValue.ToString();
+            string QuyenHan = cb_quyenhan.SelectedItem.ToString();
             int TrangThai = rd_khoa.Checked ? 0 : 1;
             string NgayTao = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            string query = $"Insert into TaiKhoa values ('{TenDN}',{MatKhau},'{MaNV}',N'{QuyenHan}',{TrangThai},'{NgayTao}')";
+            string query = $"Insert into TaiKhoan values ('{TenDN}',{MatKhau},'{MaNV}',N'{QuyenHan}',{TrangThai},'{NgayTao}')";
             Sql.NonQuery(query);
             Load_Data();
         }
@@ -145,11 +151,11 @@ namespace CuoiKy
         {
             string TenDN = txt_username.Text;
             string MatKhau = $"EncryptByPassPhrase('MaHoaMatKhau',N'{txt_password.Text}')";
-            string MaNV = cb_nhanvien.SelectedValue.ToString();
-            string QuyenHan = cb_quyenhan.SelectedValue.ToString();
+            string MaNV = Sql.Scalar($"select MaNV from NhanVien where HoTenNV like N'{cb_nhanvien.Text}'").ToString();
+            string QuyenHan = cb_quyenhan.SelectedItem.ToString();
             int TrangThai = rd_khoa.Checked ? 0 : 1;
             string NgayTao = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            string query = $"Update TaiKhoa set MatKhau = {MatKhau}, QuyenHan = N'{QuyenHan}',TrangThai = {TrangThai} where TenDN";
+            string query = $"Update TaiKhoan set MatKhau = {MatKhau}, QuyenHan = N'{QuyenHan}',TrangThai = {TrangThai} where TenDN = '{txt_username.Text}' and MaNV = '{MaNV}'";
             Sql.NonQuery(query);
             Load_Data();
         }
@@ -157,8 +163,9 @@ namespace CuoiKy
         private void btn_xoa_Click(object sender, EventArgs e)
         {
             string TenDN = txt_username.Text; string MaNV = cb_nhanvien.SelectedValue.ToString();
-            string query = $"Delete from TaiKhoa where TenDN like '{TenDN}' and MaNV like '{MaNV}'";
+            string query = $"Delete from TaiKhoan where TenDN like '{TenDN}' and MaNV like '{MaNV}'";
             Sql.NonQuery(query);
+            Load_Data();
         }
 
         private void dgv_taikhoan_CellContentClick(object sender, DataGridViewCellEventArgs e)

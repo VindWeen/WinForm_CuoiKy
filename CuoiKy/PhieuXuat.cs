@@ -226,6 +226,10 @@ namespace CuoiKy
             //Tạo report ở đây
             if (dgv_phieuxuat.Columns[e.ColumnIndex].Name == "InPhieu")
             {
+                DataGridViewRow a = dgv_phieuxuat.Rows[e.RowIndex];
+
+                RPT_PhieuXuat frm = new RPT_PhieuXuat(a.Cells["SoPX"].Value.ToString());
+                frm.ShowDialog();
             }
             else
             {

@@ -39,7 +39,7 @@ namespace CuoiKy
                 txt_sdt.Text = rd["SDT"].ToString();
                 dtp_ngaysinh.Value = Convert.ToDateTime(rd["NgaySinh"].ToString());
                 txt_diachi.Text= rd["DiaChi"].ToString();
-                txt_diachi.ReadOnly = true;
+                txt_makh.ReadOnly = true;
                 btn_DangKy.Enabled = false;
                 button1.Enabled = true;
                 button2.Enabled = true;

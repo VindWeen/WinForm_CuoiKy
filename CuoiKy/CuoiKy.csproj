@@ -129,6 +129,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CoupleTX_SQLDataSet3.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CoupleTX_SQLDataSet4.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CoupleTX_SQLDataSet4.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DoanhThu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +187,12 @@
     </Compile>
     <Compile Include="rpt_BaoCaoDoanhThu.Designer.cs">
       <DependentUpon>rpt_BaoCaoDoanhThu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RPT_PhieuXuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RPT_PhieuXuat.Designer.cs">
+      <DependentUpon>RPT_PhieuXuat.cs</DependentUpon>
     </Compile>
     <Compile Include="rpt_XuatNhapKho.cs">
       <SubType>Form</SubType>
@@ -267,6 +278,7 @@
     <EmbeddedResource Include="PhieuNhap.resx">
       <DependentUpon>PhieuNhap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PhieuXuat.rdlc" />
     <EmbeddedResource Include="PhieuXuat.resx">
       <DependentUpon>PhieuXuat.cs</DependentUpon>
     </EmbeddedResource>
@@ -286,6 +298,9 @@
     <EmbeddedResource Include="Report_BaoCaoDoanhThu.rdlc" />
     <EmbeddedResource Include="rpt_BaoCaoDoanhThu.resx">
       <DependentUpon>rpt_BaoCaoDoanhThu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RPT_PhieuXuat.resx">
+      <DependentUpon>RPT_PhieuXuat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="rpt_XuatNhapKho.resx">
       <DependentUpon>rpt_XuatNhapKho.cs</DependentUpon>
@@ -355,6 +370,17 @@
     </None>
     <None Include="CoupleTX_SQLDataSet3.xss">
       <DependentUpon>CoupleTX_SQLDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="CoupleTX_SQLDataSet4.xsc">
+      <DependentUpon>CoupleTX_SQLDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="CoupleTX_SQLDataSet4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CoupleTX_SQLDataSet4.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CoupleTX_SQLDataSet4.xss">
+      <DependentUpon>CoupleTX_SQLDataSet4.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

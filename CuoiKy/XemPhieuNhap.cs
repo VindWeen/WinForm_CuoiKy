@@ -1,5 +1,6 @@
 ﻿using SQL;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +28,12 @@ namespace CuoiKy
             var mess = MessageBox.Show(@"Bạn có chắc muốn xóa phiếu nhập này chứ?", "Hỏi", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (mess == DialogResult.OK)
             {
-                Sql.NonQuery($"EXEC PROCEDURE sp_XoaPhieuNhap '{SoPN}'");
+                foreach(DataGridViewRow a in dataGridView1.Rows)
+                {
+                    Sql.NonQuery($"Delete from Kho where MaSP ='{a.Cells["MaSP"].Value.ToString()}' and MaCN ='{TaiKhoan.MaCN}'");
+                }
+
+                Sql.NonQuery($"EXEC sp_XoaPhieuNhap '{SoPN}'");
                 this.Close();
             }
             else
@@ -62,6 +68,11 @@ namespace CuoiKy
         {
 
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

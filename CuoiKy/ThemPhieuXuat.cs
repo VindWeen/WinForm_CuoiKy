@@ -15,6 +15,8 @@ namespace CuoiKy
     public partial class ThemPhieuXuat : Form
     {
         string MaCN; bool isLoaded = false; bool isLoadingSP = false;
+        DateTime lastKeyPress = DateTime.Now;
+        StringBuilder barcodeBuffer = new StringBuilder(); bool isScanning = false;
         public ThemPhieuXuat(string maCN)
         {
             InitializeComponent();
@@ -25,7 +27,11 @@ namespace CuoiKy
         {
             Load_Data();
             Load_combobox_sanpham();
-            isLoaded = true;
+            isLoaded = true; 
+            this.KeyPreview = true;
+            this.KeyPress += BanHang_KeyPress;
+            this.KeyDown += BanHang_KeyDown; cb_sanpham.AutoCompleteMode = AutoCompleteMode.None;
+            cb_sanpham.AutoCompleteSource = AutoCompleteSource.None;
         }
         private void Load_combobox_sanpham()
         {
@@ -231,13 +237,11 @@ namespace CuoiKy
 
         private void cb_sanpham_KeyDown(object sender, KeyEventArgs e)
         {
-            cb_sanpham.TextUpdate -= cb_sanpham_TextUpdate;
+            //cb_sanpham.TextUpdate -= cb_sanpham_TextUpdate; 
             if (e.KeyCode == Keys.Enter)
             {
-                string query_sp = $@"if exists (select * from SanPham where MaSP like N'%{cb_sanpham.Text}%')
-                                        select 1
-                                     else
-                                        select 0";
+                //if(cb_sanpham.Items.Count > 0) cb_sanpham.SelectedIndex = 0;
+                string query_sp = $@"if exists (select * from SanPham where MaSP like N'%{cb_sanpham.Text}%') select 1 else select 0";
                 if (!Sql.KiemTra(query_sp))
                 {
                     cb_sanpham.Text = null;
@@ -245,6 +249,60 @@ namespace CuoiKy
                 }
                 else
                     cb_sanpham.SelectedValue = cb_sanpham.Text;
+            }
+        }
+        private void BanHang_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (cb_sanpham.Focused)
+            {
+                TimeSpan interval = DateTime.Now - lastKeyPress;
+                lastKeyPress = DateTime.Now;
+
+                if (interval.TotalMilliseconds < 50)
+                {
+                    isScanning = true; // bật chế độ quét
+                    barcodeBuffer.Append(e.KeyChar);
+                    e.Handled = true; // không cho hiện ký tự
+                }
+                else
+                {
+                    isScanning = false;
+                    barcodeBuffer.Clear();
+                    barcodeBuffer.Append(e.KeyChar);
+                }
+            }
+        }
+
+        private void BanHang_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (cb_sanpham.Focused && e.KeyCode == Keys.Enter && barcodeBuffer.Length > 0)
+            {
+                string maSP = barcodeBuffer.ToString().Trim();
+                barcodeBuffer.Clear();
+                isScanning = false;
+
+                string query_sp = $@"if exists (select * from SanPham where TenSP like N'%{cb_sanpham.Text}%')
+                                        select 1
+                                     else
+                                        select 0";
+                if (!Sql.KiemTra(query_sp))
+                    return;
+                string TenSP = cb_sanpham.Text;
+                bool found = false;
+                foreach (DataGridViewRow row in dgvCTPX.Rows)
+                {
+                    if (row.Cells["TenSP"].Value.ToString() == TenSP)
+                    {
+                        int sl = Convert.ToInt32(row.Cells["SL"].Value);
+                        row.Cells["SL"].Value = sl + 1;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    dgvCTPX.Rows.Add(cb_sanpham.SelectedValue, cb_sanpham.Text, 1);
+                cb_sanpham.Text = "";
+                e.Handled = true;
             }
         }
 

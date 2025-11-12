@@ -62,5 +62,11 @@ namespace CuoiKy
             else
                 return;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RPT_PhieuXuat frm = new RPT_PhieuXuat(lbl_SoPX.Text);
+            frm.ShowDialog();
+        }
     }
 }

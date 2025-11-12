@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CoupleTX_SQLDataSet4" targetNamespace="http://tempuri.org/CoupleTX_SQLDataSet4.xsd" xmlns:mstns="http://tempuri.org/CoupleTX_SQLDataSet4.xsd" xmlns="http://tempuri.org/CoupleTX_SQLDataSet4.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="CoupleTX_SQLConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="CoupleTX_SQLConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.CuoiKy.Properties.Settings.GlobalReference.Default.CoupleTX_SQLConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="v_PhieuXuatTableAdapter" GeneratorDataComponentClassName="v_PhieuXuatTableAdapter" Name="v_PhieuXuat" UserDataComponentName="v_PhieuXuatTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="CoupleTX_SQLConnectionString (Settings)" DbObjectName="CoupleTX_SQL.dbo.v_PhieuXuat" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT SoPX, tucn, dencn, NgayLap, MaSP, TenSP, SL FROM dbo.v_PhieuXuat</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="SoPX" DataSetColumn="SoPX" />
+              <Mapping SourceColumn="tucn" DataSetColumn="tucn" />
+              <Mapping SourceColumn="dencn" DataSetColumn="dencn" />
+              <Mapping SourceColumn="NgayLap" DataSetColumn="NgayLap" />
+              <Mapping SourceColumn="MaSP" DataSetColumn="MaSP" />
+              <Mapping SourceColumn="TenSP" DataSetColumn="TenSP" />
+              <Mapping SourceColumn="SL" DataSetColumn="SL" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="CoupleTX_SQLDataSet4" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="CoupleTX_SQLDataSet4" msprop:Generator_DataSetName="CoupleTX_SQLDataSet4">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="v_PhieuXuat" msprop:Generator_RowEvHandlerName="v_PhieuXuatRowChangeEventHandler" msprop:Generator_RowDeletedName="v_PhieuXuatRowDeleted" msprop:Generator_RowDeletingName="v_PhieuXuatRowDeleting" msprop:Generator_RowEvArgName="v_PhieuXuatRowChangeEvent" msprop:Generator_TablePropName="v_PhieuXuat" msprop:Generator_RowChangedName="v_PhieuXuatRowChanged" msprop:Generator_RowChangingName="v_PhieuXuatRowChanging" msprop:Generator_TableClassName="v_PhieuXuatDataTable" msprop:Generator_RowClassName="v_PhieuXuatRow" msprop:Generator_TableVarName="tablev_PhieuXuat" msprop:Generator_UserTableName="v_PhieuXuat">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SoPX" msprop:Generator_ColumnPropNameInRow="SoPX" msprop:Generator_ColumnPropNameInTable="SoPXColumn" msprop:Generator_ColumnVarNameInTable="columnSoPX" msprop:Generator_UserColumnName="SoPX">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="tucn" msprop:Generator_ColumnPropNameInRow="tucn" msprop:Generator_ColumnPropNameInTable="tucnColumn" msprop:Generator_ColumnVarNameInTable="columntucn" msprop:Generator_UserColumnName="tucn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="dencn" msprop:Generator_ColumnPropNameInRow="dencn" msprop:Generator_ColumnPropNameInTable="dencnColumn" msprop:Generator_ColumnVarNameInTable="columndencn" msprop:Generator_UserColumnName="dencn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NgayLap" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="NgayLap" msprop:Generator_ColumnPropNameInTable="NgayLapColumn" msprop:Generator_ColumnVarNameInTable="columnNgayLap" msprop:Generator_UserColumnName="NgayLap" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MaSP" msprop:Generator_ColumnPropNameInRow="MaSP" msprop:Generator_ColumnPropNameInTable="MaSPColumn" msprop:Generator_ColumnVarNameInTable="columnMaSP" msprop:Generator_UserColumnName="MaSP">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TenSP" msprop:Generator_ColumnPropNameInRow="TenSP" msprop:Generator_ColumnPropNameInTable="TenSPColumn" msprop:Generator_ColumnVarNameInTable="columnTenSP" msprop:Generator_UserColumnName="TenSP">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SL" msprop:Generator_ColumnPropNameInRow="SL" msprop:Generator_ColumnPropNameInTable="SLColumn" msprop:Generator_ColumnVarNameInTable="columnSL" msprop:Generator_UserColumnName="SL" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:v_PhieuXuat" />
+      <xs:field xpath="mstns:SoPX" />
+      <xs:field xpath="mstns:MaSP" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Account));
             this.btn_Thoat = new System.Windows.Forms.Button();
             this.btn_DoanhThu = new System.Windows.Forms.Button();
@@ -36,36 +38,36 @@
             this.btn_HoaDon = new System.Windows.Forms.Button();
             this.btn_BanHang = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dgv_taikhoan = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rd_kichhoat = new System.Windows.Forms.RadioButton();
+            this.rd_khoa = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cb_quyenhan = new System.Windows.Forms.ComboBox();
+            this.txt_password = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.txt_username = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btn_xoa = new System.Windows.Forms.Button();
             this.btn_sua = new System.Windows.Forms.Button();
             this.btn_them = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.rd_khoa = new System.Windows.Forms.RadioButton();
-            this.rd_kichhoat = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cb_quyenhan = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txt_password = new System.Windows.Forms.TextBox();
             this.cb_nhanvien = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuyenHan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgv_taikhoan = new System.Windows.Forms.DataGridView();
+            this.HoTenNV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NhanVien = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuyenHan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trangthai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_taikhoan)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_taikhoan)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Thoat
@@ -142,37 +144,6 @@
             this.panel1.TabIndex = 27;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // dgv_taikhoan
-            // 
-            this.dgv_taikhoan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgv_taikhoan.BackgroundColor = System.Drawing.Color.White;
-            this.dgv_taikhoan.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_taikhoan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgv_taikhoan.ColumnHeadersHeight = 40;
-            this.dgv_taikhoan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NhanVien,
-            this.Username,
-            this.QuyenHan,
-            this.TrangThai});
-            this.dgv_taikhoan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_taikhoan.GridColor = System.Drawing.Color.Gainsboro;
-            this.dgv_taikhoan.Location = new System.Drawing.Point(0, 0);
-            this.dgv_taikhoan.Name = "dgv_taikhoan";
-            this.dgv_taikhoan.ReadOnly = true;
-            this.dgv_taikhoan.RowHeadersVisible = false;
-            this.dgv_taikhoan.RowTemplate.Height = 40;
-            this.dgv_taikhoan.Size = new System.Drawing.Size(1152, 689);
-            this.dgv_taikhoan.TabIndex = 34;
-            this.dgv_taikhoan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_taikhoan_CellClick);
-            this.dgv_taikhoan.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_taikhoan_CellContentClick);
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.panel5);
@@ -186,12 +157,12 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.cb_nhanvien);
             this.panel5.Controls.Add(this.groupBox1);
             this.panel5.Controls.Add(this.label3);
             this.panel5.Controls.Add(this.cb_quyenhan);
             this.panel5.Controls.Add(this.txt_password);
             this.panel5.Controls.Add(this.label4);
-            this.panel5.Controls.Add(this.cb_nhanvien);
             this.panel5.Controls.Add(this.txt_username);
             this.panel5.Controls.Add(this.label2);
             this.panel5.Controls.Add(this.label1);
@@ -201,6 +172,78 @@
             this.panel5.Size = new System.Drawing.Size(382, 573);
             this.panel5.TabIndex = 7;
             this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rd_kichhoat);
+            this.groupBox1.Controls.Add(this.rd_khoa);
+            this.groupBox1.Location = new System.Drawing.Point(31, 438);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(327, 83);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Trạng thái:";
+            // 
+            // rd_kichhoat
+            // 
+            this.rd_kichhoat.AutoSize = true;
+            this.rd_kichhoat.Location = new System.Drawing.Point(160, 34);
+            this.rd_kichhoat.Name = "rd_kichhoat";
+            this.rd_kichhoat.Size = new System.Drawing.Size(118, 34);
+            this.rd_kichhoat.TabIndex = 0;
+            this.rd_kichhoat.Text = "Kích hoạt";
+            this.rd_kichhoat.UseVisualStyleBackColor = true;
+            // 
+            // rd_khoa
+            // 
+            this.rd_khoa.AutoSize = true;
+            this.rd_khoa.Checked = true;
+            this.rd_khoa.Location = new System.Drawing.Point(64, 34);
+            this.rd_khoa.Name = "rd_khoa";
+            this.rd_khoa.Size = new System.Drawing.Size(78, 34);
+            this.rd_khoa.TabIndex = 0;
+            this.rd_khoa.TabStop = true;
+            this.rd_khoa.Text = "Khóa";
+            this.rd_khoa.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(26, 227);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(106, 30);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Mật khẩu:";
+            // 
+            // cb_quyenhan
+            // 
+            this.cb_quyenhan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_quyenhan.FormattingEnabled = true;
+            this.cb_quyenhan.Items.AddRange(new object[] {
+            "Manager",
+            "Seler"});
+            this.cb_quyenhan.Location = new System.Drawing.Point(27, 365);
+            this.cb_quyenhan.Name = "cb_quyenhan";
+            this.cb_quyenhan.Size = new System.Drawing.Size(329, 38);
+            this.cb_quyenhan.TabIndex = 4;
+            // 
+            // txt_password
+            // 
+            this.txt_password.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_password.Location = new System.Drawing.Point(31, 260);
+            this.txt_password.Multiline = true;
+            this.txt_password.Name = "txt_password";
+            this.txt_password.Size = new System.Drawing.Size(330, 42);
+            this.txt_password.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(30, 332);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(120, 30);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Quyền hạn:";
             // 
             // txt_username
             // 
@@ -219,6 +262,15 @@
             this.label2.Size = new System.Drawing.Size(156, 30);
             this.label2.TabIndex = 0;
             this.label2.Text = "Tên đăng nhập:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(113, 30);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Nhân viên:";
             // 
             // panel4
             // 
@@ -273,107 +325,54 @@
             this.panel3.Size = new System.Drawing.Size(1152, 689);
             this.panel3.TabIndex = 36;
             // 
-            // rd_khoa
-            // 
-            this.rd_khoa.AutoSize = true;
-            this.rd_khoa.Checked = true;
-            this.rd_khoa.Location = new System.Drawing.Point(64, 34);
-            this.rd_khoa.Name = "rd_khoa";
-            this.rd_khoa.Size = new System.Drawing.Size(78, 34);
-            this.rd_khoa.TabIndex = 0;
-            this.rd_khoa.TabStop = true;
-            this.rd_khoa.Text = "Khóa";
-            this.rd_khoa.UseVisualStyleBackColor = true;
-            // 
-            // rd_kichhoat
-            // 
-            this.rd_kichhoat.AutoSize = true;
-            this.rd_kichhoat.Location = new System.Drawing.Point(160, 34);
-            this.rd_kichhoat.Name = "rd_kichhoat";
-            this.rd_kichhoat.Size = new System.Drawing.Size(118, 34);
-            this.rd_kichhoat.TabIndex = 0;
-            this.rd_kichhoat.Text = "Kích hoạt";
-            this.rd_kichhoat.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rd_kichhoat);
-            this.groupBox1.Controls.Add(this.rd_khoa);
-            this.groupBox1.Location = new System.Drawing.Point(31, 438);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(327, 83);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Trạng thái:";
-            // 
-            // cb_quyenhan
-            // 
-            this.cb_quyenhan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_quyenhan.FormattingEnabled = true;
-            this.cb_quyenhan.Items.AddRange(new object[] {
-            "Manager",
-            "Seler"});
-            this.cb_quyenhan.Location = new System.Drawing.Point(27, 365);
-            this.cb_quyenhan.Name = "cb_quyenhan";
-            this.cb_quyenhan.Size = new System.Drawing.Size(329, 38);
-            this.cb_quyenhan.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 332);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 30);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Quyền hạn:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 227);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 30);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Mật khẩu:";
-            // 
-            // txt_password
-            // 
-            this.txt_password.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_password.Location = new System.Drawing.Point(31, 260);
-            this.txt_password.Multiline = true;
-            this.txt_password.Name = "txt_password";
-            this.txt_password.Size = new System.Drawing.Size(330, 42);
-            this.txt_password.TabIndex = 2;
-            // 
             // cb_nhanvien
             // 
             this.cb_nhanvien.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_nhanvien.FormattingEnabled = true;
-            this.cb_nhanvien.Location = new System.Drawing.Point(28, 49);
+            this.cb_nhanvien.Location = new System.Drawing.Point(28, 61);
             this.cb_nhanvien.Name = "cb_nhanvien";
-            this.cb_nhanvien.Size = new System.Drawing.Size(323, 38);
-            this.cb_nhanvien.TabIndex = 4;
+            this.cb_nhanvien.Size = new System.Drawing.Size(325, 38);
+            this.cb_nhanvien.TabIndex = 5;
             // 
-            // label1
+            // dgv_taikhoan
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 30);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Nhân viên:";
+            this.dgv_taikhoan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_taikhoan.BackgroundColor = System.Drawing.Color.White;
+            this.dgv_taikhoan.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_taikhoan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_taikhoan.ColumnHeadersHeight = 40;
+            this.dgv_taikhoan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.HoTenNV,
+            this.Username,
+            this.QuyenHan,
+            this.Trangthai});
+            this.dgv_taikhoan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_taikhoan.GridColor = System.Drawing.Color.Gainsboro;
+            this.dgv_taikhoan.Location = new System.Drawing.Point(0, 0);
+            this.dgv_taikhoan.Name = "dgv_taikhoan";
+            this.dgv_taikhoan.ReadOnly = true;
+            this.dgv_taikhoan.RowHeadersVisible = false;
+            this.dgv_taikhoan.RowTemplate.Height = 40;
+            this.dgv_taikhoan.Size = new System.Drawing.Size(1152, 689);
+            this.dgv_taikhoan.TabIndex = 33;
+            this.dgv_taikhoan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_taikhoan_CellClick);
             // 
-            // TrangThai
+            // HoTenNV
             // 
-            this.TrangThai.HeaderText = "Trạng thái";
-            this.TrangThai.Name = "TrangThai";
-            this.TrangThai.ReadOnly = true;
-            // 
-            // QuyenHan
-            // 
-            this.QuyenHan.HeaderText = "Quyền hạn";
-            this.QuyenHan.Name = "QuyenHan";
-            this.QuyenHan.ReadOnly = true;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.HoTenNV.DefaultCellStyle = dataGridViewCellStyle2;
+            this.HoTenNV.HeaderText = "Họ tên nhân viên";
+            this.HoTenNV.Name = "HoTenNV";
+            this.HoTenNV.ReadOnly = true;
+            this.HoTenNV.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Username
             // 
@@ -381,11 +380,20 @@
             this.Username.Name = "Username";
             this.Username.ReadOnly = true;
             // 
-            // NhanVien
+            // QuyenHan
             // 
-            this.NhanVien.HeaderText = "Nhân viên";
-            this.NhanVien.Name = "NhanVien";
-            this.NhanVien.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.QuyenHan.DefaultCellStyle = dataGridViewCellStyle3;
+            this.QuyenHan.HeaderText = "Quyền";
+            this.QuyenHan.Name = "QuyenHan";
+            this.QuyenHan.ReadOnly = true;
+            this.QuyenHan.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Trangthai
+            // 
+            this.Trangthai.HeaderText = "Trạng thái";
+            this.Trangthai.Name = "Trangthai";
+            this.Trangthai.ReadOnly = true;
             // 
             // Account
             // 
@@ -406,14 +414,14 @@
             this.Text = "Account";
             this.Load += new System.EventHandler(this.Account_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_taikhoan)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_taikhoan)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -426,7 +434,6 @@
         private System.Windows.Forms.Button btn_HoaDon;
         private System.Windows.Forms.Button btn_BanHang;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView dgv_taikhoan;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TextBox txt_username;
@@ -436,10 +443,6 @@
         private System.Windows.Forms.Button btn_sua;
         private System.Windows.Forms.Button btn_them;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NhanVien;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Username;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QuyenHan;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TrangThai;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rd_kichhoat;
         private System.Windows.Forms.RadioButton rd_khoa;
@@ -447,7 +450,12 @@
         private System.Windows.Forms.ComboBox cb_quyenhan;
         private System.Windows.Forms.TextBox txt_password;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cb_nhanvien;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cb_nhanvien;
+        private System.Windows.Forms.DataGridView dgv_taikhoan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HoTenNV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Username;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuyenHan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trangthai;
     }
 }

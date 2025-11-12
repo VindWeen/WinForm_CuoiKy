@@ -16,6 +16,9 @@ namespace CuoiKy
     {
         public string MaCN = TaiKhoan.MaCN;
         bool isLoaded = false; bool isLoadingSP = false;
+        DateTime lastKeyPress = DateTime.Now;
+        StringBuilder barcodeBuffer = new StringBuilder(); bool isScanning = false;
+
         public BanHang()
         {
             InitializeComponent();
@@ -32,7 +35,11 @@ namespace CuoiKy
             Load_combobox_nhanvien();
             Load_combobox_khachhang();
             isLoaded = true;
-            button1.Enabled = false;
+            button1.Enabled = false; this.KeyPreview = true;
+            this.KeyPress += BanHang_KeyPress;
+            this.KeyDown += BanHang_KeyDown; cb_sanpham.AutoCompleteMode = AutoCompleteMode.None;
+            cb_sanpham.AutoCompleteSource = AutoCompleteSource.None;
+
         }
 
         private void Load_combobox_sanpham()
@@ -112,6 +119,8 @@ namespace CuoiKy
 
         private void cb_sanpham_TextUpdate(object sender, EventArgs e)
         {
+            if (isScanning) return; // 🚫 đang quét thì bỏ qua luôn
+
             string text = cb_sanpham.Text.Trim();
 
             if (text.Length < 2 && cb_sanpham.Items.Count < 1)
@@ -333,12 +342,18 @@ namespace CuoiKy
         private void btn_ThemKhachHang_Click(object sender, EventArgs e)
         {
             ThemKhachHang frm = new ThemKhachHang(cb_khachhang.Text, false);
-            frm.ShowDialog();
-            if (frm.IsDisposed)
+            frm.FormClosed += (s, args) =>
+            {
                 Load_combobox_khachhang();
-            cb_khachhang.SelectedText = (cb_khachhang.Text);
-            isLoaded = true;
-            button1.Enabled = false;
+
+                // Reset lại trạng thái nút
+                btn_ThemKhachHang.Enabled = false;
+                button1.Enabled = false;
+                cb_khachhang.SelectedIndex = -1;
+                cb_khachhang.Text = null;
+            };
+
+            frm.ShowDialog();
         }
         private void ThemKhachHang_FormClosed(object sender, EventArgs e)
         {
@@ -501,21 +516,77 @@ namespace CuoiKy
 
         private void cb_sanpham_KeyDown(object sender, KeyEventArgs e)
         {
-            cb_sanpham.TextUpdate -= cb_sanpham_TextUpdate;
-            if (e.KeyCode == Keys.Enter)
-            {
-                string query_sp = $@"if exists (select * from SanPham where MaSP like N'%{cb_sanpham.Text}%')
-                                        select 1
-                                     else
-                                        select 0";
-                if (!Sql.KiemTra(query_sp))
-                {
-                    cb_sanpham.Text = null;
-                    return;
-                }
-                else
-                    cb_sanpham.SelectedValue = cb_sanpham.Text;
+            //cb_sanpham.TextUpdate -= cb_sanpham_TextUpdate; 
+            if (e.KeyCode == Keys.Enter) 
+            { 
+                //if(cb_sanpham.Items.Count > 0) cb_sanpham.SelectedIndex = 0;
+                string query_sp = $@"if exists (select * from SanPham where MaSP like N'%{cb_sanpham.Text}%') select 1 else select 0"; 
+                if (!Sql.KiemTra(query_sp)) 
+                { 
+                    cb_sanpham.Text = null; 
+                    return; 
+                } 
+                else 
+                    cb_sanpham.SelectedValue = cb_sanpham.Text; 
             }
         }
+        private void BanHang_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (cb_sanpham.Focused)
+            {
+                TimeSpan interval = DateTime.Now - lastKeyPress;
+                lastKeyPress = DateTime.Now;
+
+                if (interval.TotalMilliseconds < 50)
+                {
+                    isScanning = true; // bật chế độ quét
+                    barcodeBuffer.Append(e.KeyChar);
+                    e.Handled = true; // không cho hiện ký tự
+                }
+                else
+                {
+                    isScanning = false;
+                    barcodeBuffer.Clear();
+                    barcodeBuffer.Append(e.KeyChar);
+                }
+            }
+        }
+
+        private void BanHang_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (cb_sanpham.Focused && e.KeyCode == Keys.Enter && barcodeBuffer.Length > 0)
+            {
+                string maSP = barcodeBuffer.ToString().Trim();
+                barcodeBuffer.Clear();
+                isScanning = false;
+
+                string query_sp = $"IF EXISTS (SELECT * FROM SanPham WHERE MaSP = '{maSP}') SELECT 1 ELSE SELECT 0";
+                if (!Sql.KiemTra(query_sp)) return;
+
+                string TenSP = Convert.ToString(Sql.Scalar($"SELECT TenSP FROM SanPham WHERE MaSP = '{maSP}'"));
+                string DonGia = string.Format("{0:N0}", Sql.Scalar($"SELECT DonGia FROM SanPham WHERE MaSP = '{maSP}'"));
+
+                bool found = false;
+                foreach (DataGridViewRow row in dgv_sanpham.Rows)
+                {
+                    if (row.Cells["TenSP"].Value.ToString() == TenSP)
+                    {
+                        row.Cells["SL"].Value = Convert.ToInt32(row.Cells["SL"].Value) + 1;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    dgv_sanpham.Rows.Add(TenSP, DonGia, 1);
+
+                Update_SL();
+                Update_ThanhTien();
+                cb_sanpham.Text = "";
+                e.Handled = true;
+            }
+        }
+
+
+
     }
 }
