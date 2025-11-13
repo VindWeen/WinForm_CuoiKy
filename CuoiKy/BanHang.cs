@@ -221,7 +221,7 @@ namespace CuoiKy
         {
             if (!isLoaded || isLoadingSP) return;
             if (cb_sanpham.SelectedIndex < 0 || cb_sanpham.SelectedValue == null)
-                return; // bỏ qua nếu chưa chọn item hợp lệ
+                return;
             string query_sp = $@"if exists (select * from SanPham where TenSP like N'%{cb_sanpham.Text}%')
                                         select 1
                                      else
@@ -257,7 +257,6 @@ namespace CuoiKy
 
         private void dgv_sanpham_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Lấy hàng hiện tại
             DataGridViewRow row = dgv_sanpham.Rows[e.RowIndex];
 
             if (dgv_sanpham.Columns[e.ColumnIndex].Name == "Up")
@@ -294,33 +293,26 @@ namespace CuoiKy
             if (text.Length < 2 && cb_khachhang.Items.Count < 1)
             {
                 Load_combobox_khachhang();
-                return; // chỉ bắt đầu tìm khi nhập >= 2 ký tự
+                return;
             }
-
-            // Lấy dữ liệu gợi ý theo ký tự đang nhập
             DataTable dt = Sql.getData($"Select HoTenKhachHang+' - '+ SDT as HienThi from vKhachHang WHERE SDT LIKE N'%{text}%'");
 
-            // Lưu lại text hiện tại
             string currentText = cb_khachhang.Text;
             int selStart = cb_khachhang.SelectionStart;
 
-            // Tạm tắt datasource để cập nhật
             cb_khachhang.BeginUpdate();
             cb_khachhang.DataSource = null;
             cb_khachhang.Items.Clear();
 
-            // Gán dữ liệu mới
             cb_khachhang.DataSource = dt;
             cb_khachhang.DisplayMember = "HienThi";
             cb_khachhang.ValueMember = "HienThi";
 
-            // Giữ lại text người dùng đang gõ
             cb_khachhang.DroppedDown = true;
             cb_khachhang.Text = currentText;
             cb_khachhang.SelectionStart = selStart;
             cb_khachhang.EndUpdate();
 
-            // Đặt lại con trỏ chuột
             Cursor.Current = Cursors.Default;
             if (cb_khachhang.Text.Length > 2 && cb_khachhang.Items.Count == 0)
             {
@@ -374,9 +366,6 @@ namespace CuoiKy
 
         private void BanHang_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //var a = MessageBox.Show("Bạn có chắc muốn thoát không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            //if (a == DialogResult.Cancel)
-            //    e.Cancel = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -389,7 +378,6 @@ namespace CuoiKy
                 {
                     Load_combobox_khachhang();
 
-                    // Reset lại trạng thái nút
                     btn_ThemKhachHang.Enabled = false;
                     button1.Enabled = false;
                     cb_khachhang.SelectedIndex = -1;
@@ -516,18 +504,18 @@ namespace CuoiKy
 
         private void cb_sanpham_KeyDown(object sender, KeyEventArgs e)
         {
-            //cb_sanpham.TextUpdate -= cb_sanpham_TextUpdate; 
             if (e.KeyCode == Keys.Enter) 
-            { 
-                //if(cb_sanpham.Items.Count > 0) cb_sanpham.SelectedIndex = 0;
+            {
                 string query_sp = $@"if exists (select * from SanPham where MaSP like N'%{cb_sanpham.Text}%') select 1 else select 0"; 
                 if (!Sql.KiemTra(query_sp)) 
                 { 
                     cb_sanpham.Text = null; 
                     return; 
                 } 
-                else 
-                    cb_sanpham.SelectedValue = cb_sanpham.Text; 
+                else
+                {
+                    cb_sanpham.SelectedValue = cb_sanpham.Text;
+                    }
             }
         }
         private void BanHang_KeyPress(object sender, KeyPressEventArgs e)
@@ -539,9 +527,9 @@ namespace CuoiKy
 
                 if (interval.TotalMilliseconds < 50)
                 {
-                    isScanning = true; // bật chế độ quét
+                    isScanning = true;
                     barcodeBuffer.Append(e.KeyChar);
-                    e.Handled = true; // không cho hiện ký tự
+                    e.Handled = true;
                 }
                 else
                 {

@@ -162,37 +162,31 @@ namespace CuoiKy
             if (text.Length < 2 && cb_sanpham.Items.Count < 1)
             {
                 Load_combobox_sanpham();
-                return; // chỉ bắt đầu tìm khi nhập >= 2 ký tự
+                return;
             }
 
-            // Lấy dữ liệu gợi ý theo ký tự đang nhập
             DataTable dt = Sql.getData($@"
                                         SELECT MaSP, TenSP 
                                         FROM dbo.uf_SanPham('{MaCN}') 
                                         WHERE TenSP LIKE N'%{text}%' OR MaSP LIKE N'%{text}%'");
 
-            // Lưu lại text hiện tại
             string currentText = cb_sanpham.Text;
             int selStart = cb_sanpham.SelectionStart;
 
-            // Tạm tắt datasource để cập nhật
             isLoadingSP = true;
             cb_sanpham.BeginUpdate();
             cb_sanpham.DataSource = null;
             cb_sanpham.Items.Clear();
 
-            // Gán dữ liệu mới
             cb_sanpham.DataSource = dt;
             cb_sanpham.DisplayMember = "TenSP";
             cb_sanpham.ValueMember = "MaSP";
 
-            // Giữ lại text người dùng đang gõ
             cb_sanpham.DroppedDown = true;
             cb_sanpham.Text = currentText;
             cb_sanpham.SelectionStart = selStart;
             cb_sanpham.EndUpdate();
 
-            // Đặt lại con trỏ chuột
             Cursor.Current = Cursors.Default;
             if (cb_sanpham.Text.Length > 2 && cb_sanpham.Items.Count == 0)
             {
@@ -237,10 +231,8 @@ namespace CuoiKy
 
         private void cb_sanpham_KeyDown(object sender, KeyEventArgs e)
         {
-            //cb_sanpham.TextUpdate -= cb_sanpham_TextUpdate; 
             if (e.KeyCode == Keys.Enter)
             {
-                //if(cb_sanpham.Items.Count > 0) cb_sanpham.SelectedIndex = 0;
                 string query_sp = $@"if exists (select * from SanPham where MaSP like N'%{cb_sanpham.Text}%') select 1 else select 0";
                 if (!Sql.KiemTra(query_sp))
                 {
@@ -260,9 +252,9 @@ namespace CuoiKy
 
                 if (interval.TotalMilliseconds < 50)
                 {
-                    isScanning = true; // bật chế độ quét
+                    isScanning = true;
                     barcodeBuffer.Append(e.KeyChar);
-                    e.Handled = true; // không cho hiện ký tự
+                    e.Handled = true;
                 }
                 else
                 {
