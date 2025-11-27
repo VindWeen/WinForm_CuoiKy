@@ -1,0 +1,2 @@
+﻿Bài có phần đổi lại định dạng số
+Nếu định dạng của máy là ",". Vui lòng đổi REPLACE(".","") ---> REPLACE(",","");
