@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace CuoiKy
 {
     public partial class QuanLy_Tong : Form
     {
+        string dau = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
         string MaCN;
         string QuyenHan = TaiKhoan.QuyenHan;
         public QuanLy_Tong()
@@ -200,7 +202,7 @@ namespace CuoiKy
         {
             rpt_XuatNhapKho frm = new rpt_XuatNhapKho(dtp_tungay.Value, dtp_denngay.Value);
             frm.tondau = Convert.ToInt32(lbl_tondaungay.Text.Replace(".",""));  
-            frm.toncuoi = Convert.ToInt32(lbl_Ton.Text.Replace(".", ""));
+            frm.toncuoi = Convert.ToInt32(lbl_Ton.Text.Replace(dau, ""));
             frm.ShowDialog();
         }
 

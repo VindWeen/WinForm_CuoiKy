@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -14,6 +15,7 @@ namespace CuoiKy
 {
     public partial class BanHang : Form
     {
+        string dau = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
         public string MaCN = TaiKhoan.MaCN;
         bool isLoaded = false; bool isLoadingSP = false;
         DateTime lastKeyPress = DateTime.Now;
@@ -91,8 +93,8 @@ namespace CuoiKy
             int total = 0;
             foreach (DataGridViewRow a in dgv_sanpham.Rows)
             {
-                //MessageBox.Show(a.Cells["DonGia"].Value.ToString().Replace(".", "")+" "+ Convert.ToInt32(a.Cells["SL"].Value).ToString());
-                total += Convert.ToInt32(a.Cells["DonGia"].Value.ToString().Replace(".", "")) * Convert.ToInt32(a.Cells["SL"].Value);
+                //MessageBox.Show(a.Cells["DonGia"].Value.ToString().Replace(dau, "")+" "+ Convert.ToInt32(a.Cells["SL"].Value).ToString());
+                total += Convert.ToInt32(a.Cells["DonGia"].Value.ToString().Replace(dau, "")) * Convert.ToInt32(a.Cells["SL"].Value);
             }
             lbl_thanhtien.Text = total.ToString("N0");
         }
@@ -104,7 +106,7 @@ namespace CuoiKy
             int selectionStart = txt_nhantien.SelectionStart;
 
             // Bỏ dấu phẩy cũ đi
-            string cleanText = txt_nhantien.Text.Replace(".", "");
+            string cleanText = txt_nhantien.Text.Replace(dau, "");
 
             // Kiểm tra xem có phải số không
             if (decimal.TryParse(cleanText, out decimal value))
@@ -396,8 +398,8 @@ namespace CuoiKy
             }
             else if (e.KeyCode == Keys.Enter)
             {
-                int tongtien = Convert.ToInt32(lbl_thanhtien.Text.Replace(".", ""));
-                int sotiennhan = Convert.ToInt32(txt_nhantien.Text.Replace(".", ""));
+                int tongtien = Convert.ToInt32(lbl_thanhtien.Text.Replace(dau, ""));
+                int sotiennhan = Convert.ToInt32(txt_nhantien.Text.Replace(dau, ""));
                 if (sotiennhan >= tongtien)
                     lbl_TienThoi.Text = (sotiennhan - tongtien).ToString("N0");
                 else
@@ -460,7 +462,7 @@ namespace CuoiKy
             {
                 string masp = Convert.ToString(Sql.Scalar($@"Select MaSP from SanPham where TenSP like N'%{a.Cells["TenSP"].Value}%'"));
                 int sl = Convert.ToInt32(a.Cells["SL"].Value);
-                int thanhtien = sl * Convert.ToInt32(a.Cells["DonGia"].Value.ToString().Replace(".", ""));
+                int thanhtien = sl * Convert.ToInt32(a.Cells["DonGia"].Value.ToString().Replace(dau, ""));
                 query_cthd = $@"insert into CTHD values ('{SoHD}','{masp}',{sl},{thanhtien})";
                 Sql.NonQuery(query_cthd);
             }

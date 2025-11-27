@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace CuoiKy
 {
     public partial class ThemSanPham : Form
     {
+        string dau = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
         public ThemSanPham()
         {
             InitializeComponent();
@@ -34,7 +36,7 @@ namespace CuoiKy
             int selectionStart = txt_nhantien.SelectionStart;
 
             // Bỏ dấu phẩy cũ đi
-            string cleanText = txt_nhantien.Text.Replace(".", "");
+            string cleanText = txt_nhantien.Text.Replace(dau, "");
 
             // Kiểm tra xem có phải số không
             if (decimal.TryParse(cleanText, out decimal value))
@@ -75,7 +77,7 @@ namespace CuoiKy
             int selectionStart = txt_sl.SelectionStart;
 
             // Bỏ dấu phẩy cũ đi
-            string cleanText = txt_sl.Text.Replace(".", "");
+            string cleanText = txt_sl.Text.Replace(dau, "");
 
             // Kiểm tra xem có phải số không
             if (decimal.TryParse(cleanText, out decimal value))
@@ -97,10 +99,10 @@ namespace CuoiKy
             
             string MaSP = txt_masp.Text;
             string TenSP = txt_tensp.Text;
-            int DonGia = Convert.ToInt32(txt_nhantien.Text.Replace(".",""));
+            int DonGia = Convert.ToInt32(txt_nhantien.Text.Replace(dau, ""));
             string DVT = txt_dvt.Text;
             
-            int SL = Convert.ToInt32(txt_sl.Text.Replace(".",""));
+            int SL = Convert.ToInt32(txt_sl.Text.Replace(dau, ""));
             string query = $@"insert into SanPham values ('{MaSP}',N'{TenSP}',{DonGia},N'{DVT}')";
             Sql.NonQuery(query);
             query = $"INSERT INTO KHO VALUES ('{TaiKhoan.MaCN}','{MaSP}',{SL})";

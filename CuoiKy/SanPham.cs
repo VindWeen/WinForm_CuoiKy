@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace CuoiKy
 {
     public partial class SanPham : Form
     {
+        string dau = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
         string QuyenHan = TaiKhoan.QuyenHan;
         string MaCN = TaiKhoan.MaCN;
         public SanPham()
@@ -31,7 +33,7 @@ namespace CuoiKy
                 if (row.Cells["SL"].Value != null)
                 {
                     int sl;
-                    if (int.TryParse(row.Cells["SL"].Value.ToString().Replace(".",""), out sl))
+                    if (int.TryParse(row.Cells["SL"].Value.ToString().Replace(dau, ""), out sl))
                         tong += sl;
                 }
             }
