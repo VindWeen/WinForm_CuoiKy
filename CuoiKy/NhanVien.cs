@@ -191,5 +191,18 @@ namespace CuoiKy
             frm.ShowDialog();
             this.Close();
         }
+
+        private void btn_Thoat_Click(object sender, EventArgs e)
+        {
+
+            var a = MessageBox.Show("Bạn có chắc muốn đăng xuất chứ", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (a == DialogResult.OK)
+            {
+                this.Hide();
+                Login frm = new Login();
+                frm.ShowDialog();
+                this.Close();
+            }
+        }
     }
 }
