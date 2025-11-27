@@ -16,7 +16,8 @@ namespace CuoiKy
 {
     public partial class SanPham : Form
     {
-        string dau = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+        string dau = CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator;
+
         string QuyenHan = TaiKhoan.QuyenHan;
         string MaCN = TaiKhoan.MaCN;
         public SanPham()

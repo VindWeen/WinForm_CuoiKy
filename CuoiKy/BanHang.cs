@@ -15,7 +15,8 @@ namespace CuoiKy
 {
     public partial class BanHang : Form
     {
-        string dau = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+        string dau = CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator;
+
         public string MaCN = TaiKhoan.MaCN;
         bool isLoaded = false; bool isLoadingSP = false;
         DateTime lastKeyPress = DateTime.Now;

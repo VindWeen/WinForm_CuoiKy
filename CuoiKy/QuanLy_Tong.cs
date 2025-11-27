@@ -17,7 +17,7 @@ namespace CuoiKy
 {
     public partial class QuanLy_Tong : Form
     {
-        string dau = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+        string dau = CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator;
         string MaCN;
         string QuyenHan = TaiKhoan.QuyenHan;
         public QuanLy_Tong()
@@ -69,7 +69,7 @@ namespace CuoiKy
                 errorProvider1.SetError(btn_NhapPhieu, "Có phiếu nhập chưa được xử lý");
             else
                 errorProvider1.Clear();
-            lbl_tondaungay.Text = Convert.ToString(Convert.ToInt32(lbl_Ton.Text.Replace(".",""))+Convert.ToInt32(lbl_SLKDaXuat.Text.Replace(".",""))-Convert.ToInt32(lbl_SLDaNhap.Text.Replace(".","")));
+            lbl_tondaungay.Text = Convert.ToString(Convert.ToInt32(lbl_Ton.Text.Replace(dau, ""))+Convert.ToInt32(lbl_SLKDaXuat.Text.Replace(dau, ""))-Convert.ToInt32(lbl_SLDaNhap.Text.Replace(dau, "")));
         }
 
         private void cb_filterngay_SelectedIndexChanged(object sender, EventArgs e)
@@ -201,7 +201,7 @@ namespace CuoiKy
         private void btn_XuatBaoCao_Click(object sender, EventArgs e)
         {
             rpt_XuatNhapKho frm = new rpt_XuatNhapKho(dtp_tungay.Value, dtp_denngay.Value);
-            frm.tondau = Convert.ToInt32(lbl_tondaungay.Text.Replace(".",""));  
+            frm.tondau = Convert.ToInt32(lbl_tondaungay.Text.Replace(dau, ""));  
             frm.toncuoi = Convert.ToInt32(lbl_Ton.Text.Replace(dau, ""));
             frm.ShowDialog();
         }

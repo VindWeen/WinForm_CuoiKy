@@ -14,7 +14,8 @@ namespace CuoiKy
 {
     public partial class ThemSanPham : Form
     {
-        string dau = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+        string dau = CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator;
+
         public ThemSanPham()
         {
             InitializeComponent();
